@@ -1,0 +1,244 @@
+.notification-toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  pointer-events: none;
+}
+
+.notification-toast {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  pointer-events: auto;
+  overflow: hidden;
+  position: relative;
+  transform: translateX(100%);
+  animation: slideInRight 0.3s ease-out forwards;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+}
+
+.notification-toast:hover {
+  transform: translateX(0) scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes urgentPulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(220, 53, 69, 0.5);
+  }
+}
+
+.toast-content {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 16px;
+  gap: 12px;
+}
+
+.toast-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.toast-message {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-title {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.toast-description {
+  color: #6c757d;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: #6c757d;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 4px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  background-color: #f8f9fa;
+  color: #dc3545;
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.toast-progress-bar {
+  height: 100%;
+  background: var(--toast-color, #007bff);
+  width: 100%;
+  transform-origin: left;
+  animation: toastProgress 5s linear forwards;
+}
+
+@keyframes toastProgress {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* Toast type specific styles */
+.notification-toast.success {
+  border-left-color: #28a745;
+}
+
+.notification-toast.error {
+  border-left-color: #dc3545;
+}
+
+.notification-toast.warning {
+  border-left-color: #ffc107;
+}
+
+.notification-toast.info {
+  border-left-color: #17a2b8;
+}
+
+.notification-toast.appointment {
+  border-left-color: #6f42c1;
+}
+
+.notification-toast.medical {
+  border-left-color: #fd7e14;
+}
+
+.notification-toast.system {
+  border-left-color: #6c757d;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .notification-toast-container {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+  
+  .notification-toast {
+    transform: translateY(-100%);
+    animation: slideInDown 0.3s ease-out forwards;
+  }
+  
+  .notification-toast:hover {
+    transform: translateY(0) scale(1.02);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .toast-content {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+  
+  .toast-title {
+    font-size: 0.85rem;
+  }
+  
+  .toast-description {
+    font-size: 0.75rem;
+  }
+  
+  .toast-icon {
+    font-size: 1rem;
+  }
+}
+
+/* Animation for toast removal */
+.notification-toast.removing {
+  animation: slideOutRight 0.3s ease-in forwards;
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Mobile removal animation */
+@media (max-width: 768px) {
+  .notification-toast.removing {
+    animation: slideOutUp 0.3s ease-in forwards;
+  }
+}
+
+@keyframes slideOutUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}

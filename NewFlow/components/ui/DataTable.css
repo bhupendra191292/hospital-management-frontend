@@ -1,0 +1,132 @@
+/* NewFlow DataTable Component - CSS Isolated */
+
+.newflow-data-table {
+  background: white;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  border: 1px solid var(--table-border-color);
+}
+
+.newflow-data-table .table-header {
+  display: grid;
+  grid-template-columns: var(--grid-columns);
+  background: var(--table-header-bg);
+  padding: var(--table-cell-padding);
+  border-bottom: 1px solid var(--table-border-color);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--gray-700);
+  gap: var(--table-gap);
+  align-items: center;
+}
+
+.newflow-data-table .table-row {
+  display: grid;
+  grid-template-columns: var(--grid-columns);
+  padding: var(--table-cell-padding);
+  border-bottom: 1px solid var(--gray-100);
+  transition: background-color 0.2s ease;
+  gap: var(--table-gap);
+  align-items: center;
+}
+
+.newflow-data-table .table-row:hover {
+  background: var(--table-row-hover-bg);
+}
+
+.newflow-data-table .table-row.clickable {
+  cursor: pointer;
+}
+
+.newflow-data-table .table-row.clickable:hover {
+  background: var(--primary-50);
+}
+
+.newflow-data-table .table-row:last-child {
+  border-bottom: none;
+}
+
+.newflow-data-table .table-cell {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-sm);
+  color: var(--gray-700);
+  min-width: 0;
+}
+
+.newflow-data-table .header-cell {
+  font-weight: 600;
+  color: var(--gray-600);
+}
+
+.newflow-data-table .action-buttons {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.newflow-data-table .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16);
+  text-align: center;
+  color: var(--gray-500);
+}
+
+.newflow-data-table .empty-icon {
+  font-size: 48px;
+  margin-bottom: var(--space-4);
+}
+
+.newflow-data-table .empty-state h3 {
+  margin: 0 0 var(--space-2) 0;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.newflow-data-table .empty-state p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--gray-500);
+}
+
+/* Badge styles */
+.newflow-data-table .badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  background: var(--gray-100);
+  color: var(--gray-700);
+  border: 1px solid var(--gray-300);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .newflow-data-table .table-header,
+  .newflow-data-table .table-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+  
+  .newflow-data-table .table-cell {
+    padding: var(--space-2) 0;
+  }
+  
+  .newflow-data-table .table-cell:last-child {
+    border-top: 1px solid var(--table-border-color);
+    padding-top: var(--space-3);
+  }
+  
+  .newflow-data-table .action-buttons {
+    flex-wrap: wrap;
+  }
+}

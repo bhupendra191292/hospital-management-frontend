@@ -1,0 +1,358 @@
+.medical-record-form {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.medical-record-form .form-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1.5rem;
+}
+
+.medical-record-form .form-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #e9ecef;
+}
+
+.medical-record-form .form-section h3 {
+  margin: 0 0 1.5rem 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.medical-record-form .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.medical-record-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.medical-record-form .form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.medical-record-form .form-group.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.medical-record-form .form-group.checkbox input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.medical-record-form label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.medical-record-form input,
+.medical-record-form select,
+.medical-record-form textarea {
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.medical-record-form input:focus,
+.medical-record-form select:focus,
+.medical-record-form textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.medical-record-form input.error,
+.medical-record-form select.error,
+.medical-record-form textarea.error {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+.medical-record-form .error-message {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.medical-record-form .submit-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid #f5c6cb;
+}
+
+/* Symptom Management */
+.medical-record-form .symptom-input {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.medical-record-form .symptom-input input {
+  flex: 1;
+}
+
+.medical-record-form .symptom-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.medical-record-form .symptom-tag {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 0.5rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #bbdefb;
+}
+
+.medical-record-form .symptom-tag .remove-btn {
+  background: none;
+  border: none;
+  color: #1976d2;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.medical-record-form .symptom-tag .remove-btn:hover {
+  background: #1976d2;
+  color: white;
+}
+
+/* Prescription Management */
+.medical-record-form .prescription-input {
+  margin-bottom: 1.5rem;
+}
+
+.medical-record-form .prescription-input .form-grid {
+  margin-bottom: 1rem;
+}
+
+.medical-record-form .prescription-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.medical-record-form .prescription-item {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.medical-record-form .prescription-item .medication-info {
+  flex: 1;
+}
+
+.medical-record-form .prescription-item .medication-info strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.medical-record-form .prescription-item .medication-info small {
+  color: #6c757d;
+  font-size: 0.8rem;
+}
+
+.medical-record-form .prescription-item .remove-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.medical-record-form .prescription-item .remove-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+/* Lab Results Management */
+.medical-record-form .lab-result-input {
+  margin-bottom: 1.5rem;
+}
+
+.medical-record-form .lab-result-input .form-grid {
+  margin-bottom: 1rem;
+}
+
+.medical-record-form .lab-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.medical-record-form .lab-result-item {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.medical-record-form .lab-result-item .result-info {
+  flex: 1;
+}
+
+.medical-record-form .lab-result-item .result-info strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.medical-record-form .lab-result-item .result-info small {
+  color: #6c757d;
+  font-size: 0.8rem;
+}
+
+.medical-record-form .lab-result-item .remove-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.medical-record-form .lab-result-item .remove-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+/* Form Actions */
+.medical-record-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  margin: 0 -1.5rem -1.5rem -1.5rem;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .medical-record-form .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .medical-record-form .form-sections {
+    padding: 1rem;
+  }
+  
+  .medical-record-form .form-section {
+    padding: 1rem;
+  }
+  
+  .medical-record-form .symptom-input {
+    flex-direction: column;
+  }
+  
+  .medical-record-form .prescription-input .form-grid,
+  .medical-record-form .lab-result-input .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .medical-record-form .form-actions {
+    flex-direction: column;
+    padding: 1rem;
+  }
+}
+
+/* Loading State */
+.medical-record-form .btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Animation for dynamic content */
+.medical-record-form .symptom-tag,
+.medical-record-form .prescription-item,
+.medical-record-form .lab-result-item {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar Styling */
+.medical-record-form::-webkit-scrollbar {
+  width: 6px;
+}
+
+.medical-record-form::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.medical-record-form::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.medical-record-form::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

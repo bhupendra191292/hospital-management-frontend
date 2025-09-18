@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duplicate Detection Debug Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .debug-info {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .debug-title {
+            font-weight: bold;
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        .test-steps {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .step {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+        .step-number {
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .expected-result {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            padding: 10px;
+            border-radius: 3px;
+            margin: 10px 0;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            margin: 5px 0;
+        }
+        .console-log {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            margin: 5px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Duplicate Detection Debug Test</h1>
+    <p>This test helps debug the duplicate detection flow by adding console logging to identify exactly where the issue occurs.</p>
+
+    <div class="test-container">
+        <h2>🔧 Debugging Added</h2>
+        
+        <div class="debug-info">
+            <div class="debug-title">1. ReceptionistDashboard Debug Logging</div>
+            <p>Added logging to see if existing patients are being loaded:</p>
+            <div class="code-block">
+console.log('📋 Loaded existing patients for duplicate detection:', {
+  count: patients.length,
+  patients: patients.map(p => ({ name: p.name, mobile: p.mobile, id: p.id }))
+});
+            </div>
+        </div>
+
+        <div class="debug-info">
+            <div class="debug-title">2. PatientRegistrationForm Debug Logging</div>
+            <p>Added logging to see what happens during frontend duplicate detection:</p>
+            <div class="code-block">
+console.log('🔍 Frontend duplicate check:', {
+  existingPatientsCount: existingPatients.length,
+  patientData: { name: patientData.name, mobile: patientData.mobile },
+  existingPatients: existingPatients.map(p => ({ name: p.name, mobile: p.mobile, id: p.id }))
+});
+            </div>
+        </div>
+
+        <div class="debug-info">
+            <div class="debug-title">3. Backend Response Debug Logging</div>
+            <p>Added logging to see backend duplicate detection:</p>
+            <div class="code-block">
+console.log('🔄 Backend detected duplicates:', response.data.duplicates);
+            </div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>🧪 Test Steps</h2>
+        <div class="test-steps">
+            <div class="step">
+                <span class="step-number">1</span>
+                Open Chrome Developer Tools → Console tab
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                Navigate to ReceptionistDashboard → Register New Patient
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                Look for this log in console:
+                <div class="console-log">📋 Loaded existing patients for duplicate detection: { count: X, patients: [...] }</div>
+                <p><strong>Expected:</strong> Should show existing patients including "bhupendra" with mobile "9166677753"</p>
+            </div>
+            <div class="step">
+                <span class="step-number">4</span>
+                Fill in patient details:
+                <ul>
+                    <li>Name: "3rer3" (or any name)</li>
+                    <li>Mobile: "9166677753" (existing patient's mobile)</li>
+                    <li>Other required fields</li>
+                </ul>
+            </div>
+            <div class="step">
+                <span class="step-number">5</span>
+                Click "Register Patient" button
+            </div>
+            <div class="step">
+                <span class="step-number">6</span>
+                Look for this log in console:
+                <div class="console-log">🔍 Frontend duplicate check: { existingPatientsCount: X, patientData: {...}, existingPatients: [...] }</div>
+                <p><strong>Expected:</strong> Should show existingPatientsCount > 0 and the duplicate patient in the list</p>
+            </div>
+            <div class="step">
+                <span class="step-number">7</span>
+                If frontend doesn't detect duplicate, look for:
+                <div class="console-log">🔄 Backend detected duplicates: [...]</div>
+                <p><strong>Expected:</strong> Should show backend duplicate detection and modal should open</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>🎯 Expected Results</h2>
+        
+        <div class="expected-result">
+            <strong>Scenario 1: Frontend Duplicate Detection Works</strong>
+            <ul>
+                <li>✅ Console shows "📋 Loaded existing patients" with count > 0</li>
+                <li>✅ Console shows "🔍 Frontend duplicate check" with existingPatientsCount > 0</li>
+                <li>✅ DuplicateWarningModal opens immediately</li>
+                <li>✅ No backend API call is made</li>
+            </ul>
+        </div>
+        
+        <div class="expected-result">
+            <strong>Scenario 2: Backend Duplicate Detection Works</strong>
+            <ul>
+                <li>✅ Console shows "📋 Loaded existing patients" with count = 0 (or no duplicate found)</li>
+                <li>✅ Console shows "🔍 Frontend duplicate check" with no duplicates found</li>
+                <li>✅ Backend API call is made</li>
+                <li>✅ Console shows "🔄 Backend detected duplicates"</li>
+                <li>✅ DuplicateWarningModal opens</li>
+            </ul>
+        </div>
+        
+        <div class="expected-result">
+            <strong>Scenario 3: Issue Identified</strong>
+            <ul>
+                <li>❌ Console shows "📋 Loaded existing patients" with count = 0</li>
+                <li>❌ Console shows "🔍 Frontend duplicate check" with existingPatientsCount = 0</li>
+                <li>❌ Backend API call is made but no "🔄 Backend detected duplicates" log</li>
+                <li>❌ Modal doesn't open</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔍 Troubleshooting</h2>
+        
+        <div class="debug-info">
+            <div class="debug-title">If existingPatientsCount = 0:</div>
+            <p>The issue is that the existing patients are not being loaded. Check:</p>
+            <ul>
+                <li>Is the API call to getNewFlowPatients working?</li>
+                <li>Is the response format correct?</li>
+                <li>Are there any network errors?</li>
+            </ul>
+        </div>
+
+        <div class="debug-info">
+            <div class="debug-title">If frontend finds duplicates but modal doesn't open:</div>
+            <p>The issue is in the frontend duplicate detection logic. Check:</p>
+            <ul>
+                <li>Are the duplicate objects in the correct format?</li>
+                <li>Is setShowDuplicateModal(true) being called?</li>
+                <li>Is the DuplicateWarningModal component working?</li>
+            </ul>
+        </div>
+
+        <div class="debug-info">
+            <div class="debug-title">If backend detects duplicates but modal doesn't open:</div>
+            <p>The issue is in the backend response handling. Check:</p>
+            <ul>
+                <li>Is the response format correct?</li>
+                <li>Is the transformation logic working?</li>
+                <li>Is setShowDuplicateModal(true) being called?</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>📝 Next Steps</h2>
+        <p>Based on the console logs, we can identify the exact issue:</p>
+        <ul>
+            <li><strong>If existingPatientsCount = 0:</strong> Fix the patient loading in ReceptionistDashboard</li>
+            <li><strong>If frontend duplicate detection fails:</strong> Fix the duplicate detection logic</li>
+            <li><strong>If backend response handling fails:</strong> Fix the response transformation</li>
+            <li><strong>If modal doesn't open:</strong> Fix the modal state management</li>
+        </ul>
+    </div>
+</body>
+</html>

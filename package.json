@@ -1,0 +1,145 @@
+{
+  "name": "digital-hospital-management-system",
+  "version": "1.0.0",
+  "description": "A comprehensive, enterprise-grade healthcare management platform built with React, TypeScript, and Node.js",
+  "type": "module",
+  "keywords": [
+    "healthcare",
+    "hospital",
+    "patient-management",
+    "medical-records",
+    "react",
+    "typescript",
+    "nodejs",
+    "mongodb",
+    "enterprise"
+  ],
+  "author": {
+    "name": "Digital Hospital Team",
+    "email": "team@digitalhospital.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/digital-hospital-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/digital-hospital-system/issues"
+  },
+  "homepage": "https://digitalhospital.com",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:watch": "vitest --watch",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged",
+    "analyze": "npm run build && npx vite-bundle-analyzer dist",
+    "clean": "rm -rf dist node_modules/.vite",
+    "clean:all": "rm -rf dist node_modules package-lock.json",
+    "install:clean": "npm run clean:all && npm install",
+    "start": "npm run dev",
+    "start:prod": "cd backend && npm start",
+    "railway:build": "npm install --legacy-peer-deps --force && npm run build",
+    "railway:start": "npm run start:prod",
+    "deploy:vercel": "vercel --prod",
+    "deploy:netlify": "netlify deploy --prod",
+    "deploy:railway": "railway up",
+    "docker:build": "docker build -t digital-hospital-frontend .",
+    "docker:run": "docker run -p 5173:5173 digital-hospital-frontend",
+    "docker:compose": "docker-compose up -d",
+    "docker:compose:down": "docker-compose down",
+    "backend:dev": "cd backend && npm run dev",
+    "backend:start": "cd backend && npm start",
+    "backend:install": "cd backend && npm install",
+    "full:install": "npm install && npm run backend:install",
+    "full:dev": "concurrently \"npm run dev\" \"npm run backend:dev\"",
+    "full:build": "npm run build && cd backend && npm run build",
+    "health:check": "npm run type-check && npm run lint && npm run test",
+    "ci:check": "npm run health:check && npm run build",
+    "docs:generate": "typedoc --out docs src",
+    "docs:serve": "npx serve docs",
+    "storybook": "storybook dev -p 6006",
+    "storybook:build": "storybook build"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.6.1",
+    "axios": "^1.8.4",
+    "chart.js": "^4.4.8",
+    "js-cookie": "^3.0.5",
+    "react": "^18.3.1",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^6.28.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^8.57.0",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vitejs/plugin-react": "^4.4.0",
+    "@vitejs/plugin-react-swc": "^3.8.0",
+    "@vitest/coverage-v8": "^1.6.1",
+    "@vitest/ui": "^1.6.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "husky": "^9.0.11",
+    "jsdom": "^26.1.0",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "storybook": "^7.6.17",
+    "typescript": "^5.4.2",
+    "vite": "^6.2.0",
+    "vite-bundle-analyzer": "^0.7.0",
+    "vitest": "^1.6.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "volta": {
+    "node": "18.19.0",
+    "npm": "10.2.4"
+  }
+}

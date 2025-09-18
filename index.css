@@ -1,0 +1,15 @@
+body {
+  font-family: sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Remove conflicting global button styles that cause hover issues */
+/* Button styles are now handled by component-specific CSS classes */

@@ -1,0 +1,127 @@
+.confirmation-dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  padding: 20px;
+}
+
+.confirmation-dialog {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-width: 400px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmation-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 0;
+}
+
+.confirmation-dialog-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.confirmation-dialog-close {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.confirmation-dialog-close:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.confirmation-dialog-body {
+  padding: 16px 24px;
+  flex: 1;
+}
+
+.confirmation-dialog-message {
+  margin: 0;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.confirmation-dialog-footer {
+  display: flex;
+  gap: 12px;
+  padding: 0 24px 24px;
+  justify-content: flex-end;
+}
+
+.confirmation-dialog-button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid;
+  min-width: 80px;
+}
+
+.confirmation-dialog-button.cancel {
+  background: white;
+  color: #374151;
+  border-color: #d1d5db;
+}
+
+.confirmation-dialog-button.cancel:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.confirmation-dialog-button.confirm {
+  color: white;
+  border-color: transparent;
+}
+
+.confirmation-dialog-button.confirm.danger {
+  background: #dc2626;
+}
+
+.confirmation-dialog-button.confirm.danger:hover {
+  background: #b91c1c;
+}
+
+.confirmation-dialog-button.confirm.warning {
+  background: #d97706;
+}
+
+.confirmation-dialog-button.confirm.warning:hover {
+  background: #b45309;
+}
+
+.confirmation-dialog-button.confirm.info {
+  background: #2563eb;
+}
+
+.confirmation-dialog-button.confirm.info:hover {
+  background: #1d4ed8;
+}

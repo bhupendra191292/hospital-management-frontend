@@ -1,0 +1,385 @@
+.medical-record-details {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.medical-record-details .record-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 12px 12px 0 0;
+  margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+}
+
+.medical-record-details .record-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.medical-record-details .record-type {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.medical-record-details .type-icon {
+  font-size: 1.5rem;
+}
+
+.medical-record-details .record-status {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.medical-record-details .status-badge,
+.medical-record-details .priority-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.medical-record-details .record-dates {
+  display: flex;
+  gap: 2rem;
+}
+
+.medical-record-details .date-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.medical-record-details .date-label {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.medical-record-details .date-value {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.medical-record-details .record-content {
+  padding: 0 1.5rem;
+}
+
+.medical-record-details .info-section {
+  margin-bottom: 2rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #e9ecef;
+}
+
+.medical-record-details .info-section h3 {
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.medical-record-details .info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.medical-record-details .info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.medical-record-details .info-label {
+  font-weight: 500;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.medical-record-details .info-value {
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.medical-record-details .info-content {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  line-height: 1.6;
+  color: #495057;
+}
+
+/* Symptoms */
+.medical-record-details .symptoms-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.medical-record-details .symptom-tag {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 0.5rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  border: 1px solid #bbdefb;
+}
+
+/* Vital Signs */
+.medical-record-details .vital-signs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.medical-record-details .vital-sign-item {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.medical-record-details .vital-label {
+  font-weight: 500;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.medical-record-details .vital-value {
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Prescription */
+.medical-record-details .prescription-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.medical-record-details .prescription-item {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.medical-record-details .medication-name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.medical-record-details .medication-name strong {
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.medical-record-details .dosage {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.medical-record-details .medication-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.medical-record-details .frequency {
+  color: #495057;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.medical-record-details .duration {
+  color: #6c757d;
+  font-size: 0.8rem;
+}
+
+/* Lab Results */
+.medical-record-details .lab-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.medical-record-details .lab-result-item {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.medical-record-details .test-name {
+  flex: 1;
+}
+
+.medical-record-details .test-name strong {
+  color: #2c3e50;
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.medical-record-details .test-result {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.medical-record-details .result-value {
+  color: #28a745;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.medical-record-details .result-unit {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.medical-record-details .test-range {
+  margin-top: 0.5rem;
+}
+
+.medical-record-details .test-range small {
+  color: #6c757d;
+  font-size: 0.8rem;
+}
+
+/* Follow-up */
+.medical-record-details .follow-up-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.medical-record-details .follow-up-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.medical-record-details .follow-up-label {
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.medical-record-details .follow-up-value {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+/* Action Buttons */
+.medical-record-details .record-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  margin: 0 -1.5rem -1.5rem -1.5rem;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .medical-record-details .record-meta {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .medical-record-details .record-dates {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .medical-record-details .info-grid,
+  .medical-record-details .vital-signs-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .medical-record-details .prescription-item,
+  .medical-record-details .lab-result-item {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .medical-record-details .medication-details,
+  .medical-record-details .test-result {
+    align-items: flex-start;
+  }
+  
+  .medical-record-details .record-actions {
+    flex-direction: column;
+  }
+}
+
+/* Animation for content sections */
+.medical-record-details .info-section {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar Styling */
+.medical-record-details::-webkit-scrollbar {
+  width: 6px;
+}
+
+.medical-record-details::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.medical-record-details::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.medical-record-details::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

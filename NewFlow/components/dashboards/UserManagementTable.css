@@ -1,0 +1,301 @@
+/* User Management Table - Fresh CSS File */
+
+.user-management-table {
+  padding: 24px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+/* Header */
+.user-management-table .user-mgmt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.user-management-table .header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-management-table .header-title h1 {
+  margin: 0 0 4px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.user-management-table .header-title p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.user-management-table .header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Filters */
+.user-management-table .user-mgmt-filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.user-management-table .filters-left {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.user-management-table .user-search {
+  min-width: 400px;
+  flex: 1;
+  max-width: 600px;
+}
+
+.user-management-table .results-count {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Table */
+.user-management-table .users-table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.user-management-table .users-table {
+  width: 100%;
+}
+
+.user-management-table .table-header {
+  display: grid !important;
+  grid-template-columns: 50px 3fr 150px 150px 200px !important;
+  gap: 20px !important;
+  padding: 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 600;
+  font-size: 14px;
+  color: #374151;
+  align-items: center;
+}
+
+.user-management-table .table-cell {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  min-width: 0;
+}
+
+.user-management-table .table-cell.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.user-management-table .table-cell.sortable:hover {
+  color: #1f2937;
+}
+
+.user-management-table .sort-icon {
+  margin-left: 4px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.user-management-table .table-row {
+  display: grid !important;
+  grid-template-columns: 50px 3fr 150px 150px 200px !important;
+  gap: 20px !important;
+  padding: 20px;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s ease;
+  align-items: center;
+  cursor: pointer;
+}
+
+.user-management-table .table-row:hover {
+  background: #f9fafb;
+}
+
+.user-management-table .table-row:last-child {
+  border-bottom: none;
+}
+
+.user-management-table .checkbox-cell {
+  justify-content: center;
+}
+
+.user-management-table .checkbox-cell input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.user-management-table .user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  width: 100%;
+}
+
+.user-management-table .user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.user-management-table .user-name {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 2px;
+}
+
+.user-management-table .user-phone {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* User Avatar in table */
+.user-management-table .user-avatar {
+  flex-shrink: 0;
+}
+
+.user-management-table .avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-management-table .action-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Empty State */
+.user-management-table .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.user-management-table .empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.user-management-table .empty-state h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.user-management-table .empty-state p {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .user-management-table .table-header,
+  .user-management-table .table-row {
+    grid-template-columns: 50px 3fr 140px 140px 180px !important;
+  }
+  
+  .user-management-table .user-search {
+    min-width: 300px;
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 992px) {
+  .user-management-table .table-header,
+  .user-management-table .table-row {
+    grid-template-columns: 50px 3fr 120px 120px 160px !important;
+    gap: 16px !important;
+  }
+  
+  .user-management-table .user-search {
+    min-width: 250px;
+    max-width: 400px;
+  }
+  
+  .user-management-table .user-mgmt-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .user-management-table .filters-left {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-management-table .table-header,
+  .user-management-table .table-row {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  
+  .user-management-table .table-cell {
+    padding: 8px 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  
+  .user-management-table .table-cell:last-child {
+    border-bottom: none;
+  }
+  
+  .user-management-table .table-cell::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #374151;
+    margin-right: 8px;
+    min-width: 100px;
+  }
+}
