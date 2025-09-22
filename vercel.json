@@ -32,11 +32,6 @@
       "VITE_APP_VERSION": "@vite_app_version"
     }
   },
-  "functions": {
-    "app/api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
