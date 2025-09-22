@@ -16,11 +16,9 @@
     {
       "source": "/api/(.*)",
       "destination": "https://hospital-management-backend.vercel.app/api/$1"
-    }
-  ],
-  "redirects": [
+    },
     {
-      "source": "/((?!assets/).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ],
