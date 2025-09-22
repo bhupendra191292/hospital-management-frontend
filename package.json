@@ -36,6 +36,7 @@
     "build": "vite build",
     "vercel-build": "npm run build",
     "build:vercel": "npm install --legacy-peer-deps --force && npm run build",
+    "postinstall": "npm rebuild rollup --force",
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --fix",
@@ -99,8 +100,8 @@
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
-    "@vitejs/plugin-react": "^4.3.3",
-    "@vitejs/plugin-react-swc": "^3.7.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitejs/plugin-react-swc": "^3.5.1",
     "@vitest/coverage-v8": "^1.6.1",
     "@vitest/ui": "^1.6.1",
     "concurrently": "^8.2.2",
@@ -116,10 +117,10 @@
     "prettier": "^3.2.5",
     "storybook": "^7.6.17",
     "typescript": "^5.4.2",
-    "vite": "^5.4.10",
+    "vite": "^4.5.3",
     "vite-bundle-analyzer": "^0.7.0",
     "vitest": "^1.6.1",
-    "rollup": "^4.28.1"
+    "rollup": "^3.29.4"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
@@ -147,6 +148,6 @@
     "npm": "10.2.4"
   },
   "overrides": {
-    "rollup": "^4.28.1"
+    "rollup": "^3.29.4"
   }
 }
