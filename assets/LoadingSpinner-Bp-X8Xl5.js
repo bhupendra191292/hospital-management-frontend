@@ -1,1 +1,0 @@
-import{j as s}from"./index-CWlqgBx2.js";const e=({size:i="medium",color:n="primary"})=>s.jsxs("div",{className:`loading-spinner ${i} ${n}`,children:[s.jsx("div",{className:"spinner-ring"}),s.jsx("div",{className:"spinner-ring"}),s.jsx("div",{className:"spinner-ring"})]});export{e as L};

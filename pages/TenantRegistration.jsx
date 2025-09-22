@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerTenant } from '../services/api';
+// import { registerTenant } from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
-import './TenantRegistration.css';
 
 const TenantRegistration = () => {
   const navigate = useNavigate();
@@ -67,17 +66,21 @@ const TenantRegistration = () => {
     try {
       setLoading(true);
       
-      const response = await registerTenant({
-        ...formData,
-        address: `${formData.address.street}, ${formData.address.city}, ${formData.address.state} ${formData.address.zipCode}, ${formData.address.country}`
-      });
+      // const response = await registerTenant({
+      //   ...formData,
+      //   address: `${formData.address.street}, ${formData.address.city}, ${formData.address.state} ${formData.address.zipCode}, ${formData.address.country}`
+      // });
 
-      if (response.data.success) {
-        // Store tenant info and redirect to login
-        localStorage.setItem('tenantInfo', JSON.stringify(response.data.data.tenant));
-        alert('Hospital/Clinic registered successfully! You can now login.');
-        navigate('/login');
-      }
+      // if (response.data.success) {
+      //   // Store tenant info and redirect to login
+      //   localStorage.setItem('tenantInfo', JSON.stringify(response.data.data.tenant));
+      //   alert('Hospital/Clinic registered successfully! You can now login.');
+      //   navigate('/login');
+      // }
+      
+      // Temporary success message for demo
+      alert('Hospital/Clinic registration feature is under development. Please use the demo credentials to login.');
+      navigate('/login');
     } catch (err) {
       console.error('Registration error:', err);
       setError(err.response?.data?.message || 'Registration failed. Please try again.');
