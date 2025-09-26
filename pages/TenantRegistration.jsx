@@ -65,7 +65,7 @@ const TenantRegistration = () => {
 
     try {
       setLoading(true);
-      
+
       // const response = await registerTenant({
       //   ...formData,
       //   address: `${formData.address.street}, ${formData.address.city}, ${formData.address.state} ${formData.address.zipCode}, ${formData.address.country}`
@@ -77,7 +77,7 @@ const TenantRegistration = () => {
       //   alert('Hospital/Clinic registered successfully! You can now login.');
       //   navigate('/login');
       // }
-      
+
       // Temporary success message for demo
       alert('Hospital/Clinic registration feature is under development. Please use the demo credentials to login.');
       navigate('/login');
@@ -116,7 +116,7 @@ const TenantRegistration = () => {
           {/* Healthcare Facility Information */}
           <div className="form-section">
             <h3>🏥 Healthcare Facility Information</h3>
-            
+
             <div className="form-row">
               <div className="form-group">
                 <label>Facility Name *</label>
@@ -129,7 +129,7 @@ const TenantRegistration = () => {
                   required
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Facility Type *</label>
                 <select
@@ -159,7 +159,7 @@ const TenantRegistration = () => {
                   required
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Phone Number *</label>
                 <input
@@ -195,7 +195,7 @@ const TenantRegistration = () => {
                   placeholder="City"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>State/Province</label>
                 <input
@@ -206,7 +206,7 @@ const TenantRegistration = () => {
                   placeholder="State"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>ZIP/Postal Code</label>
                 <input
@@ -217,7 +217,7 @@ const TenantRegistration = () => {
                   placeholder="ZIP Code"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Country</label>
                 <input
@@ -241,7 +241,7 @@ const TenantRegistration = () => {
                   placeholder="License number"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Tax ID</label>
                 <input
@@ -268,7 +268,7 @@ const TenantRegistration = () => {
           {/* Administrator Information */}
           <div className="form-section">
             <h3>👤 Administrator Account</h3>
-            
+
             <div className="form-row">
               <div className="form-group">
                 <label>Admin Name *</label>
@@ -281,7 +281,7 @@ const TenantRegistration = () => {
                   required
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Admin Phone *</label>
                 <input
@@ -307,7 +307,7 @@ const TenantRegistration = () => {
                   required
                 />
               </div>
-              
+
               <div className="form-group">
                 <label>Confirm Password *</label>
                 <input
@@ -325,7 +325,7 @@ const TenantRegistration = () => {
           {/* Subscription Plan */}
           <div className="form-section">
             <h3>💳 Subscription Plan</h3>
-            
+
             <div className="subscription-plans">
               {subscriptionPlans.map(plan => (
                 <div

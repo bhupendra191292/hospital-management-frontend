@@ -7,10 +7,10 @@ import './SystemSettings.css';
 const SystemSettings = () => {
   // Performance monitoring
   const { renderCount } = usePerformanceMonitor('SystemSettings');
-  
+
   const { can } = useRole();
   const { errors, isLoading, setErrors, setIsLoading, handleApiError, clearAllErrors } = useErrorHandler();
-  
+
   const [activeTab, setActiveTab] = useState('general');
   const [settings, setSettings] = useState({
     // General Settings
@@ -20,33 +20,33 @@ const SystemSettings = () => {
     language: 'en',
     dateFormat: 'DD/MM/YYYY',
     timeFormat: '24h',
-    
+
     // System Settings
     maxFileSize: 10, // MB
     sessionTimeout: 30, // minutes
     autoLogout: true,
     maintenanceMode: false,
-    
+
     // Notification Settings
     emailNotifications: true,
     smsNotifications: false,
     pushNotifications: true,
     appointmentReminders: true,
     paymentReminders: true,
-    
+
     // Security Settings
     passwordMinLength: 8,
     requireSpecialChars: true,
     maxLoginAttempts: 5,
     lockoutDuration: 15, // minutes
     twoFactorAuth: false,
-    
+
     // Backup Settings
     autoBackup: true,
     backupFrequency: 'daily',
     backupRetention: 30, // days
     cloudBackup: false,
-    
+
     // Integration Settings
     paymentGateway: 'razorpay',
     smsProvider: 'twilio',
@@ -89,20 +89,20 @@ const SystemSettings = () => {
   const handleSaveSettings = async () => {
     setIsLoading(true);
     clearAllErrors();
-    
+
     try {
       // In a real app, this would save to API
       console.log('Saving settings:', settings);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       setOriginalSettings({ ...settings });
       setHasChanges(false);
-      
+
       // Show success message
       alert('Settings saved successfully!');
-      
+
     } catch (error) {
       handleApiError(error, 'SystemSettings.handleSaveSettings');
     } finally {
@@ -120,7 +120,7 @@ const SystemSettings = () => {
   const renderGeneralSettings = () => (
     <div className="settings-section">
       <h3>🏥 General Settings</h3>
-      
+
       <div className="settings-grid">
         <div className="setting-item">
           <label htmlFor="hospitalName">Hospital Name</label>
@@ -205,7 +205,7 @@ const SystemSettings = () => {
   const renderSystemSettings = () => (
     <div className="settings-section">
       <h3>⚙️ System Settings</h3>
-      
+
       <div className="settings-grid">
         <div className="setting-item">
           <label htmlFor="maxFileSize">Max File Size (MB)</label>
@@ -259,7 +259,7 @@ const SystemSettings = () => {
   const renderNotificationSettings = () => (
     <div className="settings-section">
       <h3>🔔 Notification Settings</h3>
-      
+
       <div className="settings-grid">
         <div className="setting-item checkbox">
           <label>
@@ -322,7 +322,7 @@ const SystemSettings = () => {
   const renderSecuritySettings = () => (
     <div className="settings-section">
       <h3>🔒 Security Settings</h3>
-      
+
       <div className="settings-grid">
         <div className="setting-item">
           <label htmlFor="passwordMinLength">Password Min Length</label>
@@ -388,7 +388,7 @@ const SystemSettings = () => {
   const renderBackupSettings = () => (
     <div className="settings-section">
       <h3>💾 Backup Settings</h3>
-      
+
       <div className="settings-grid">
         <div className="setting-item checkbox">
           <label>
@@ -443,7 +443,7 @@ const SystemSettings = () => {
   const renderIntegrationSettings = () => (
     <div className="settings-section">
       <h3>🔗 Integration Settings</h3>
-      
+
       <div className="settings-grid">
         <div className="setting-item">
           <label htmlFor="paymentGateway">Payment Gateway</label>
@@ -534,14 +534,14 @@ const SystemSettings = () => {
       <div className="settings-header">
         <h1>⚙️ System Settings</h1>
         <div className="settings-actions">
-          <button 
+          <button
             className="btn-secondary"
             onClick={handleResetSettings}
             disabled={!hasChanges}
           >
             Reset
           </button>
-          <button 
+          <button
             className="btn-primary"
             onClick={handleSaveSettings}
             disabled={!hasChanges || isLoading}

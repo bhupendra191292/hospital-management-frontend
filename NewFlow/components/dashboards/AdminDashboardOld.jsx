@@ -48,7 +48,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   const loadAdminData = async () => {
     try {
       setIsLoading(true);
-      
+
       // Mock comprehensive admin data
       const mockStats = {
         totalUsers: 1247,
@@ -316,20 +316,20 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
             <div className="table-cell">
               <div className="action-buttons">
                 {user.status === 'pending' && (
-                  <button 
+                  <button
                     className="btn-small btn-success"
                     onClick={() => handleUserAction(user.id, 'approve')}
                   >
                     Approve
                   </button>
                 )}
-                <button 
+                <button
                   className="btn-small btn-warning"
                   onClick={() => handleUserAction(user.id, 'suspend')}
                 >
                   Suspend
                 </button>
-                <button 
+                <button
                   className="btn-small btn-danger"
                   onClick={() => handleUserAction(user.id, 'delete')}
                 >
@@ -391,26 +391,26 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
             </div>
             <div className="table-cell">
               <div className="action-buttons">
-                <button 
+                <button
                   className="btn-small btn-primary"
                   onClick={() => handlePatientAction(patient.id, 'view')}
                 >
                   View Profile
                 </button>
-                <button 
+                <button
                   className="btn-small btn-warning"
                   onClick={() => handlePatientAction(patient.id, 'edit')}
                 >
                   Edit
                 </button>
-                <button 
+                <button
                   className="btn-small btn-secondary"
                   onClick={() => handlePatientAction(patient.id, 'medical-history')}
                 >
                   Medical History
                 </button>
                 {patient.status === 'pending' && (
-                  <button 
+                  <button
                     className="btn-small btn-success"
                     onClick={() => handlePatientAction(patient.id, 'approve')}
                   >
@@ -461,20 +461,20 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
             </div>
             <div className="doctor-actions">
               {doctor.status === 'pending' && (
-                <button 
+                <button
                   className="btn-small btn-success"
                   onClick={() => handleDoctorAction(doctor.id, 'approve')}
                 >
                   Approve
                 </button>
               )}
-              <button 
+              <button
                 className="btn-small btn-primary"
                 onClick={() => handleDoctorAction(doctor.id, 'view')}
               >
                 View Profile
               </button>
-              <button 
+              <button
                 className="btn-small btn-warning"
                 onClick={() => handleDoctorAction(doctor.id, 'edit')}
               >
@@ -674,7 +674,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
         <nav className="sidebar-nav">
           <div className="nav-section">
             <h3 className="nav-section-title">Dashboard</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'overview' ? 'active' : ''}`}
               onClick={() => handleNavigation('overview')}
             >
@@ -685,21 +685,21 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
           <div className="nav-section">
             <h3 className="nav-section-title">Management</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'users' ? 'active' : ''}`}
               onClick={() => handleNavigation('users')}
             >
               <span className="nav-icon">👥</span>
               <span className="nav-text">Users</span>
             </button>
-            <button 
+            <button
               className={`nav-item ${currentView === 'patients' ? 'active' : ''}`}
               onClick={() => handleNavigation('patients')}
             >
               <span className="nav-icon">🏥</span>
               <span className="nav-text">Patients</span>
             </button>
-            <button 
+            <button
               className={`nav-item ${currentView === 'doctors' ? 'active' : ''}`}
               onClick={() => handleNavigation('doctors')}
             >
@@ -710,7 +710,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
           <div className="nav-section">
             <h3 className="nav-section-title">Analytics</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'reports' ? 'active' : ''}`}
               onClick={() => handleNavigation('reports')}
             >
@@ -721,7 +721,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
           <div className="nav-section">
             <h3 className="nav-section-title">System</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'settings' ? 'active' : ''}`}
               onClick={() => handleNavigation('settings')}
             >

@@ -60,7 +60,7 @@ const notificationReducer = (state, action) => {
         actions: action.payload.actions || [],
         data: action.payload.data || {}
       };
-      
+
       return {
         ...state,
         notifications: [newNotification, ...state.notifications],
@@ -72,15 +72,15 @@ const notificationReducer = (state, action) => {
       return {
         ...state,
         notifications: state.notifications.filter(n => n.id !== action.payload),
-        unreadCount: notificationToRemove && !notificationToRemove.read 
-          ? state.unreadCount - 1 
+        unreadCount: notificationToRemove && !notificationToRemove.read
+          ? state.unreadCount - 1
           : state.unreadCount
       };
 
     case NOTIFICATION_ACTIONS.MARK_AS_READ:
       return {
         ...state,
-        notifications: state.notifications.map(n => 
+        notifications: state.notifications.map(n =>
           n.id === action.payload ? { ...n, read: true } : n
         ),
         unreadCount: Math.max(0, state.unreadCount - 1)
@@ -125,7 +125,7 @@ const notificationReducer = (state, action) => {
         actions: notification.actions || [],
         data: notification.data || {}
       }));
-      
+
       return {
         ...state,
         notifications: [...newNotifications, ...state.notifications],
@@ -360,7 +360,7 @@ export const NotificationProvider = ({ children }) => {
     unreadCount: state.unreadCount,
     isConnected: state.isConnected,
     settings: state.settings,
-    
+
     // Actions
     addNotification,
     removeNotification,
@@ -370,7 +370,7 @@ export const NotificationProvider = ({ children }) => {
     updateSettings,
     setConnectionStatus,
     bulkAddNotifications,
-    
+
     // Quick methods
     notifySuccess,
     notifyError,
@@ -379,12 +379,12 @@ export const NotificationProvider = ({ children }) => {
     notifyAppointment,
     notifyMedical,
     notifySystem,
-    
+
     // Getters
     getNotificationsByType,
     getUnreadNotifications,
     getNotificationsByPriority,
-    
+
     // Constants
     NOTIFICATION_TYPES,
     NOTIFICATION_PRIORITIES

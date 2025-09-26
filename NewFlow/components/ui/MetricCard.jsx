@@ -2,14 +2,14 @@ import React from 'react';
 import Button from './Button';
 import './MetricCard.css';
 
-const MetricCard = ({ 
-  title, 
-  value, 
-  description, 
-  icon, 
-  trend, 
-  trendValue, 
-  buttonText, 
+const MetricCard = ({
+  title,
+  value,
+  description,
+  icon,
+  trend,
+  trendValue,
+  buttonText,
   onButtonClick,
   variant = 'default'
 }) => {

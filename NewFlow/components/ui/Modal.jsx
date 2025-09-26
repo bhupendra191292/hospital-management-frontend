@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import './Modal.css';
 
-const Modal = ({ 
-  isOpen, 
-  onClose, 
-  children, 
-  className = '', 
+const Modal = ({
+  isOpen,
+  onClose,
+  children,
+  className = '',
   overlayClassName = '',
   closeOnOverlayClick = true,
-  closeOnEscape = true 
+  closeOnEscape = true
 }) => {
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -48,11 +48,11 @@ const Modal = ({
   };
 
   return createPortal(
-    <div 
+    <div
       className={`modal-overlay ${overlayClassName}`}
       onClick={handleOverlayClick}
     >
-      <div 
+      <div
         className={`modal-content ${className}`}
         onClick={(e) => e.stopPropagation()}
       >

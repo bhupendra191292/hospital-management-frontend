@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
-import { 
-  handleError, 
-  getUserFriendlyMessage, 
+import {
+  handleError,
+  getUserFriendlyMessage,
   createErrorResponse,
-  ERROR_MESSAGES 
+  ERROR_MESSAGES
 } from '../../utils/errorHandler';
 
 /**
@@ -18,17 +18,17 @@ export const useErrorHandler = () => {
    */
   const handleApiError = useCallback((error, context = '') => {
     console.error(`❌ API Error in ${context}:`, error);
-    
+
     // Log the error for debugging
     handleError(error, context);
-    
+
     // Extract user-friendly message
     let userMessage = getUserFriendlyMessage(error);
-    
+
     // Handle specific error cases
     if (error.response) {
       const { status, data } = error.response;
-      
+
       switch (status) {
         case 400:
           // Validation errors
@@ -42,7 +42,7 @@ export const useErrorHandler = () => {
           }
           userMessage = data.message || ERROR_MESSAGES.VALIDATION_FAILED;
           break;
-          
+
         case 401:
           userMessage = ERROR_MESSAGES.UNAUTHORIZED;
           // Redirect to login if needed
@@ -52,23 +52,23 @@ export const useErrorHandler = () => {
             window.location.href = '/login';
           }
           break;
-          
+
         case 403:
           userMessage = ERROR_MESSAGES.FORBIDDEN;
           break;
-          
+
         case 404:
           userMessage = ERROR_MESSAGES.NOT_FOUND;
           break;
-          
+
         case 409:
           // Duplicate detection - return the error data for special handling
           return { isDuplicate: true, data: data };
-          
+
         case 500:
           userMessage = ERROR_MESSAGES.SERVER_ERROR;
           break;
-          
+
         default:
           userMessage = data.message || ERROR_MESSAGES.SERVER_ERROR;
       }
@@ -76,10 +76,10 @@ export const useErrorHandler = () => {
       // Network error
       userMessage = ERROR_MESSAGES.NETWORK_ERROR;
     }
-    
+
     // Set general error
     setErrors({ submit: userMessage });
-    
+
     return { isDuplicate: false, message: userMessage };
   }, []);
 
@@ -117,7 +117,7 @@ export const useErrorHandler = () => {
   const withErrorHandling = useCallback(async (asyncFn, context = '') => {
     setIsLoading(true);
     clearAllErrors();
-    
+
     try {
       const result = await asyncFn();
       return result;

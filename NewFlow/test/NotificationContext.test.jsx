@@ -97,7 +97,7 @@ describe('NotificationContext', () => {
   describe('Initial State', () => {
     it('should have empty notifications and zero unread count initially', () => {
       renderWithProvider(<TestComponent />);
-      
+
       expect(screen.getByTestId('unread-count')).toHaveTextContent('0');
       expect(screen.getByTestId('notifications-count')).toHaveTextContent('0');
     });
@@ -106,7 +106,7 @@ describe('NotificationContext', () => {
   describe('Adding Notifications', () => {
     it('should add a notification and increment unread count', () => {
       renderWithProvider(<TestComponent />);
-      
+
       act(() => {
         screen.getByText('Add Notification').click();
       });
@@ -117,7 +117,7 @@ describe('NotificationContext', () => {
 
     it('should add multiple notifications', () => {
       renderWithProvider(<TestComponent />);
-      
+
       act(() => {
         screen.getByText('Add Notification').click();
         screen.getByText('Add Notification').click();
@@ -132,7 +132,7 @@ describe('NotificationContext', () => {
   describe('Quick Notification Methods', () => {
     it('should add success notification with correct type and priority', () => {
       renderWithProvider(<TestComponent />);
-      
+
       act(() => {
         screen.getByText('Notify Success').click();
       });
@@ -143,7 +143,7 @@ describe('NotificationContext', () => {
 
     it('should add error notification with high priority and persistent flag', () => {
       renderWithProvider(<TestComponent />);
-      
+
       act(() => {
         screen.getByText('Notify Error').click();
       });
@@ -154,7 +154,7 @@ describe('NotificationContext', () => {
 
     it('should add warning notification', () => {
       renderWithProvider(<TestComponent />);
-      
+
       act(() => {
         screen.getByText('Notify Warning').click();
       });
@@ -165,7 +165,7 @@ describe('NotificationContext', () => {
 
     it('should add info notification', () => {
       renderWithProvider(<TestComponent />);
-      
+
       act(() => {
         screen.getByText('Notify Info').click();
       });
@@ -176,7 +176,7 @@ describe('NotificationContext', () => {
 
     it('should add appointment notification', () => {
       renderWithProvider(<TestComponent />);
-      
+
       act(() => {
         screen.getByText('Notify Appointment').click();
       });
@@ -187,7 +187,7 @@ describe('NotificationContext', () => {
 
     it('should add medical notification with high priority and persistent flag', () => {
       renderWithProvider(<TestComponent />);
-      
+
       act(() => {
         screen.getByText('Notify Medical').click();
       });
@@ -198,7 +198,7 @@ describe('NotificationContext', () => {
 
     it('should add system notification with low priority', () => {
       renderWithProvider(<TestComponent />);
-      
+
       act(() => {
         screen.getByText('Notify System').click();
       });
@@ -211,7 +211,7 @@ describe('NotificationContext', () => {
   describe('Marking as Read', () => {
     it('should mark a notification as read and decrement unread count', () => {
       renderWithProvider(<TestComponent />);
-      
+
       // Add a notification first
       act(() => {
         screen.getByText('Add Notification').click();
@@ -229,7 +229,7 @@ describe('NotificationContext', () => {
 
     it('should mark all notifications as read', () => {
       renderWithProvider(<TestComponent />);
-      
+
       // Add multiple notifications
       act(() => {
         screen.getByText('Add Notification').click();
@@ -251,7 +251,7 @@ describe('NotificationContext', () => {
   describe('Removing Notifications', () => {
     it('should remove a notification', () => {
       renderWithProvider(<TestComponent />);
-      
+
       // Add a notification first
       act(() => {
         screen.getByText('Add Notification').click();
@@ -269,7 +269,7 @@ describe('NotificationContext', () => {
 
     it('should clear all notifications', () => {
       renderWithProvider(<TestComponent />);
-      
+
       // Add multiple notifications
       act(() => {
         screen.getByText('Add Notification').click();
@@ -293,11 +293,11 @@ describe('NotificationContext', () => {
     it('should throw error when useNotification is used outside provider', () => {
       // Suppress console.error for this test
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-      
+
       expect(() => {
         render(<TestComponent />);
       }).toThrow('useNotification must be used within a NotificationProvider');
-      
+
       consoleSpy.mockRestore();
     });
   });

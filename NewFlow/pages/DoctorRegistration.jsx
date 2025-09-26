@@ -18,7 +18,7 @@ const DoctorRegistration = () => {
     consultationFee: '',
     availableDays: []
   });
-  
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -39,7 +39,7 @@ const DoctorRegistration = () => {
       ...prev,
       [name]: value
     }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
@@ -117,7 +117,7 @@ const DoctorRegistration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -140,7 +140,7 @@ const DoctorRegistration = () => {
       };
 
       const response = await createNewFlowDoctor(doctorData);
-      
+
       if (response.data.success) {
         // Show success message and redirect
         alert('Registration successful! Your account is pending admin approval. You will receive an email once approved.');
@@ -149,7 +149,7 @@ const DoctorRegistration = () => {
     } catch (error) {
       console.error('Registration error:', error);
       setSubmitError(
-        error.response?.data?.message || 
+        error.response?.data?.message ||
         'Registration failed. Please try again.'
       );
     } finally {
@@ -168,7 +168,7 @@ const DoctorRegistration = () => {
         <form onSubmit={handleSubmit} className="registration-form">
           <div className="form-section">
             <h3>Personal Information</h3>
-            
+
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="name">Full Name *</label>
@@ -235,7 +235,7 @@ const DoctorRegistration = () => {
 
           <div className="form-section">
             <h3>Professional Information</h3>
-            
+
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="qualification">Qualification *</label>
@@ -288,7 +288,7 @@ const DoctorRegistration = () => {
 
           <div className="form-section">
             <h3>Account Security</h3>
-            
+
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="password">Password *</label>
@@ -322,7 +322,7 @@ const DoctorRegistration = () => {
 
           <div className="form-section">
             <h3>Availability</h3>
-            
+
             <div className="form-group">
               <label>Available Days *</label>
               <div className="days-grid">
@@ -358,7 +358,7 @@ const DoctorRegistration = () => {
             >
               {isSubmitting ? 'Registering...' : 'Register as Doctor'}
             </Button>
-            
+
             <Button
               type="button"
               variant="default"
@@ -373,9 +373,9 @@ const DoctorRegistration = () => {
 
         <div className="registration-footer">
           <p>
-            Already have an account? 
-            <button 
-              type="button" 
+            Already have an account?
+            <button
+              type="button"
               onClick={() => navigate('/login')}
               className="login-link"
             >

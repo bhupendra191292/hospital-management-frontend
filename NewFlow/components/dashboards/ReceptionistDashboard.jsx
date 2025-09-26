@@ -49,7 +49,7 @@ const ReceptionistDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   // Define navigation items for receptionist dashboard
   const navigationItems = [
     {
-      title: "Dashboard",
+      title: 'Dashboard',
       items: [
         { view: 'overview', icon: '📊', label: 'Overview' },
         { view: 'appointments', icon: '📅', label: 'Appointments' },

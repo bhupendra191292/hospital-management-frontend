@@ -31,7 +31,7 @@ export const RoleProvider = ({ children }) => {
         localStorage.removeItem('newflow_user');
       }
     }
-    
+
     // Add a small delay to show the loading state
     setTimeout(() => {
       setIsLoading(false);

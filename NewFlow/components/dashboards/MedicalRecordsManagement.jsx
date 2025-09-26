@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRole } from '../../contexts/RoleContext';
-import { 
+import {
   getNewFlowVisits,
   getNewFlowPatients,
   getAllNewFlowDoctors
 } from '../../services/api';
 import { useErrorHandler } from '../../hooks/useErrorHandler';
 import { useDataProcessing, usePerformanceMonitor } from '../../hooks/usePerformance';
-import { 
-  Button, 
-  SearchInput, 
-  FilterDropdown, 
-  ConfirmationDialog, 
+import {
+  Button,
+  SearchInput,
+  FilterDropdown,
+  ConfirmationDialog,
   Pagination,
   StatusBadge,
   Modal,
@@ -24,16 +24,16 @@ import './MedicalRecordsManagement.css';
 const MedicalRecordsManagement = () => {
   // Performance monitoring
   const { renderCount } = usePerformanceMonitor('MedicalRecordsManagement');
-  
+
   const { can } = useRole();
   const { errors, isLoading, setErrors, setIsLoading, handleApiError, clearAllErrors } = useErrorHandler();
-  
+
   // State management
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   // Filters and search
   const [searchTerm, setSearchTerm] = useState('');
   const [patientFilter, setPatientFilter] = useState('');
@@ -41,13 +41,13 @@ const MedicalRecordsManagement = () => {
   const [dateFilter, setDateFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [recordTypeFilter, setRecordTypeFilter] = useState('');
-  
+
   // Pagination and sorting
   const [currentPage, setCurrentPage] = useState(1);
   const [sortField, setSortField] = useState('createdAt');
   const [sortDirection, setSortDirection] = useState('desc');
   const [itemsPerPage] = useState(10);
-  
+
   // UI state
   const [selectedRecords, setSelectedRecords] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -184,8 +184,8 @@ const MedicalRecordsManagement = () => {
   }, [sortField, sortDirection]);
 
   const handleSelectRecord = useCallback((recordId) => {
-    setSelectedRecords(prev => 
-      prev.includes(recordId) 
+    setSelectedRecords(prev =>
+      prev.includes(recordId)
         ? prev.filter(id => id !== recordId)
         : [...prev, recordId]
     );
@@ -262,20 +262,20 @@ const MedicalRecordsManagement = () => {
       for (const recordId of selectedRecords) {
         if (action === 'archive') {
           // Update record status to archived
-          setMedicalRecords(prev => 
-            prev.map(record => 
-              selectedRecords.includes(record._id) 
+          setMedicalRecords(prev =>
+            prev.map(record =>
+              selectedRecords.includes(record._id)
                 ? { ...record, status: 'archived' }
                 : record
             )
           );
         } else if (action === 'delete') {
-          setMedicalRecords(prev => 
+          setMedicalRecords(prev =>
             prev.filter(record => !selectedRecords.includes(record._id))
           );
         }
       }
-      
+
       setSelectedRecords([]);
       setConfirmationDialog(null);
     } catch (error) {
@@ -291,7 +291,7 @@ const MedicalRecordsManagement = () => {
 
   const handleRecordSaved = useCallback((savedRecord) => {
     if (editingRecord) {
-      setMedicalRecords(prev => 
+      setMedicalRecords(prev =>
         prev.map(record => record._id === editingRecord._id ? savedRecord : record)
       );
     } else {
@@ -372,7 +372,7 @@ const MedicalRecordsManagement = () => {
             onChange={handleSearch}
             className="search-input"
           />
-          
+
           <FilterDropdown
             label="Patient"
             value={patientFilter}
@@ -385,7 +385,7 @@ const MedicalRecordsManagement = () => {
               }))
             ]}
           />
-          
+
           <FilterDropdown
             label="Doctor"
             value={doctorFilter}
@@ -398,7 +398,7 @@ const MedicalRecordsManagement = () => {
               }))
             ]}
           />
-          
+
           <FilterDropdown
             label="Status"
             value={statusFilter}
@@ -412,7 +412,7 @@ const MedicalRecordsManagement = () => {
               { value: 'Cancelled', label: 'Cancelled' }
             ]}
           />
-          
+
           <FilterDropdown
             label="Record Type"
             value={recordTypeFilter}
@@ -426,7 +426,7 @@ const MedicalRecordsManagement = () => {
               { value: 'Procedure', label: 'Procedure' }
             ]}
           />
-          
+
           <input
             type="date"
             value={dateFilter}
@@ -529,14 +529,14 @@ const MedicalRecordsManagement = () => {
                     </div>
                   </td>
                   <td>
-                    <StatusBadge 
-                      status={record.priority} 
+                    <StatusBadge
+                      status={record.priority}
                       color={getPriorityColor(record.priority)}
                     />
                   </td>
                   <td>
-                    <StatusBadge 
-                      status={record.status} 
+                    <StatusBadge
+                      status={record.status}
                       color={getStatusColor(record.status)}
                     />
                   </td>

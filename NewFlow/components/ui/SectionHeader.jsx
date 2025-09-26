@@ -2,10 +2,10 @@ import React from 'react';
 import Button from './Button';
 import './SectionHeader.css';
 
-const SectionHeader = ({ 
-  title, 
-  icon, 
-  primaryAction, 
+const SectionHeader = ({
+  title,
+  icon,
+  primaryAction,
   secondaryAction,
   className = ''
 }) => {
@@ -18,18 +18,18 @@ const SectionHeader = ({
       {(primaryAction || secondaryAction) && (
         <div className="section-actions">
           {primaryAction && (
-            <Button 
-              variant="primary" 
-              size="medium" 
+            <Button
+              variant="primary"
+              size="medium"
               onClick={primaryAction.onClick}
             >
               {primaryAction.text}
             </Button>
           )}
           {secondaryAction && (
-            <Button 
-              variant="default" 
-              size="medium" 
+            <Button
+              variant="default"
+              size="medium"
               onClick={secondaryAction.onClick}
             >
               {secondaryAction.text}

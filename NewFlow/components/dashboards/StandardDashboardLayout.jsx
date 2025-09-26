@@ -2,15 +2,15 @@ import React from 'react';
 import { useRole } from '../../contexts/RoleContext';
 import './StandardDashboardLayout.css';
 
-const StandardDashboardLayout = ({ 
-  children, 
-  sidebarOpen, 
-  setSidebarOpen, 
-  currentView, 
+const StandardDashboardLayout = ({
+  children,
+  sidebarOpen,
+  setSidebarOpen,
+  currentView,
   setCurrentView,
   navigationItems = [],
-  title = "Dashboard",
-  subtitle = "Welcome to your dashboard"
+  title = 'Dashboard',
+  subtitle = 'Welcome to your dashboard'
 }) => {
   const { user, getRoleDetails } = useRole();
   const roleInfo = getRoleDetails();
@@ -44,7 +44,7 @@ const StandardDashboardLayout = ({
             <div key={sectionIndex} className="nav-section">
               {section.title && <h3 className="nav-section-title">{section.title}</h3>}
               {section.items.map((item, itemIndex) => (
-                <button 
+                <button
                   key={itemIndex}
                   className={`nav-item ${currentView === item.view ? 'active' : ''}`}
                   onClick={() => handleNavigation(item.view)}

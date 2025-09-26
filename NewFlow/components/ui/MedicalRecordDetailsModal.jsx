@@ -2,12 +2,12 @@ import React from 'react';
 import { Modal, ModalHeader, Button } from './index';
 import './MedicalRecordDetailsModal.css';
 
-const MedicalRecordDetailsModal = ({ 
-  isOpen, 
-  onClose, 
-  record, 
-  onEdit, 
-  onDelete 
+const MedicalRecordDetailsModal = ({
+  isOpen,
+  onClose,
+  record,
+  onEdit,
+  onDelete
 }) => {
   if (!record) return null;
 
@@ -55,11 +55,11 @@ const MedicalRecordDetailsModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="large">
-      <ModalHeader 
-        title={`${getRecordTypeIcon(record.recordType)} Medical Record Details`} 
-        onClose={onClose} 
+      <ModalHeader
+        title={`${getRecordTypeIcon(record.recordType)} Medical Record Details`}
+        onClose={onClose}
       />
-      
+
       <div className="medical-record-details">
         <div className="record-header">
           <div className="record-meta">
@@ -68,13 +68,13 @@ const MedicalRecordDetailsModal = ({
               <span className="type-label">{record.recordType}</span>
             </div>
             <div className="record-status">
-              <span 
+              <span
                 className="status-badge"
                 style={{ backgroundColor: getStatusColor(record.status) }}
               >
                 {record.status}
               </span>
-              <span 
+              <span
                 className="priority-badge"
                 style={{ backgroundColor: getPriorityColor(record.priority) }}
               >

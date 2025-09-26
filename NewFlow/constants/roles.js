@@ -54,51 +54,51 @@ export const PERMISSIONS = {
   CREATE_USERS: 'create_users',
   EDIT_USERS: 'edit_users',
   DELETE_USERS: 'delete_users',
-  
+
   // Patient Management
   MANAGE_PATIENTS: 'manage_patients',
   VIEW_PATIENTS: 'view_patients',
   CREATE_PATIENTS: 'create_patients',
   EDIT_PATIENTS: 'edit_patients',
   DELETE_PATIENTS: 'delete_patients',
-  
+
   // Doctor Management
   MANAGE_DOCTORS: 'manage_doctors',
   VIEW_DOCTORS: 'view_doctors',
   CREATE_DOCTORS: 'create_doctors',
   EDIT_DOCTORS: 'edit_doctors',
   DELETE_DOCTORS: 'delete_doctors',
-  
+
   // Appointments
   MANAGE_APPOINTMENTS: 'manage_appointments',
   VIEW_APPOINTMENTS: 'view_appointments',
   CREATE_APPOINTMENTS: 'create_appointments',
   EDIT_APPOINTMENTS: 'edit_appointments',
   DELETE_APPOINTMENTS: 'delete_appointments',
-  
+
   // Medical Records
   MANAGE_MEDICAL_RECORDS: 'manage_medical_records',
   VIEW_MEDICAL_RECORDS: 'view_medical_records',
   CREATE_MEDICAL_RECORDS: 'create_medical_records',
   EDIT_MEDICAL_RECORDS: 'edit_medical_records',
-  
+
   // Analytics & Reports
   VIEW_ANALYTICS: 'view_analytics',
   VIEW_REPORTS: 'view_reports',
   EXPORT_DATA: 'export_data',
-  
+
   // System Settings
   MANAGE_SETTINGS: 'manage_settings',
   VIEW_SETTINGS: 'view_settings',
-  
+
   // Billing & Finance
   MANAGE_BILLING: 'manage_billing',
   VIEW_BILLING: 'view_billing',
-  
+
   // Lab Management
   MANAGE_LAB_RESULTS: 'manage_lab_results',
   VIEW_LAB_RESULTS: 'view_lab_results',
-  
+
   // Pharmacy
   MANAGE_PHARMACY: 'manage_pharmacy',
   VIEW_PHARMACY: 'view_pharmacy'
@@ -110,7 +110,7 @@ export const ROLE_PERMISSIONS = {
     // Super Admin has all permissions
     ...Object.values(PERMISSIONS)
   ],
-  
+
   [ROLES.ADMIN]: [
     PERMISSIONS.MANAGE_USERS,
     PERMISSIONS.VIEW_USERS,
@@ -136,7 +136,7 @@ export const ROLE_PERMISSIONS = {
     PERMISSIONS.MANAGE_BILLING,
     PERMISSIONS.VIEW_BILLING
   ],
-  
+
   [ROLES.DOCTOR]: [
     PERMISSIONS.VIEW_PATIENTS,
     PERMISSIONS.EDIT_PATIENTS,
@@ -150,7 +150,7 @@ export const ROLE_PERMISSIONS = {
     PERMISSIONS.VIEW_LAB_RESULTS,
     PERMISSIONS.VIEW_ANALYTICS
   ],
-  
+
   [ROLES.NURSE]: [
     PERMISSIONS.VIEW_PATIENTS,
     PERMISSIONS.EDIT_PATIENTS,
@@ -161,7 +161,7 @@ export const ROLE_PERMISSIONS = {
     PERMISSIONS.CREATE_MEDICAL_RECORDS,
     PERMISSIONS.VIEW_LAB_RESULTS
   ],
-  
+
   [ROLES.RECEPTIONIST]: [
     PERMISSIONS.VIEW_PATIENTS,
     PERMISSIONS.CREATE_PATIENTS,
@@ -171,21 +171,21 @@ export const ROLE_PERMISSIONS = {
     PERMISSIONS.EDIT_APPOINTMENTS,
     PERMISSIONS.VIEW_BILLING
   ],
-  
+
   [ROLES.PATIENT]: [
     PERMISSIONS.VIEW_APPOINTMENTS,
     PERMISSIONS.CREATE_APPOINTMENTS,
     PERMISSIONS.VIEW_MEDICAL_RECORDS,
     PERMISSIONS.VIEW_BILLING
   ],
-  
+
   [ROLES.LAB_TECH]: [
     PERMISSIONS.VIEW_PATIENTS,
     PERMISSIONS.MANAGE_LAB_RESULTS,
     PERMISSIONS.VIEW_LAB_RESULTS,
     PERMISSIONS.VIEW_APPOINTMENTS
   ],
-  
+
   [ROLES.PHARMACIST]: [
     PERMISSIONS.VIEW_PATIENTS,
     PERMISSIONS.MANAGE_PHARMACY,

@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -18,7 +18,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: process.env.NODE_ENV === 'production' 
+        target: process.env.NODE_ENV === 'production'
           ? 'https://hospital-management-backend.vercel.app'
           : 'http://localhost:5002',
         changeOrigin: true,
@@ -26,4 +26,4 @@ export default defineConfig({
       }
     }
   }
-})
+});

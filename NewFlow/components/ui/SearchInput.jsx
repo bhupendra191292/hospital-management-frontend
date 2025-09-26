@@ -1,12 +1,12 @@
 import React from 'react';
 import './SearchInput.css';
 
-const SearchInput = ({ 
-  value, 
-  onChange, 
-  placeholder = "Search...", 
-  className = "",
-  disabled = false 
+const SearchInput = ({
+  value,
+  onChange,
+  placeholder = 'Search...',
+  className = '',
+  disabled = false
 }) => {
   return (
     <div className={`search-input-container ${className}`}>
@@ -21,7 +21,7 @@ const SearchInput = ({
           className="search-input"
         />
         {value && (
-          <button 
+          <button
             className="clear-button"
             onClick={() => onChange('')}
             type="button"

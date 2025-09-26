@@ -59,10 +59,10 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   const loadAdminData = async () => {
     try {
       setIsLoading(true);
-      
+
       // Simulate loading delay for better UX
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       // Mock comprehensive admin data
       const mockUsers = [
         { id: 1, name: 'John Doe', email: 'john@example.com', role: 'patient', status: 'active', lastLogin: '2 hours ago', registrationDate: '2024-01-15' },
@@ -93,7 +93,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
       setUsers(mockUsers);
       setDoctors(mockDoctors);
       setPatients(mockPatients);
-      
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       setIsLoading(false);
@@ -148,7 +148,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
           </div>
         </div>
       </div>
-      
+
       <div className="content-grid">
         <div className="content-card">
           <div className="card-header">
@@ -352,8 +352,8 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
         <p>Manage patient prescriptions and medication records</p>
       </div>
       <div className="prescriptions-content">
-        <iframe 
-          src="/prescriptions" 
+        <iframe
+          src="/prescriptions"
           style={{ width: '100%', height: '800px', border: 'none' }}
           title="Prescription Management"
         />
@@ -537,7 +537,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
         <nav className="sidebar-nav">
           <div className="nav-section">
             <h3 className="nav-section-title">Dashboard</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'overview' ? 'active' : ''}`}
               onClick={() => handleNavigation('overview')}
             >
@@ -548,28 +548,28 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
           <div className="nav-section">
             <h3 className="nav-section-title">Management</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'users' ? 'active' : ''}`}
               onClick={() => handleNavigation('users')}
             >
               <span className="nav-icon">👥</span>
               <span className="nav-text">Users</span>
             </button>
-            <button 
+            <button
               className={`nav-item ${currentView === 'patients' ? 'active' : ''}`}
               onClick={() => handleNavigation('patients')}
             >
               <span className="nav-icon">🏥</span>
               <span className="nav-text">Patients</span>
             </button>
-            <button 
+            <button
               className={`nav-item ${currentView === 'doctors' ? 'active' : ''}`}
               onClick={() => handleNavigation('doctors')}
             >
               <span className="nav-icon">👨‍⚕️</span>
               <span className="nav-text">Doctors</span>
             </button>
-            <button 
+            <button
               className={`nav-item ${currentView === 'prescriptions' ? 'active' : ''}`}
               onClick={() => handleNavigation('prescriptions')}
             >
@@ -580,7 +580,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
           <div className="nav-section">
             <h3 className="nav-section-title">Analytics</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'reports' ? 'active' : ''}`}
               onClick={() => handleNavigation('reports')}
             >
@@ -591,7 +591,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
           <div className="nav-section">
             <h3 className="nav-section-title">System</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'settings' ? 'active' : ''}`}
               onClick={() => handleNavigation('settings')}
             >

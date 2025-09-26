@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRole } from '../../contexts/RoleContext';
-import { 
+import {
   getNewFlowDashboardStats,
   getNewFlowPatients,
   getAllNewFlowDoctors,
@@ -13,12 +13,12 @@ import './ReportsAnalytics.css';
 const ReportsAnalytics = () => {
   // Performance monitoring
   const { renderCount } = usePerformanceMonitor('ReportsAnalytics');
-  
+
   const { can } = useRole();
   const [loading, setLoading] = useState(true);
   const [selectedPeriod, setSelectedPeriod] = useState('30d');
   const [selectedReport, setSelectedReport] = useState('overview');
-  
+
   // Data states
   const [stats, setStats] = useState({
     totalPatients: 0,
@@ -28,13 +28,13 @@ const ReportsAnalytics = () => {
     averageVisitDuration: 0,
     patientSatisfaction: 0
   });
-  
+
   const [patientData, setPatientData] = useState([]);
   const [doctorData, setDoctorData] = useState([]);
   const [visitData, setVisitData] = useState([]);
   const [revenueData, setRevenueData] = useState([]);
   const [departmentStats, setDepartmentStats] = useState([]);
-  
+
   // Chart data
   const [chartData, setChartData] = useState({
     patientGrowth: [],
@@ -88,16 +88,16 @@ const ReportsAnalytics = () => {
   const processChartData = (patients, visits) => {
     // Process patient growth data
     const patientGrowth = processPatientGrowth(patients);
-    
+
     // Process revenue trend data
     const revenueTrend = processRevenueTrend(visits);
-    
+
     // Process department distribution
     const departmentDistribution = processDepartmentDistribution(visits);
-    
+
     // Process visit types
     const visitTypes = processVisitTypes(visits);
-    
+
     // Process monthly stats
     const monthlyStats = processMonthlyStats(visits);
 
@@ -113,55 +113,55 @@ const ReportsAnalytics = () => {
   const processPatientGrowth = (patients) => {
     const last30Days = [];
     const today = new Date();
-    
+
     for (let i = 29; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
       const dateStr = date.toISOString().split('T')[0];
-      
-      const count = patients.filter(patient => 
+
+      const count = patients.filter(patient =>
         patient.registrationDate && patient.registrationDate.startsWith(dateStr)
       ).length;
-      
+
       last30Days.push({
         date: dateStr,
         count: count
       });
     }
-    
+
     return last30Days;
   };
 
   const processRevenueTrend = (visits) => {
     const last30Days = [];
     const today = new Date();
-    
+
     for (let i = 29; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
       const dateStr = date.toISOString().split('T')[0];
-      
+
       const revenue = visits
         .filter(visit => visit.appointmentDate && visit.appointmentDate.startsWith(dateStr))
         .reduce((sum, visit) => sum + (visit.estimatedCost || 0), 0);
-      
+
       last30Days.push({
         date: dateStr,
         revenue: revenue
       });
     }
-    
+
     return last30Days;
   };
 
   const processDepartmentDistribution = (visits) => {
     const departmentCounts = {};
-    
+
     visits.forEach(visit => {
       const dept = visit.department || 'Unknown';
       departmentCounts[dept] = (departmentCounts[dept] || 0) + 1;
     });
-    
+
     return Object.entries(departmentCounts).map(([department, count]) => ({
       department,
       count
@@ -170,12 +170,12 @@ const ReportsAnalytics = () => {
 
   const processVisitTypes = (visits) => {
     const typeCounts = {};
-    
+
     visits.forEach(visit => {
       const type = visit.visitType || 'Unknown';
       typeCounts[type] = (typeCounts[type] || 0) + 1;
     });
-    
+
     return Object.entries(typeCounts).map(([type, count]) => ({
       type,
       count
@@ -184,7 +184,7 @@ const ReportsAnalytics = () => {
 
   const processMonthlyStats = (visits) => {
     const monthlyData = {};
-    
+
     visits.forEach(visit => {
       if (visit.appointmentDate) {
         const month = visit.appointmentDate.substring(0, 7); // YYYY-MM
@@ -195,7 +195,7 @@ const ReportsAnalytics = () => {
         monthlyData[month].revenue += visit.estimatedCost || 0;
       }
     });
-    
+
     return Object.entries(monthlyData).map(([month, data]) => ({
       month,
       ...data
@@ -215,11 +215,11 @@ const ReportsAnalytics = () => {
   // Chart Components
   const LineChart = ({ data, title, color = '#3b82f6' }) => {
     if (!data || data.length === 0) return <div className="chart-placeholder">No data available</div>;
-    
+
     const maxValue = Math.max(...data.map(d => d.count || d.revenue || 0));
     const minValue = Math.min(...data.map(d => d.count || d.revenue || 0));
     const range = maxValue - minValue || 1;
-    
+
     return (
       <div className="line-chart">
         <div className="chart-header">
@@ -237,7 +237,7 @@ const ReportsAnalytics = () => {
                 <stop offset="100%" stopColor={color} stopOpacity="0.05"/>
               </linearGradient>
             </defs>
-            
+
             {/* Grid lines */}
             {[0, 0.25, 0.5, 0.75, 1].map((ratio, i) => (
               <line
@@ -247,7 +247,7 @@ const ReportsAnalytics = () => {
                 stroke="#e5e7eb" strokeWidth="1"
               />
             ))}
-            
+
             {/* Data line */}
             <polyline
               fill="none"
@@ -259,7 +259,7 @@ const ReportsAnalytics = () => {
                 return `${x},${y}`;
               }).join(' ')}
             />
-            
+
             {/* Area fill */}
             <polygon
               fill={`url(#gradient-${title})`}
@@ -269,7 +269,7 @@ const ReportsAnalytics = () => {
                 return `${x},${y}`;
               }).join(' ')} 380,160`}
             />
-            
+
             {/* Data points */}
             {data.map((d, i) => {
               const x = 40 + (i / (data.length - 1)) * 340;
@@ -284,7 +284,7 @@ const ReportsAnalytics = () => {
               );
             })}
           </svg>
-          
+
           {/* X-axis labels */}
           <div className="x-axis-labels">
             {data.filter((_, i) => i % Math.ceil(data.length / 5) === 0).map((d, i) => (
@@ -300,9 +300,9 @@ const ReportsAnalytics = () => {
 
   const BarChart = ({ data, title, color = '#10b981' }) => {
     if (!data || data.length === 0) return <div className="chart-placeholder">No data available</div>;
-    
+
     const maxValue = Math.max(...data.map(d => d.count || 0));
-    
+
     return (
       <div className="bar-chart">
         <div className="chart-header">
@@ -314,9 +314,9 @@ const ReportsAnalytics = () => {
               const height = (item.count / maxValue) * 100;
               return (
                 <div key={i} className="bar-group">
-                  <div 
-                    className="bar" 
-                    style={{ 
+                  <div
+                    className="bar"
+                    style={{
                       height: `${height}%`,
                       backgroundColor: color,
                       opacity: 0.8
@@ -337,10 +337,10 @@ const ReportsAnalytics = () => {
 
   const PieChart = ({ data, title }) => {
     if (!data || data.length === 0) return <div className="chart-placeholder">No data available</div>;
-    
+
     const total = data.reduce((sum, item) => sum + item.count, 0);
     const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
-    
+
     let currentAngle = 0;
     const segments = data.map((item, i) => {
       const percentage = (item.count / total) * 100;
@@ -348,7 +348,7 @@ const ReportsAnalytics = () => {
       const startAngle = currentAngle;
       const endAngle = currentAngle + angle;
       currentAngle += angle;
-      
+
       return {
         ...item,
         percentage: percentage.toFixed(1),
@@ -357,7 +357,7 @@ const ReportsAnalytics = () => {
         color: colors[i % colors.length]
       };
     });
-    
+
     return (
       <div className="pie-chart">
         <div className="chart-header">
@@ -370,20 +370,20 @@ const ReportsAnalytics = () => {
               {segments.map((segment, i) => {
                 const startAngleRad = (segment.startAngle - 90) * Math.PI / 180;
                 const endAngleRad = (segment.endAngle - 90) * Math.PI / 180;
-                const largeArcFlag = segment.endAngle - segment.startAngle <= 180 ? "0" : "1";
-                
+                const largeArcFlag = segment.endAngle - segment.startAngle <= 180 ? '0' : '1';
+
                 const x1 = 100 + 80 * Math.cos(startAngleRad);
                 const y1 = 100 + 80 * Math.sin(startAngleRad);
                 const x2 = 100 + 80 * Math.cos(endAngleRad);
                 const y2 = 100 + 80 * Math.sin(endAngleRad);
-                
+
                 const pathData = [
-                  `M 100 100`,
+                  'M 100 100',
                   `L ${x1} ${y1}`,
                   `A 80 80 0 ${largeArcFlag} 1 ${x2} ${y2}`,
                   'Z'
                 ].join(' ');
-                
+
                 return (
                   <path
                     key={i}
@@ -399,8 +399,8 @@ const ReportsAnalytics = () => {
           <div className="pie-legend">
             {segments.map((segment, i) => (
               <div key={i} className="legend-item">
-                <div 
-                  className="legend-color" 
+                <div
+                  className="legend-color"
                   style={{ backgroundColor: segment.color }}
                 ></div>
                 <span className="legend-label">
@@ -425,7 +425,7 @@ const ReportsAnalytics = () => {
             <div className="stat-trend positive">+12% from last month</div>
           </div>
         </div>
-        
+
         <div className="stat-card">
           <div className="stat-icon">👨‍⚕️</div>
           <div className="stat-content">
@@ -434,7 +434,7 @@ const ReportsAnalytics = () => {
             <div className="stat-trend positive">+2 new this month</div>
           </div>
         </div>
-        
+
         <div className="stat-card">
           <div className="stat-icon">📅</div>
           <div className="stat-content">
@@ -443,7 +443,7 @@ const ReportsAnalytics = () => {
             <div className="stat-trend positive">+8% from last month</div>
           </div>
         </div>
-        
+
         <div className="stat-card">
           <div className="stat-icon">💰</div>
           <div className="stat-content">
@@ -456,32 +456,32 @@ const ReportsAnalytics = () => {
 
       <div className="charts-grid">
         <div className="chart-card">
-          <LineChart 
-            data={chartData.patientGrowth} 
-            title="Patient Growth Trend" 
+          <LineChart
+            data={chartData.patientGrowth}
+            title="Patient Growth Trend"
             color="#3b82f6"
           />
         </div>
-        
+
         <div className="chart-card">
-          <LineChart 
-            data={chartData.revenueTrend} 
-            title="Revenue Trend" 
+          <LineChart
+            data={chartData.revenueTrend}
+            title="Revenue Trend"
             color="#10b981"
           />
         </div>
-        
+
         <div className="chart-card">
-          <PieChart 
-            data={chartData.departmentDistribution} 
+          <PieChart
+            data={chartData.departmentDistribution}
             title="Department Distribution"
           />
         </div>
-        
+
         <div className="chart-card">
-          <BarChart 
-            data={chartData.visitTypes} 
-            title="Visit Types" 
+          <BarChart
+            data={chartData.visitTypes}
+            title="Visit Types"
             color="#f59e0b"
           />
         </div>
@@ -492,7 +492,7 @@ const ReportsAnalytics = () => {
   const renderDetailedReport = () => (
     <div className="detailed-report">
       <h2>Detailed Analytics Report</h2>
-      
+
       <div className="report-section">
         <h3>Patient Demographics</h3>
         <div className="data-table">
@@ -573,7 +573,7 @@ const ReportsAnalytics = () => {
 
   const getDepartmentPerformance = () => {
     const deptStats = {};
-    
+
     visitData.forEach(visit => {
       const dept = visit.department || 'Unknown';
       if (!deptStats[dept]) {
@@ -595,7 +595,7 @@ const ReportsAnalytics = () => {
     const monthlyRevenue = processMonthlyStats(visitData);
     const totalRevenue = monthlyRevenue.reduce((sum, month) => sum + month.revenue, 0);
     const avgMonthlyRevenue = monthlyRevenue.length > 0 ? totalRevenue / monthlyRevenue.length : 0;
-    
+
     return (
       <div className="financial-report">
         <div className="report-header">
@@ -629,17 +629,17 @@ const ReportsAnalytics = () => {
 
         <div className="financial-charts">
           <div className="chart-card">
-            <LineChart 
-              data={monthlyRevenue.map(month => ({ date: month.month, revenue: month.revenue }))} 
-              title="Monthly Revenue Trend" 
+            <LineChart
+              data={monthlyRevenue.map(month => ({ date: month.month, revenue: month.revenue }))}
+              title="Monthly Revenue Trend"
               color="#10b981"
             />
           </div>
-          
+
           <div className="chart-card">
-            <BarChart 
-              data={getDepartmentPerformance().map(dept => ({ department: dept.department, count: dept.revenue }))} 
-              title="Revenue by Department" 
+            <BarChart
+              data={getDepartmentPerformance().map(dept => ({ department: dept.department, count: dept.revenue }))}
+              title="Revenue by Department"
               color="#3b82f6"
             />
           </div>
@@ -715,7 +715,7 @@ const ReportsAnalytics = () => {
   const renderOperationalReport = () => {
     const doctorPerformance = getDoctorPerformance();
     const appointmentStats = getAppointmentStats();
-    
+
     return (
       <div className="operational-report">
         <div className="report-header">
@@ -749,20 +749,20 @@ const ReportsAnalytics = () => {
 
         <div className="operational-charts">
           <div className="chart-card">
-            <BarChart 
-              data={doctorPerformance.map(doc => ({ department: doc.name, count: doc.visits }))} 
-              title="Doctor Performance (Visits)" 
+            <BarChart
+              data={doctorPerformance.map(doc => ({ department: doc.name, count: doc.visits }))}
+              title="Doctor Performance (Visits)"
               color="#8b5cf6"
             />
           </div>
-          
+
           <div className="chart-card">
-            <PieChart 
+            <PieChart
               data={[
                 { department: 'Completed', count: appointmentStats.completedAppointments },
                 { department: 'Cancelled', count: appointmentStats.cancelledAppointments },
                 { department: 'Pending', count: appointmentStats.pendingAppointments }
-              ]} 
+              ]}
               title="Appointment Status Distribution"
             />
           </div>
@@ -838,7 +838,7 @@ const ReportsAnalytics = () => {
 
   const getDoctorPerformance = () => {
     const doctorStats = {};
-    
+
     visitData.forEach(visit => {
       const doctorId = visit.doctorId;
       if (doctorId) {
@@ -877,7 +877,7 @@ const ReportsAnalytics = () => {
     const completed = visitData.filter(v => v.status === 'completed').length;
     const cancelled = visitData.filter(v => v.status === 'cancelled').length;
     const pending = visitData.filter(v => v.status === 'pending' || v.status === 'scheduled').length;
-    
+
     return {
       totalAppointments: total,
       completedAppointments: completed,
@@ -935,8 +935,8 @@ const ReportsAnalytics = () => {
       <div className="reports-header">
         <h1>📊 Reports & Analytics</h1>
         <div className="reports-controls">
-          <select 
-            value={selectedPeriod} 
+          <select
+            value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value)}
             className="period-selector"
           >
@@ -945,9 +945,9 @@ const ReportsAnalytics = () => {
             <option value="90d">Last 90 Days</option>
             <option value="1y">Last Year</option>
           </select>
-          
-          <select 
-            value={selectedReport} 
+
+          <select
+            value={selectedReport}
             onChange={(e) => setSelectedReport(e.target.value)}
             className="report-selector"
           >

@@ -49,7 +49,7 @@ const PharmacistDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   // Define navigation items for pharmacist dashboard
   const navigationItems = [
     {
-      title: "Dashboard",
+      title: 'Dashboard',
       items: [
         { view: 'overview', icon: '📊', label: 'Overview' },
         { view: 'prescriptions', icon: '💊', label: 'Prescriptions' },

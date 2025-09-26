@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  Button, 
-  SearchInput, 
-  FilterDropdown, 
-  ConfirmationDialog, 
+import {
+  Button,
+  SearchInput,
+  FilterDropdown,
+  ConfirmationDialog,
   Pagination,
   StatusBadge,
   UserAvatar
@@ -56,12 +56,12 @@ const EnhancedUserManagement = ({ onBack }) => {
 
   // Filter and sort users
   const filteredAndSortedUsers = useMemo(() => {
-    let filtered = users.filter(user => {
+    const filtered = users.filter(user => {
       const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            user.email.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesRole = !roleFilter || user.role === roleFilter;
       const matchesStatus = !statusFilter || user.status === statusFilter;
-      
+
       return matchesSearch && matchesRole && matchesStatus;
     });
 
@@ -69,19 +69,19 @@ const EnhancedUserManagement = ({ onBack }) => {
     filtered.sort((a, b) => {
       let aValue = a[sortField];
       let bValue = b[sortField];
-      
+
       if (sortField === 'lastLogin') {
         // Custom sorting for lastLogin
         const loginOrder = { 'Never': 0, '5 minutes ago': 1, '15 minutes ago': 2, '30 minutes ago': 3, '45 minutes ago': 4, '1 hour ago': 5, '2 hours ago': 6, '3 hours ago': 7, '1 day ago': 8 };
         aValue = loginOrder[aValue] || 9;
         bValue = loginOrder[bValue] || 9;
       }
-      
+
       if (typeof aValue === 'string') {
         aValue = aValue.toLowerCase();
         bValue = bValue.toLowerCase();
       }
-      
+
       if (sortDirection === 'asc') {
         return aValue > bValue ? 1 : -1;
       } else {
@@ -109,8 +109,8 @@ const EnhancedUserManagement = ({ onBack }) => {
   };
 
   const handleSelectUser = (userId) => {
-    setSelectedUsers(prev => 
-      prev.includes(userId) 
+    setSelectedUsers(prev =>
+      prev.includes(userId)
         ? prev.filter(id => id !== userId)
         : [...prev, userId]
     );
@@ -127,7 +127,7 @@ const EnhancedUserManagement = ({ onBack }) => {
   const handleUserAction = (userId, action) => {
     const user = users.find(u => u.id === userId);
     const userName = user?.name || 'User';
-    
+
     setConfirmationDialog({
       isOpen: true,
       title: `Confirm ${action.charAt(0).toUpperCase() + action.slice(1)}`,
@@ -140,7 +140,7 @@ const EnhancedUserManagement = ({ onBack }) => {
 
   const handleBulkAction = (action) => {
     const userNames = selectedUsers.map(id => users.find(u => u.id === id)?.name).join(', ');
-    
+
     setConfirmationDialog({
       isOpen: true,
       title: `Confirm Bulk ${action.charAt(0).toUpperCase() + action.slice(1)}`,
@@ -156,19 +156,19 @@ const EnhancedUserManagement = ({ onBack }) => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       if (action === 'delete') {
         setUsers(prev => prev.filter(user => user.id !== userId));
       } else if (action === 'suspend') {
-        setUsers(prev => prev.map(user => 
+        setUsers(prev => prev.map(user =>
           user.id === userId ? { ...user, status: 'suspended' } : user
         ));
       } else if (action === 'approve') {
-        setUsers(prev => prev.map(user => 
+        setUsers(prev => prev.map(user =>
           user.id === userId ? { ...user, status: 'active' } : user
         ));
       }
-      
+
       setSelectedUsers(prev => prev.filter(id => id !== userId));
     } catch (error) {
       console.error('Error executing user action:', error);
@@ -183,19 +183,19 @@ const EnhancedUserManagement = ({ onBack }) => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       if (action === 'delete') {
         setUsers(prev => prev.filter(user => !selectedUsers.includes(user.id)));
       } else if (action === 'suspend') {
-        setUsers(prev => prev.map(user => 
+        setUsers(prev => prev.map(user =>
           selectedUsers.includes(user.id) ? { ...user, status: 'suspended' } : user
         ));
       } else if (action === 'approve') {
-        setUsers(prev => prev.map(user => 
+        setUsers(prev => prev.map(user =>
           selectedUsers.includes(user.id) ? { ...user, status: 'active' } : user
         ));
       }
-      
+
       setSelectedUsers([]);
     } catch (error) {
       console.error('Error executing bulk action:', error);
@@ -262,12 +262,12 @@ const EnhancedUserManagement = ({ onBack }) => {
           </div>
         </div>
         <div className="header-actions">
-          <Button 
-            variant={editMode ? "primary" : "default"} 
+          <Button
+            variant={editMode ? 'primary' : 'default'}
             size="medium"
             onClick={handleToggleEditMode}
           >
-            {editMode ? "✅ Exit Edit Mode" : "✏️ Edit Mode"}
+            {editMode ? '✅ Exit Edit Mode' : '✏️ Edit Mode'}
           </Button>
           <Button variant="default" size="medium">
             ➕ Add New User
@@ -314,22 +314,22 @@ const EnhancedUserManagement = ({ onBack }) => {
             <span>{selectedUsers.length} user{selectedUsers.length > 1 ? 's' : ''} selected</span>
           </div>
           <div className="bulk-buttons">
-            <Button 
-              variant="default" 
+            <Button
+              variant="default"
               size="small"
               onClick={() => handleBulkAction('approve')}
             >
               ✅ Approve Selected
             </Button>
-            <Button 
-              variant="default" 
+            <Button
+              variant="default"
               size="small"
               onClick={() => handleBulkAction('suspend')}
             >
               ⏸️ Suspend Selected
             </Button>
-            <Button 
-              variant="default" 
+            <Button
+              variant="default"
               size="small"
               onClick={() => handleBulkAction('delete')}
             >
@@ -352,20 +352,20 @@ const EnhancedUserManagement = ({ onBack }) => {
                 />
               )}
             </div>
-            <div 
-              className="table-cell sortable" 
+            <div
+              className="table-cell sortable"
               onClick={() => handleSort('name')}
             >
               Name <SortIcon field="name" />
             </div>
-            <div 
-              className="table-cell sortable" 
+            <div
+              className="table-cell sortable"
               onClick={() => handleSort('role')}
             >
               Role <SortIcon field="role" />
             </div>
-            <div 
-              className="table-cell sortable" 
+            <div
+              className="table-cell sortable"
               onClick={() => handleSort('status')}
             >
               Status <SortIcon field="status" />
@@ -381,8 +381,8 @@ const EnhancedUserManagement = ({ onBack }) => {
             </div>
           ) : (
             paginatedUsers.map(user => (
-              <div 
-                key={user.id} 
+              <div
+                key={user.id}
                 className="table-row"
                 onClick={() => handleUserClick(user)}
               >
@@ -409,15 +409,15 @@ const EnhancedUserManagement = ({ onBack }) => {
                   </div>
                 </div>
                 <div className="table-cell">
-                  <StatusBadge 
-                    status={user.role} 
+                  <StatusBadge
+                    status={user.role}
                     variant={getRoleColor(user.role)}
                     size="small"
                   />
                 </div>
                 <div className="table-cell">
-                  <StatusBadge 
-                    status={user.status} 
+                  <StatusBadge
+                    status={user.status}
                     variant={getStatusColor(user.status)}
                     size="small"
                   />
@@ -426,7 +426,7 @@ const EnhancedUserManagement = ({ onBack }) => {
                   {!editMode && (
                     <div className="action-buttons">
                       {user.status === 'pending' && (
-                        <Button 
+                        <Button
                           variant="default"
                           size="small"
                           onClick={() => handleUserAction(user.id, 'approve')}
@@ -435,7 +435,7 @@ const EnhancedUserManagement = ({ onBack }) => {
                         </Button>
                       )}
                       {user.status !== 'suspended' && (
-                        <Button 
+                        <Button
                           variant="default"
                           size="small"
                           onClick={() => handleUserAction(user.id, 'suspend')}
@@ -443,7 +443,7 @@ const EnhancedUserManagement = ({ onBack }) => {
                           ⏸️ Suspend
                         </Button>
                       )}
-                      <Button 
+                      <Button
                         variant="default"
                         size="small"
                         onClick={() => handleUserAction(user.id, 'delete')}

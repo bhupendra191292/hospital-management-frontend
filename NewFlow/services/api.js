@@ -157,16 +157,16 @@ export const newFlowLogout = () => {
 };
 
 // Doctor approval functions
-export const getPendingNewFlowDoctors = () => { 
-  return newFlowApi.get('/newflow/doctors/pending'); 
+export const getPendingNewFlowDoctors = () => {
+  return newFlowApi.get('/newflow/doctors/pending');
 };
 
-export const approveNewFlowDoctor = (id) => { 
-  return newFlowApi.put(`/newflow/doctors/${id}/approve`); 
+export const approveNewFlowDoctor = (id) => {
+  return newFlowApi.put(`/newflow/doctors/${id}/approve`);
 };
 
-export const rejectNewFlowDoctor = (id, reason) => { 
-  return newFlowApi.put(`/newflow/doctors/${id}/reject`, { reason }); 
+export const rejectNewFlowDoctor = (id, reason) => {
+  return newFlowApi.put(`/newflow/doctors/${id}/reject`, { reason });
 };
 
 // NewFlow Prescription APIs

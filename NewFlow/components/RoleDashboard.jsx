@@ -60,7 +60,7 @@ const DefaultDashboard = () => {
           <p>Hello, {user?.name || user?.email}!</p>
         </div>
       </div>
-      
+
       <div className="dashboard-content">
         <div className="info-card">
           <h3>Role Dashboard Not Found</h3>

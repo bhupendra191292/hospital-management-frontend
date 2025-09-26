@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Modal, ModalHeader } from './index';
 import './DuplicateWarningModal.css';
 
-const DuplicateWarningModal = ({ 
-  isOpen, 
-  onClose, 
-  duplicates, 
-  onContinue, 
+const DuplicateWarningModal = ({
+  isOpen,
+  onClose,
+  duplicates,
+  onContinue,
   onViewExisting,
-  onRegisterAsFamilyMember 
+  onRegisterAsFamilyMember
 }) => {
   if (!isOpen || !duplicates || duplicates.length === 0) return null;
 
@@ -54,7 +54,7 @@ const DuplicateWarningModal = ({
                   </div>
                   <div className="duplicate-message">{duplicate.message}</div>
                   <div className="existing-patient-info">
-                    <strong>Existing Patient:</strong> {duplicate.existingPatient.name} 
+                    <strong>Existing Patient:</strong> {duplicate.existingPatient.name}
                     <span className="uhid"> (UHID: {duplicate.existingPatient.uhid})</span>
                     {duplicate.existingPatient.isFamilyMember && (
                       <span className="family-info"> - {duplicate.existingPatient.relationshipToHead || 'Family Member'}</span>
@@ -62,16 +62,16 @@ const DuplicateWarningModal = ({
                   </div>
                 </div>
                 <div className="duplicate-actions">
-                  <Button 
-                    variant="default" 
+                  <Button
+                    variant="default"
                     size="small"
                     onClick={() => handleViewExisting(duplicate.existingPatient)}
                   >
                     👁️ View Patient
                   </Button>
                   {duplicate.canBeFamilyMember && (
-                    <Button 
-                      variant="success" 
+                    <Button
+                      variant="success"
                       size="small"
                       onClick={() => onRegisterAsFamilyMember(duplicate.existingPatient)}
                     >
@@ -89,15 +89,15 @@ const DuplicateWarningModal = ({
         <div className="modal-footer">
           <div className="modal-footer-actions">
             <div className="action-buttons">
-              <Button 
-                variant="default" 
+              <Button
+                variant="default"
                 size="medium"
                 onClick={onClose}
               >
                 Cancel Registration
               </Button>
-              <Button 
-                variant="warning" 
+              <Button
+                variant="warning"
                 size="medium"
                 onClick={handleContinue}
               >

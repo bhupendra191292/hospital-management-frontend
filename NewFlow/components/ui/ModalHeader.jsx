@@ -1,12 +1,12 @@
 import React from 'react';
 import './ModalHeader.css';
 
-const ModalHeader = ({ 
-  title, 
-  icon, 
-  onClose, 
-  closeButtonText = "✕ Close",
-  className = ""
+const ModalHeader = ({
+  title,
+  icon,
+  onClose,
+  closeButtonText = '✕ Close',
+  className = ''
 }) => {
   return (
     <div className={`modal-header ${className}`}>
@@ -17,9 +17,9 @@ const ModalHeader = ({
         </h2>
       </div>
       <div className="header-actions">
-        <button 
+        <button
           type="button"
-          className="close-button" 
+          className="close-button"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();

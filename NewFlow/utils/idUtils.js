@@ -40,7 +40,7 @@ export const hasSameId = (obj1, obj2) => {
  */
 export const standardizeObject = (obj) => {
   if (!obj) return obj;
-  
+
   const standardized = { ...obj };
   if (obj.id && !obj._id) {
     standardized._id = obj.id;

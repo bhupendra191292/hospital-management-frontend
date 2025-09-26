@@ -96,7 +96,7 @@ vi.mock('react-router-dom', async () => {
     ...actual,
     useNavigate: () => vi.fn(),
     useLocation: () => ({ pathname: '/' }),
-    Link: ({ children, to }: { children: React.ReactNode; to: string }) => 
+    Link: ({ children, to }: { children: React.ReactNode; to: string }) =>
       React.createElement('a', { href: to }, children),
   };
 });

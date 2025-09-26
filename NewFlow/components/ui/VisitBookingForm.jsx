@@ -7,12 +7,12 @@ import Modal from './Modal';
 import ModalHeader from './ModalHeader';
 import './VisitBookingForm.css';
 
-const VisitBookingForm = ({ 
-  isOpen, 
-  onClose, 
-  patient, 
+const VisitBookingForm = ({
+  isOpen,
+  onClose,
+  patient,
   onSuccess,
-  existingVisit = null 
+  existingVisit = null
 }) => {
   const [formData, setFormData] = useState({
     patientId: patient?._id || patient?.id || '',
@@ -40,7 +40,7 @@ const VisitBookingForm = ({
   // Available departments
   const departments = [
     'General Medicine',
-    'Cardiology', 
+    'Cardiology',
     'Orthopedics',
     'Pediatrics',
     'Gynecology',
@@ -63,7 +63,7 @@ const VisitBookingForm = ({
   // Available priorities
   const priorities = [
     'Low',
-    'Normal', 
+    'Normal',
     'High',
     'Emergency'
   ];
@@ -147,34 +147,34 @@ const VisitBookingForm = ({
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     // Debug logging for doctor selection
     if (name === 'doctorId') {
       console.log('🔍 Doctor selected:', value);
       console.log('🔍 Available doctors:', availableDoctors);
       console.log('🔍 Selected doctor object:', availableDoctors.find(d => d._id === value));
     }
-    
+
     setFormData(prev => {
       const newData = {
         ...prev,
         [name]: value
       };
-      
+
       // Reset doctor selection when department changes
       if (name === 'department') {
         newData.doctorId = undefined;
         newData.doctorName = '';
       }
-      
+
       // Debug log the form data update
       if (name === 'doctorId') {
         console.log('🔍 Form data after doctor selection:', newData);
       }
-      
+
       return newData;
     });
-    
+
     // Handle field change for validation
     handleFieldChange(name, value);
   };
@@ -203,25 +203,25 @@ const VisitBookingForm = ({
 
   const validateForm = () => {
     const validation = validateAndSetErrors(formData);
-    
+
     // Additional custom validation for appointment date
     if (formData.appointmentDate) {
       const selectedDate = new Date(formData.appointmentDate);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      
+
       if (selectedDate < today) {
         setErrors(prev => ({ ...prev, appointmentDate: 'Appointment date cannot be in the past' }));
         return false;
       }
     }
-    
+
     return validation.isValid;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -234,7 +234,7 @@ const VisitBookingForm = ({
       // Ensure doctorId is properly handled
       let doctorId = undefined;
       let doctorName = undefined;
-      
+
       if (formData.doctorId && formData.doctorId.trim() !== '' && formData.doctorId !== 'undefined') {
         // Check if it's a valid ObjectId format (24 hex characters)
         if (/^[0-9a-fA-F]{24}$/.test(formData.doctorId)) {
@@ -267,11 +267,11 @@ const VisitBookingForm = ({
       console.log('🔍 Available doctors:', availableDoctors);
 
       const response = await createNewFlowVisit(visitData);
-      
+
       if (response.data.success) {
         onSuccess?.(response.data.data.visit);
         onClose();
-        
+
         // Reset form
         setFormData({
           patientId: patient?._id || patient?.id || '',

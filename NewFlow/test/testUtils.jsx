@@ -235,7 +235,7 @@ export const testData = {
     address: '123 Test Street',
     emergencyContact: '9876543211'
   },
-  
+
   validDoctor: {
     name: 'Dr. Jane Smith',
     phone: '9876543212',
@@ -246,7 +246,7 @@ export const testData = {
     consultationFee: 500,
     availableDays: ['Monday', 'Tuesday', 'Wednesday']
   },
-  
+
   invalidPatient: {
     name: '', // Invalid: empty name
     email: 'invalid-email', // Invalid: bad email format

@@ -29,7 +29,7 @@ const PatientDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   const loadPatientData = async () => {
     try {
       setIsLoading(true);
-      
+
       // Mock patient data
       const mockStats = {
         upcomingAppointments: 2,
@@ -209,13 +209,13 @@ const PatientDashboard = ({ sidebarOpen, setSidebarOpen }) => {
             <div className="appointment-actions">
               {appointment.status === 'scheduled' && (
                 <>
-                  <button 
+                  <button
                     className="btn-small btn-warning"
                     onClick={() => handleAppointmentAction(appointment.id, 'reschedule')}
                   >
                     Reschedule
                   </button>
-                  <button 
+                  <button
                     className="btn-small btn-danger"
                     onClick={() => handleAppointmentAction(appointment.id, 'cancel')}
                   >
@@ -223,7 +223,7 @@ const PatientDashboard = ({ sidebarOpen, setSidebarOpen }) => {
                   </button>
                 </>
               )}
-              <button 
+              <button
                 className="btn-small btn-primary"
                 onClick={() => handleAppointmentAction(appointment.id, 'view')}
               >
@@ -354,13 +354,13 @@ const PatientDashboard = ({ sidebarOpen, setSidebarOpen }) => {
               <p>{message.message}</p>
             </div>
             <div className="message-actions">
-              <button 
+              <button
                 className="btn-small btn-primary"
                 onClick={() => handleMessageAction(message.id, 'reply')}
               >
                 Reply
               </button>
-              <button 
+              <button
                 className="btn-small btn-secondary"
                 onClick={() => handleMessageAction(message.id, 'view')}
               >
@@ -387,7 +387,7 @@ const PatientDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   // Define navigation items for patient dashboard
   const navigationItems = [
     {
-      title: "Dashboard",
+      title: 'Dashboard',
       items: [
         { view: 'overview', icon: '📊', label: 'Overview' },
         { view: 'appointments', icon: '📅', label: 'Appointments' },

@@ -18,7 +18,7 @@ const AppointmentsView = () => {
       setIsLoading(true);
       setError(null);
       const response = await getAllNewFlowVisits();
-      
+
       if (response.data.success) {
         setAppointments(response.data.data.visits || []);
       } else {
@@ -113,29 +113,29 @@ const AppointmentsView = () => {
         <h2>📅 All Appointments</h2>
         <div className="appointments-controls">
           <div className="filter-buttons">
-            <Button 
-              variant={filter === 'all' ? 'primary' : 'default'} 
+            <Button
+              variant={filter === 'all' ? 'primary' : 'default'}
               size="small"
               onClick={() => setFilter('all')}
             >
               All ({appointments.length})
             </Button>
-            <Button 
-              variant={filter === 'today' ? 'primary' : 'default'} 
+            <Button
+              variant={filter === 'today' ? 'primary' : 'default'}
               size="small"
               onClick={() => setFilter('today')}
             >
               Today ({appointments.filter(a => isToday(a.appointmentDate)).length})
             </Button>
-            <Button 
-              variant={filter === 'scheduled' ? 'primary' : 'default'} 
+            <Button
+              variant={filter === 'scheduled' ? 'primary' : 'default'}
               size="small"
               onClick={() => setFilter('scheduled')}
             >
               Scheduled ({appointments.filter(a => a.status === 'Scheduled').length})
             </Button>
-            <Button 
-              variant={filter === 'completed' ? 'primary' : 'default'} 
+            <Button
+              variant={filter === 'completed' ? 'primary' : 'default'}
               size="small"
               onClick={() => setFilter('completed')}
             >

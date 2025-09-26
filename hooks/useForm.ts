@@ -52,14 +52,14 @@ interface FormReturn {
 
 /**
  * Enhanced Form Hook with Validation and State Management
- * 
+ *
  * Features:
  * - Comprehensive validation system
  * - Field-level and form-level validation
  * - Error handling and state management
  * - Performance optimization with useMemo and useCallback
  * - Type safety with TypeScript
- * 
+ *
  * @param options - Form configuration options
  * @returns Form state and handlers
  */
@@ -205,7 +205,7 @@ export const useForm = (options: FormOptions = {}): FormReturn => {
   // Validate entire form
   const validateForm = useCallback((): Record<string, string> => {
     const formErrors: Record<string, string> = {};
-    
+
     Object.keys(formState).forEach(field => {
       const error = validateField(field, formState[field].value);
       if (error) {

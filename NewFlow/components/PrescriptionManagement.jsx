@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRole } from '../contexts/RoleContext';
-import { 
-  createNewFlowPrescription, 
-  getNewFlowPrescriptions, 
+import {
+  createNewFlowPrescription,
+  getNewFlowPrescriptions,
   getNewFlowPatients,
-  getNewFlowDoctors 
+  getNewFlowDoctors
 } from '../services/api';
 import { Modal, ModalHeader } from './ui';
 import './PrescriptionManagement.css';
@@ -17,7 +17,7 @@ const PrescriptionManagement = () => {
   const [doctors, setDoctors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     patientId: '',
     medication: '',
@@ -31,7 +31,7 @@ const PrescriptionManagement = () => {
 
   const frequencyOptions = [
     'Once daily',
-    'Twice daily', 
+    'Twice daily',
     'Three times daily',
     'Four times daily',
     'Every 4 hours',
@@ -168,7 +168,7 @@ const PrescriptionManagement = () => {
             <h1>Prescription Management</h1>
           </div>
           <div className="header-actions">
-            <button 
+            <button
               className="btn-primary"
               onClick={() => setShowCreateForm(true)}
             >
@@ -310,16 +310,16 @@ const PrescriptionManagement = () => {
           </div>
 
           <div className="form-actions">
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="btn-secondary"
               onClick={handleSaveDraft}
               disabled={isSaving}
             >
               Save as Draft
             </button>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="btn-primary"
               disabled={isSaving}
             >
@@ -385,7 +385,7 @@ const PrescriptionManagement = () => {
           <div className="empty-state">
             <div className="empty-icon">💊</div>
             <p>No prescriptions found</p>
-            <button 
+            <button
               className="btn-primary"
               onClick={() => setShowCreateForm(true)}
             >
@@ -525,23 +525,23 @@ const PrescriptionManagement = () => {
             </div>
 
             <div className="modal-actions">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="btn-secondary"
                 onClick={() => setShowCreateForm(false)}
               >
                 Cancel
               </button>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="btn-secondary"
                 onClick={handleSaveDraft}
                 disabled={isSaving}
               >
                 Save as Draft
               </button>
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="btn-primary"
                 disabled={isSaving}
               >

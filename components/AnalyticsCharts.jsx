@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -42,8 +42,8 @@ const AnalyticsCharts = ({ token }) => {
         setAnalytics(res.data);
         setError(null);
       } catch (err) {
-        console.error("Analytics error", err);
-        setError("Failed to load analytics data");
+        console.error('Analytics error', err);
+        setError('Failed to load analytics data');
         // Mock data for demo
         setAnalytics({
           patientTrends: {
@@ -179,7 +179,7 @@ const AnalyticsCharts = ({ token }) => {
             <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-4)' }}>📊</div>
             <h3>Analytics Unavailable</h3>
             <p className="text-muted">{error}</p>
-            <button 
+            <button
               className="btn btn-primary"
               onClick={() => window.location.reload()}
             >
@@ -230,7 +230,7 @@ const AnalyticsCharts = ({ token }) => {
             <div className="stat-icon success">📈</div>
           </div>
         </div>
-        
+
         <div className="stat-card">
           <div className="stat-header">
             <div>
@@ -241,7 +241,7 @@ const AnalyticsCharts = ({ token }) => {
             <div className="stat-icon primary">⭐</div>
           </div>
         </div>
-        
+
         <div className="stat-card">
           <div className="stat-header">
             <div>
@@ -252,7 +252,7 @@ const AnalyticsCharts = ({ token }) => {
             <div className="stat-icon warning">⏱️</div>
           </div>
         </div>
-        
+
         <div className="stat-card">
           <div className="stat-header">
             <div>
@@ -316,9 +316,9 @@ const AnalyticsCharts = ({ token }) => {
         <div className="card-body">
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 'var(--spacing-4)' }}>
             {analytics?.topConditions?.map((condition, index) => (
-              <div key={index} style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
+              <div key={index} style={{
+                display: 'flex',
+                justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: 'var(--spacing-4)',
                 background: 'var(--gray-50)',
@@ -333,10 +333,10 @@ const AnalyticsCharts = ({ token }) => {
                     {condition.count} patients
                   </div>
                 </div>
-                <div style={{ 
-                  width: '40px', 
-                  height: '40px', 
-                  borderRadius: '50%', 
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '50%',
                   background: 'var(--primary-blue)',
                   display: 'flex',
                   alignItems: 'center',
@@ -369,7 +369,7 @@ const AnalyticsCharts = ({ token }) => {
                 </div>
               </div>
             </div>
-            
+
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--spacing-3)' }}>
               <span style={{ fontSize: 'var(--font-size-xl)', color: 'var(--warning)' }}>⏱️</span>
               <div>
@@ -379,7 +379,7 @@ const AnalyticsCharts = ({ token }) => {
                 </div>
               </div>
             </div>
-            
+
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--spacing-3)' }}>
               <span style={{ fontSize: 'var(--font-size-xl)', color: 'var(--primary-blue)' }}>👥</span>
               <div>

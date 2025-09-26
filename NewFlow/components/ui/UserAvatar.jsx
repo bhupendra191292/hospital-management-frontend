@@ -1,9 +1,9 @@
 import React from 'react';
 import './UserAvatar.css';
 
-const UserAvatar = ({ 
-  name, 
-  email, 
+const UserAvatar = ({
+  name,
+  email,
   size = 'medium',
   showName = true,
   showEmail = false,

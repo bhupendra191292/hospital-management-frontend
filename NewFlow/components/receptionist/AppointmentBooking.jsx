@@ -107,11 +107,11 @@ const AppointmentBooking = ({ selectedPatient, onAppointmentBooked, onCancel }) 
     if (!doctor) return;
 
     setSelectedDoctor(doctor);
-    
+
     // Mock available slots (in real app, this would be an API call)
     const selectedDate = new Date(formData.appointmentDate);
     const dayName = selectedDate.toLocaleDateString('en-US', { weekday: 'lowercase' });
-    
+
     if (doctor.availableDays.includes(dayName)) {
       // Simulate some slots being booked
       const availableSlots = doctor.timeSlots.filter((slot, index) => {
@@ -130,7 +130,7 @@ const AppointmentBooking = ({ selectedPatient, onAppointmentBooked, onCancel }) 
       ...prev,
       [name]: value
     }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
@@ -165,7 +165,7 @@ const AppointmentBooking = ({ selectedPatient, onAppointmentBooked, onCancel }) 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -180,7 +180,7 @@ const AppointmentBooking = ({ selectedPatient, onAppointmentBooked, onCancel }) 
     try {
       const appointmentId = generateAppointmentId();
       const tokenNumber = await generateTokenNumber(formData.doctorId, formData.appointmentDate);
-      
+
       setAppointmentId(appointmentId);
       setTokenNumber(tokenNumber);
 
@@ -231,11 +231,11 @@ const AppointmentBooking = ({ selectedPatient, onAppointmentBooked, onCancel }) 
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
   };
 
@@ -265,8 +265,8 @@ const AppointmentBooking = ({ selectedPatient, onAppointmentBooked, onCancel }) 
           <h3>👨‍⚕️ Select Doctor</h3>
           <div className="doctors-grid">
             {doctors.map(doctor => (
-              <div 
-                key={doctor.id} 
+              <div
+                key={doctor.id}
                 className={`doctor-card ${formData.doctorId === doctor.id.toString() ? 'selected' : ''}`}
                 onClick={() => setFormData(prev => ({ ...prev, doctorId: doctor.id.toString() }))}
               >

@@ -25,7 +25,7 @@ const AppointmentHistory = ({ patientId, patientName }) => {
       setIsLoading(true);
       setError(null);
       const response = await getNewFlowVisitsByPatient(patientId);
-      
+
       if (response.data.success) {
         console.log('AppointmentHistory API Response:', response.data);
         const visits = response.data.data?.visits || [];
@@ -68,14 +68,14 @@ const AppointmentHistory = ({ patientId, patientName }) => {
 
   const handleAssignDoctorSubmit = async (doctorId) => {
     if (!selectedAppointment) return;
-    
+
     try {
       setIsProcessing(true);
       const response = await updateNewFlowVisit(selectedAppointment._id, {
         doctorId: doctorId,
         doctorName: doctors.find(d => d._id === doctorId)?.name
       });
-      
+
       if (response.data.success) {
         await loadAppointments(); // Refresh the list
         setShowAssignModal(false);
@@ -91,14 +91,14 @@ const AppointmentHistory = ({ patientId, patientName }) => {
 
   const handleRescheduleSubmit = async (newDate, newTime) => {
     if (!selectedAppointment) return;
-    
+
     try {
       setIsProcessing(true);
       const response = await updateNewFlowVisit(selectedAppointment._id, {
         appointmentDate: newDate,
         appointmentTime: newTime
       });
-      
+
       if (response.data.success) {
         await loadAppointments(); // Refresh the list
         setShowRescheduleModal(false);
@@ -195,7 +195,7 @@ const AppointmentHistory = ({ patientId, patientName }) => {
                 </div>
                 <div className="header-right">
                   {!appointment.doctorName && appointment.status === 'Scheduled' && (
-                    <button 
+                    <button
                       className="action-btn assign-btn"
                       onClick={() => handleAssignDoctor(appointment)}
                       disabled={isProcessing}
@@ -204,7 +204,7 @@ const AppointmentHistory = ({ patientId, patientName }) => {
                     </button>
                   )}
                   {appointment.status === 'Scheduled' && (
-                    <button 
+                    <button
                       className="action-btn reschedule-btn"
                       onClick={() => handleReschedule(appointment)}
                       disabled={isProcessing}
@@ -281,7 +281,7 @@ const AppointmentHistory = ({ patientId, patientName }) => {
           <div className="modal-content">
             <div className="modal-header">
               <h3>Assign Doctor</h3>
-              <button 
+              <button
                 className="modal-close"
                 onClick={() => setShowAssignModal(false)}
               >
@@ -326,7 +326,7 @@ const AppointmentHistory = ({ patientId, patientName }) => {
           <div className="modal-content">
             <div className="modal-header">
               <h3>Reschedule Appointment</h3>
-              <button 
+              <button
                 className="modal-close"
                 onClick={() => setShowRescheduleModal(false)}
               >

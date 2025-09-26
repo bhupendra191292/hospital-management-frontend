@@ -39,7 +39,7 @@ const PatientRegistration = ({ onPatientRegistered, onCancel }) => {
       const birthDate = new Date(formData.dateOfBirth);
       const age = today.getFullYear() - birthDate.getFullYear();
       const monthDiff = today.getMonth() - birthDate.getMonth();
-      
+
       if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
         setFormData(prev => ({ ...prev, age: age - 1 }));
       } else {
@@ -54,7 +54,7 @@ const PatientRegistration = ({ onPatientRegistered, onCancel }) => {
       ...prev,
       [name]: value
     }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
@@ -126,7 +126,7 @@ const PatientRegistration = ({ onPatientRegistered, onCancel }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }

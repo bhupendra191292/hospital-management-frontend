@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Button, ModalHeader } from './index';
 import './FamilyMemberRegistrationModal.css';
 
-const FamilyMemberRegistrationModal = ({ 
-  isOpen, 
-  onClose, 
-  familyHead, 
-  onRegister 
+const FamilyMemberRegistrationModal = ({
+  isOpen,
+  onClose,
+  familyHead,
+  onRegister
 }) => {
   const [selectedRelationship, setSelectedRelationship] = useState('');
 
@@ -63,7 +63,7 @@ const FamilyMemberRegistrationModal = ({
           <div className="relationship-selection">
             <h3>Select Relationship</h3>
             <p>How is this patient related to {familyHead.name}?</p>
-            
+
             <div className="relationship-options">
               {relationshipOptions.map(option => (
                 <label key={option.value} className="relationship-option">
@@ -90,15 +90,15 @@ const FamilyMemberRegistrationModal = ({
 
         {/* Actions */}
         <div className="modal-actions">
-          <Button 
-            variant="default" 
+          <Button
+            variant="default"
             size="medium"
             onClick={onClose}
           >
             Cancel
           </Button>
-          <Button 
-            variant="primary" 
+          <Button
+            variant="primary"
             size="medium"
             onClick={handleRegister}
             disabled={!selectedRelationship}

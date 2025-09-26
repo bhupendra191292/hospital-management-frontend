@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
-import { 
-  validateForm, 
-  validateField, 
+import {
+  validateForm,
+  validateField,
   validateAndSanitize,
   PATIENT_VALIDATION_SCHEMA,
   DOCTOR_VALIDATION_SCHEMA,
@@ -21,7 +21,7 @@ export const useValidation = (validationSchema) => {
    */
   const validateSingleField = useCallback((fieldName, value) => {
     if (!validationSchema[fieldName]) return null;
-    
+
     return validateField(value, validationSchema[fieldName]);
   }, [validationSchema]);
 
@@ -67,7 +67,7 @@ export const useValidation = (validationSchema) => {
    */
   const validateAndSetError = useCallback((fieldName, value) => {
     const error = validateSingleField(fieldName, value);
-    
+
     setErrors(prev => {
       if (error) {
         return { ...prev, [fieldName]: error };
@@ -77,7 +77,7 @@ export const useValidation = (validationSchema) => {
         return newErrors;
       }
     });
-    
+
     return error;
   }, [validateSingleField]);
 

@@ -3,11 +3,11 @@ import { Modal, ModalHeader, Button } from './index';
 import { getNewFlowPatientById, updateNewFlowVisit, createNewFlowPrescription } from '../../services/api';
 import './PatientVisitModal.css';
 
-const PatientVisitModal = ({ 
-  isOpen, 
-  onClose, 
-  appointment, 
-  onVisitUpdate 
+const PatientVisitModal = ({
+  isOpen,
+  onClose,
+  appointment,
+  onVisitUpdate
 }) => {
   const [patient, setPatient] = useState(null);
   const [visitDetails, setVisitDetails] = useState({
@@ -56,7 +56,7 @@ const PatientVisitModal = ({
 
     checkScrollable();
     window.addEventListener('resize', checkScrollable);
-    
+
     return () => window.removeEventListener('resize', checkScrollable);
   }, [activeTab, patient, visitDetails]);
 
@@ -116,7 +116,7 @@ const PatientVisitModal = ({
         followUpRequired: visitDetails.followUpRequired,
         followUpDate: visitDetails.followUpDate ? new Date(visitDetails.followUpDate).toISOString() : null
       };
-      
+
       const response = await updateNewFlowVisit(appointment.id, updateData);
       if (response.data.success) {
         onVisitUpdate?.(response.data.data.visit);
@@ -142,16 +142,16 @@ const PatientVisitModal = ({
         followUpDate: visitDetails.followUpDate ? new Date(visitDetails.followUpDate).toISOString() : null,
         completedAt: new Date().toISOString()
       };
-      
+
       const response = await updateNewFlowVisit(appointment.id, updateData);
       if (response.data.success) {
         setVisitDetails(prev => ({ ...prev, status: 'Completed' }));
         onVisitUpdate?.(response.data.data.visit);
-        
+
         // Create prescriptions for each medication
         if (visitDetails.prescription && visitDetails.prescription.length > 0) {
           try {
-            const prescriptionPromises = visitDetails.prescription.map(med => 
+            const prescriptionPromises = visitDetails.prescription.map(med =>
               createNewFlowPrescription({
                 patientId: appointment.patientId,
                 visitId: appointment.id,
@@ -164,7 +164,7 @@ const PatientVisitModal = ({
                 status: 'Active'
               })
             );
-            
+
             await Promise.all(prescriptionPromises);
             console.log('All prescriptions created successfully');
           } catch (prescriptionError) {
@@ -172,7 +172,7 @@ const PatientVisitModal = ({
             // Don't fail the visit completion if prescription creation fails
           }
         }
-        
+
         alert('Visit completed successfully! Prescription and all details have been saved.');
         onClose();
       }
@@ -229,19 +229,19 @@ const PatientVisitModal = ({
 
           {/* Tab Navigation */}
           <div className="tab-navigation">
-            <button 
+            <button
               className={`tab-button ${activeTab === 'patient-info' ? 'active' : ''}`}
               onClick={() => setActiveTab('patient-info')}
             >
               👤 Patient Info
             </button>
-            <button 
+            <button
               className={`tab-button ${activeTab === 'visit-details' ? 'active' : ''}`}
               onClick={() => setActiveTab('visit-details')}
             >
               📋 Visit Details
             </button>
-            <button 
+            <button
               className={`tab-button ${activeTab === 'prescription' ? 'active' : ''}`}
               onClick={() => setActiveTab('prescription')}
             >
@@ -436,9 +436,9 @@ const PatientVisitModal = ({
                         className="medicine-input full-width"
                       />
                     </div>
-                    <Button 
-                      variant="primary" 
-                      size="small" 
+                    <Button
+                      variant="primary"
+                      size="small"
                       onClick={handleMedicineAdd}
                       disabled={!newMedicine.name || !newMedicine.dosage}
                     >
@@ -464,7 +464,7 @@ const PatientVisitModal = ({
                               </div>
                             )}
                           </div>
-                          <button 
+                          <button
                             className="remove-medicine"
                             onClick={() => handleMedicineRemove(index)}
                           >
@@ -486,26 +486,26 @@ const PatientVisitModal = ({
           {/* Action Buttons */}
           <div className="visit-actions">
             {(visitDetails.status === 'scheduled' || visitDetails.status === 'Scheduled') && (
-              <Button 
-                variant="success" 
+              <Button
+                variant="success"
                 onClick={handleCompleteVisit}
                 disabled={isSaving}
               >
                 {isSaving ? 'Completing...' : 'Complete Visit & Save Prescription'}
               </Button>
             )}
-            
+
             {(visitDetails.status === 'in-progress' || visitDetails.status === 'In Progress') && (
               <div className="action-buttons-group">
-                <Button 
-                  variant="secondary" 
+                <Button
+                  variant="secondary"
                   onClick={handleSaveProgress}
                   disabled={isSaving}
                 >
                   {isSaving ? 'Saving...' : 'Save Progress'}
                 </Button>
-                <Button 
-                  variant="success" 
+                <Button
+                  variant="success"
                   onClick={handleCompleteVisit}
                   disabled={isSaving}
                 >
@@ -513,7 +513,7 @@ const PatientVisitModal = ({
                 </Button>
               </div>
             )}
-            
+
             {(visitDetails.status === 'completed' || visitDetails.status === 'Completed') && (
               <div className="completed-visit-info">
                 <span className="completed-badge">✅ Visit Completed</span>

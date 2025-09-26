@@ -14,7 +14,7 @@ describe('DashboardSummary', () => {
 
   it('should render loading state initially', () => {
     renderWithProviders(<DashboardSummary token="test-token" />);
-    
+
     // The component shows loading spinners, not text
     expect(screen.getByTestId('dashboard-summary')).toBeInTheDocument();
   });

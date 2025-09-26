@@ -81,7 +81,7 @@ describe('Validation Utilities', () => {
       };
 
       const result = validateForm(formData, PATIENT_VALIDATION_SCHEMA);
-      
+
       expect(result.isValid).toBe(true);
       expect(Object.keys(result.errors)).toHaveLength(0);
     });
@@ -96,7 +96,7 @@ describe('Validation Utilities', () => {
       };
 
       const result = validateForm(formData, PATIENT_VALIDATION_SCHEMA);
-      
+
       expect(result.isValid).toBe(false);
       expect(result.errors.name).toBeDefined();
       expect(result.errors.email).toBeDefined();
@@ -119,8 +119,8 @@ describe('Validation Utilities', () => {
       };
 
       const result = validateForm(formData, DOCTOR_VALIDATION_SCHEMA);
-      
-      
+
+
       expect(result.isValid).toBe(true);
       expect(Object.keys(result.errors)).toHaveLength(0);
     });
@@ -135,7 +135,7 @@ describe('Validation Utilities', () => {
       };
 
       const result = validateForm(formData, VISIT_VALIDATION_SCHEMA);
-      
+
       expect(result.isValid).toBe(true);
       expect(Object.keys(result.errors)).toHaveLength(0);
     });
@@ -148,7 +148,7 @@ describe('Validation Utilities', () => {
       };
 
       const result = validateForm(formData, LOGIN_VALIDATION_SCHEMA);
-      
+
       expect(result.isValid).toBe(true);
       expect(Object.keys(result.errors)).toHaveLength(0);
     });
@@ -181,7 +181,7 @@ describe('Validation Utilities', () => {
       };
 
       const result = sanitizeFormData(formData);
-      
+
       expect(result.name).toBe('John Doe');
       expect(result.email).toBe('john@example.com');
       expect(result.age).toBe(30);
@@ -200,7 +200,7 @@ describe('Validation Utilities', () => {
       };
 
       const result = validateAndSanitize(formData, PATIENT_VALIDATION_SCHEMA);
-      
+
       expect(result.isValid).toBe(true);
       expect(result.data.name).toBe('John Doe');
       expect(result.data.email).toBe('john@example.com');
@@ -217,7 +217,7 @@ describe('Validation Utilities', () => {
       };
 
       const result = validateAndSanitize(formData, PATIENT_VALIDATION_SCHEMA);
-      
+
       expect(result.isValid).toBe(false);
       expect(result.data.name).toBe('');
       expect(result.data.email).toBe('invalid-email');

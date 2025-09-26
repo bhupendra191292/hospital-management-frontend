@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRole } from '../../contexts/RoleContext';
-import { 
+import {
   getNewFlowDashboardStats,
   getNewFlowPatients,
   getAllNewFlowDoctors,
@@ -16,22 +16,22 @@ import './AdminDashboard.css';
 
 const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   const { user, getRoleDetails, can } = useRole();
-  
+
   // Helper function to calculate time ago
   const getTimeAgo = (dateString) => {
     if (!dateString) return 'Unknown time';
-    
+
     try {
       const now = new Date();
       const date = new Date(dateString);
-      
+
       // Check if date is valid
       if (isNaN(date.getTime())) {
         return 'Unknown time';
       }
-      
+
       const diffInSeconds = Math.floor((now - date) / 1000);
-      
+
       if (diffInSeconds < 60) return 'Just now';
       if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
       if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
@@ -63,12 +63,12 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
   useEffect(() => {
     loadAdminData();
-    
+
     // Set up auto-refresh for recent activity every 30 seconds
     const interval = setInterval(() => {
       loadRecentActivity();
     }, 30000); // 30 seconds
-    
+
     return () => clearInterval(interval);
   }, []);
 
@@ -105,11 +105,11 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
       console.log('🔍 Calling getNewFlowPatients API...');
       const patientsResponse = await getNewFlowPatients({ limit: 5 });
       console.log('📡 Patients API Response:', patientsResponse);
-      
+
       if (patientsResponse.data.success) {
         const recentPatients = patientsResponse.data.data.patients || [];
         console.log('📋 Found patients:', recentPatients.length, recentPatients);
-        
+
         const patientActivities = recentPatients.slice(0, 3).map((patient, index) => {
           const timeAgo = getTimeAgo(patient.registrationDate || patient.createdAt);
           return {
@@ -120,7 +120,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
             priority: 'info'
           };
         });
-        
+
         allActivities = [...allActivities, ...patientActivities];
       }
 
@@ -128,11 +128,11 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
       console.log('🔍 Calling getNewFlowVisits API...');
       const visitsResponse = await getNewFlowVisits({ limit: 5 });
       console.log('📡 Visits API Response:', visitsResponse);
-      
+
       if (visitsResponse.data.success) {
         const recentVisits = visitsResponse.data.data.visits || [];
         console.log('🏥 Found visits:', recentVisits.length, recentVisits);
-        
+
         const visitActivities = recentVisits.slice(0, 2).map((visit, index) => {
           const timeAgo = getTimeAgo(visit.createdAt);
           return {
@@ -143,7 +143,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
             priority: 'success'
           };
         });
-        
+
         allActivities = [...allActivities, ...visitActivities];
       }
 
@@ -168,12 +168,12 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
       console.log('🎯 Activities to set (sliced):', activitiesToSet);
       setRecentActivity(activitiesToSet);
       console.log('✅ Recent activity updated:', allActivities.length, 'activities');
-      
+
       // Force a re-render to see if state is updated
       setTimeout(() => {
         console.log('🔄 State after update:', recentActivity);
       }, 100);
-      
+
     } catch (error) {
       console.error('❌ Error loading recent activity:', error);
       // Set error message on error
@@ -188,7 +188,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   const loadAdminData = async () => {
     try {
       setIsLoading(true);
-      
+
       // Load dashboard statistics
       const statsResponse = await getNewFlowDashboardStats();
       if (statsResponse.data.success) {
@@ -277,7 +277,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
           </div>
         </div>
       </div>
-      
+
       <div className="content-grid">
         <div className="content-card">
           <div className="card-header">
@@ -452,16 +452,16 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
           <div className="card-header">
             <h3 className="card-title">Recent Activity</h3>
             <div className="card-actions">
-              <button 
-                className="btn-text refresh-btn" 
+              <button
+                className="btn-text refresh-btn"
                 onClick={refreshActivity}
                 title="Refresh Activity"
                 disabled={isRefreshingActivity}
               >
                 {isRefreshingActivity ? '⏳ Refreshing...' : '🔄 Refresh'}
               </button>
-              <button 
-                className="btn-text test-btn" 
+              <button
+                className="btn-text test-btn"
                 onClick={() => addNewActivity({
                   id: `test-${Date.now()}`,
                   icon: '🧪',
@@ -473,12 +473,12 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
               >
                 🧪 Test
               </button>
-              <button 
-                className="btn-text test-btn" 
+              <button
+                className="btn-text test-btn"
                 onClick={async () => {
                   console.log('🔍 Current token:', localStorage.getItem('newflow_token'));
                   console.log('🔍 Current recent activity state:', recentActivity);
-                  
+
                   // Test API call directly
                   try {
                     console.log('🧪 Testing API call directly...');
@@ -490,15 +490,15 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
                   } catch (error) {
                     console.error('🧪 Direct API error:', error);
                   }
-                  
+
                   loadRecentActivity();
                 }}
                 title="Debug Activity Loading"
               >
                 🐛 Debug
               </button>
-              <button 
-                className="btn-text test-btn" 
+              <button
+                className="btn-text test-btn"
                 onClick={() => {
                   // Set the correct token for testing
                   localStorage.setItem('newflow_token', 'newflow-token-1758193027114');
@@ -571,7 +571,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
         <nav className="sidebar-nav">
           <div className="nav-section">
             <h3 className="nav-section-title">Dashboard</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'overview' ? 'active' : ''}`}
               onClick={() => handleNavigation('overview')}
             >
@@ -582,28 +582,28 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
           <div className="nav-section">
             <h3 className="nav-section-title">Management</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'users' ? 'active' : ''}`}
               onClick={() => handleNavigation('users')}
             >
               <span className="nav-icon">👥</span>
               <span className="nav-text">Users</span>
             </button>
-            <button 
+            <button
               className={`nav-item ${currentView === 'patients' ? 'active' : ''}`}
               onClick={() => handleNavigation('patients')}
             >
               <span className="nav-icon">🏥</span>
               <span className="nav-text">Patients</span>
             </button>
-            <button 
+            <button
               className={`nav-item ${currentView === 'doctors' ? 'active' : ''}`}
               onClick={() => handleNavigation('doctors')}
             >
               <span className="nav-icon">👨‍⚕️</span>
               <span className="nav-text">Doctors</span>
             </button>
-            <button 
+            <button
               className={`nav-item ${currentView === 'billing' ? 'active' : ''}`}
               onClick={() => handleNavigation('billing')}
             >
@@ -614,7 +614,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
           <div className="nav-section">
             <h3 className="nav-section-title">Analytics</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'reports' ? 'active' : ''}`}
               onClick={() => handleNavigation('reports')}
             >
@@ -625,7 +625,7 @@ const AdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
           <div className="nav-section">
             <h3 className="nav-section-title">System</h3>
-            <button 
+            <button
               className={`nav-item ${currentView === 'settings' ? 'active' : ''}`}
               onClick={() => handleNavigation('settings')}
             >

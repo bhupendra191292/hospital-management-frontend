@@ -30,14 +30,14 @@ interface FormFieldProps extends FormFieldAccessibility {
 
 /**
  * Reusable Form Field Component with Composition Pattern
- * 
+ *
  * Features:
  * - Composition over inheritance
  * - Interface segregation
  * - Enhanced accessibility
  * - Flexible layout options
  * - Error handling and validation display
- * 
+ *
  * @param props - Form field configuration
  */
 const FormField = memo(forwardRef<HTMLDivElement, FormFieldProps>(({
@@ -61,7 +61,7 @@ const FormField = memo(forwardRef<HTMLDivElement, FormFieldProps>(({
   'aria-invalid': ariaInvalid,
   ...otherProps
 }, ref) => {
-  
+
   const fieldId = id || `field-${name}`;
   const errorId = error ? `${fieldId}-error` : undefined;
   const helperId = helperText ? `${fieldId}-helper` : undefined;
@@ -74,7 +74,7 @@ const FormField = memo(forwardRef<HTMLDivElement, FormFieldProps>(({
     if (!label) return null;
 
     return (
-      <label 
+      <label
         htmlFor={fieldId}
         className={`form-label ${labelPosition}`}
         style={labelPosition === 'left' ? { width: labelWidth } : undefined}
@@ -91,7 +91,7 @@ const FormField = memo(forwardRef<HTMLDivElement, FormFieldProps>(({
     if (!error || !showErrorIcon) return null;
 
     return (
-      <div 
+      <div
         id={errorId}
         className="form-error"
         role="alert"
@@ -107,7 +107,7 @@ const FormField = memo(forwardRef<HTMLDivElement, FormFieldProps>(({
     if (!helperText || !showHelperText) return null;
 
     return (
-      <div 
+      <div
         id={helperId}
         className="form-helper-text"
       >
@@ -117,15 +117,15 @@ const FormField = memo(forwardRef<HTMLDivElement, FormFieldProps>(({
   };
 
   return (
-    <div 
+    <div
       ref={ref}
       className={fieldClassName}
       {...otherProps}
     >
       {layout === 'horizontal' && labelPosition === 'left' && renderLabel()}
-      
+
       {layout === 'vertical' && renderLabel()}
-      
+
       <div className="form-field-content">
         {React.cloneElement(children as React.ReactElement, {
           id: fieldId,
@@ -137,11 +137,11 @@ const FormField = memo(forwardRef<HTMLDivElement, FormFieldProps>(({
           disabled,
           className: `form-input ${isInvalid ? 'error' : ''}`.trim(),
         })}
-        
+
         {renderError()}
         {renderHelperText()}
       </div>
-      
+
       {layout === 'horizontal' && labelPosition === 'right' && renderLabel()}
     </div>
   );

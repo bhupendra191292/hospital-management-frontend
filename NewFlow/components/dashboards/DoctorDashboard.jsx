@@ -34,10 +34,10 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   const loadDoctorData = async () => {
     try {
       setIsLoading(true);
-      
+
       // Get current doctor's ID from user context
       const doctorId = user?.id || user?._id;
-      
+
       if (!doctorId) {
         console.error('No doctor ID found in user context');
         return;
@@ -48,12 +48,12 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
       // Fetch today's appointments for this doctor
       const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
       const appointmentsResponse = await getNewFlowVisitsByDoctor(doctorId, today);
-      
+
       console.log('📅 Appointments response:', appointmentsResponse.data);
 
       if (appointmentsResponse.data.success) {
         const appointments = appointmentsResponse.data.data.visits || [];
-        
+
         // Transform appointments to match the expected format
         const transformedAppointments = appointments.map(appointment => ({
           id: appointment._id || appointment.visitId,
@@ -90,7 +90,7 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
         setStats(realStats);
         setTodaySchedule(transformedAppointments);
-        
+
         // Set patients from appointments
         setPatients(uniquePatients.map(patient => ({
           id: patient.patientId,
@@ -154,7 +154,7 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
   const handleAppointmentAction = (appointment, action) => {
     console.log(`Appointment action: ${action} for appointment ${appointment.id}`);
-    
+
     if (action === 'view' || action === 'start') {
       setSelectedAppointment(appointment);
       setShowVisitModal(true);
@@ -167,14 +167,14 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
 
   const handleVisitUpdate = (updatedVisit) => {
     // Update the appointment in the schedule
-    setTodaySchedule(prev => 
-      prev.map(apt => 
-        apt.id === updatedVisit._id || apt.id === updatedVisit.visitId 
+    setTodaySchedule(prev =>
+      prev.map(apt =>
+        apt.id === updatedVisit._id || apt.id === updatedVisit.visitId
           ? { ...apt, status: updatedVisit.status }
           : apt
       )
     );
-    
+
     // Reload data to get updated stats
     loadDoctorData();
   };
@@ -253,7 +253,7 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
             </div>
             <div className="appointment-actions">
               {(appointment.status === 'pending' || appointment.status === 'scheduled') && (
-                <button 
+                <button
                   className="btn-small btn-primary"
                   onClick={() => handleAppointmentAction(appointment, 'start')}
                 >
@@ -261,7 +261,7 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
                 </button>
               )}
               {appointment.status === 'in-progress' && (
-                <button 
+                <button
                   className="btn-small btn-success"
                   onClick={() => handleAppointmentAction(appointment, 'complete')}
                 >
@@ -269,7 +269,7 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
                 </button>
               )}
               {appointment.status === 'completed' && (
-                <button 
+                <button
                   className="btn-small btn-info"
                   onClick={() => handleAppointmentAction(appointment, 'view')}
                 >
@@ -277,7 +277,7 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
                 </button>
               )}
               {(appointment.status !== 'completed') && (
-                <button 
+                <button
                   className="btn-small btn-secondary"
                   onClick={() => handleAppointmentAction(appointment, 'view')}
                 >
@@ -317,7 +317,7 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
                 <strong>Condition:</strong> {patient.condition}
               </div>
               <div className="status">
-                <strong>Status:</strong> 
+                <strong>Status:</strong>
                 <span className={`status-badge ${patient.status}`}>{patient.status}</span>
               </div>
               <div className="next-appointment">
@@ -325,19 +325,19 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
               </div>
             </div>
             <div className="patient-actions">
-              <button 
+              <button
                 className="btn-small btn-primary"
                 onClick={() => handlePatientAction(patient.id, 'view')}
               >
                 View Profile
               </button>
-              <button 
+              <button
                 className="btn-small btn-success"
                 onClick={() => handlePatientAction(patient.id, 'add-note')}
               >
                 Add Note
               </button>
-              <button 
+              <button
                 className="btn-small btn-warning"
                 onClick={() => handlePatientAction(patient.id, 'prescription')}
               >
@@ -486,7 +486,7 @@ const DoctorDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   // Define navigation items for doctor dashboard
   const navigationItems = [
     {
-      title: "Dashboard",
+      title: 'Dashboard',
       items: [
         { view: 'schedule', icon: '📅', label: 'Schedule' },
         { view: 'patients', icon: '👥', label: 'Patients' },
