@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRole } from '../../contexts/RoleContext';
 import { usePerformanceMonitor } from '../../hooks/usePerformance';
-import { 
+import {
   getNewFlowBills,
   createNewFlowBill,
   updateNewFlowBill,
@@ -16,26 +16,29 @@ import './BillingManagement.css';
 const BillingManagement = () => {
   // Performance monitoring
   const { renderCount } = usePerformanceMonitor('BillingManagement');
-  
+
   const { can } = useRole();
   const [loading, setLoading] = useState(true);
   const [bills, setBills] = useState([]);
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
-  
+  const [visits, setVisits] = useState([]);
+  const [stats, setStats] = useState({});
+  const [error, setError] = useState(null);
+
   // Filters and search
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [dateFilter, setDateFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  
+
   // Modals
   const [showCreateBill, setShowCreateBill] = useState(false);
   const [showBillDetails, setShowBillDetails] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [selectedBill, setSelectedBill] = useState(null);
-  
+
   // Form states
   const [newBill, setNewBill] = useState({
     patientId: '',
@@ -51,7 +54,7 @@ const BillingManagement = () => {
     notes: '',
     status: 'pending'
   });
-  
+
   const [paymentData, setPaymentData] = useState({
     amount: 0,
     paymentMethod: 'cash',
@@ -136,11 +139,11 @@ const BillingManagement = () => {
     const matchesSearch = bill.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          bill.id.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || bill.status === statusFilter;
-    const matchesDate = dateFilter === 'all' || 
+    const matchesDate = dateFilter === 'all' ||
                        (dateFilter === 'today' && bill.billDate === new Date().toISOString().split('T')[0]) ||
                        (dateFilter === 'week' && isWithinWeek(bill.billDate)) ||
                        (dateFilter === 'month' && isWithinMonth(bill.billDate));
-    
+
     return matchesSearch && matchesStatus && matchesDate;
   });
 
@@ -194,17 +197,17 @@ const BillingManagement = () => {
     setNewBill(prev => {
       const newItems = [...prev.items];
       newItems[index] = { ...newItems[index], [field]: value };
-      
+
       // Calculate amount
       if (field === 'quantity' || field === 'rate') {
         newItems[index].amount = newItems[index].quantity * newItems[index].rate;
       }
-      
+
       // Recalculate totals
       const subtotal = newItems.reduce((sum, item) => sum + item.amount, 0);
       const tax = subtotal * 0.1; // 10% tax
       const total = subtotal + tax - prev.discount;
-      
+
       return {
         ...prev,
         items: newItems,
@@ -221,7 +224,7 @@ const BillingManagement = () => {
       const subtotal = newItems.reduce((sum, item) => sum + item.amount, 0);
       const tax = subtotal * 0.1;
       const total = subtotal + tax - prev.discount;
-      
+
       return {
         ...prev,
         items: newItems,
@@ -242,7 +245,7 @@ const BillingManagement = () => {
       balance: newBill.total,
       createdAt: new Date().toISOString()
     };
-    
+
     setBills(prev => [bill, ...prev]);
     setShowCreateBill(false);
   };
@@ -260,8 +263,8 @@ const BillingManagement = () => {
 
   const handleProcessPayment = () => {
     if (selectedBill) {
-      setBills(prev => prev.map(bill => 
-        bill.id === selectedBill.id 
+      setBills(prev => prev.map(bill =>
+        bill.id === selectedBill.id
           ? {
               ...bill,
               paidAmount: bill.paidAmount + paymentData.amount,
@@ -281,7 +284,7 @@ const BillingManagement = () => {
       paid: { color: 'success', text: 'Paid' },
       overdue: { color: 'danger', text: 'Overdue' }
     };
-    
+
     const config = statusConfig[status] || statusConfig.pending;
     return <StatusBadge color={config.color}>{config.text}</StatusBadge>;
   };
@@ -316,7 +319,7 @@ const BillingManagement = () => {
             className="search-input"
           />
         </div>
-        
+
         <div className="filter-group">
           <select
             value={statusFilter}
@@ -330,7 +333,7 @@ const BillingManagement = () => {
             <option value="overdue">Overdue</option>
           </select>
         </div>
-        
+
         <div className="filter-group">
           <select
             value={dateFilter}
@@ -392,8 +395,8 @@ const BillingManagement = () => {
                 <td>{getStatusBadge(bill.status)}</td>
                 <td>
                   <div className="action-buttons">
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       variant="outline"
                       onClick={() => {
                         setSelectedBill(bill);
@@ -403,8 +406,8 @@ const BillingManagement = () => {
                       View
                     </Button>
                     {bill.balance > 0 && (
-                      <Button 
-                        size="sm" 
+                      <Button
+                        size="sm"
                         variant="primary"
                         onClick={() => handlePayment(bill)}
                       >
@@ -421,8 +424,8 @@ const BillingManagement = () => {
 
       {totalPages > 1 && (
         <div className="pagination">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="sm"
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(currentPage - 1)}
@@ -432,8 +435,8 @@ const BillingManagement = () => {
           <span className="page-info">
             Page {currentPage} of {totalPages}
           </span>
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="sm"
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(currentPage + 1)}
@@ -467,7 +470,7 @@ const BillingManagement = () => {
                 ))}
               </select>
             </div>
-            
+
             <div className="form-group">
               <label>Doctor</label>
               <select
@@ -495,7 +498,7 @@ const BillingManagement = () => {
                 className="form-input"
               />
             </div>
-            
+
             <div className="form-group">
               <label>Due Date</label>
               <input
@@ -514,7 +517,7 @@ const BillingManagement = () => {
                 + Add Item
               </Button>
             </div>
-            
+
             {newBill.items.map((item, index) => (
               <div key={index} className="bill-item">
                 <input
@@ -547,7 +550,7 @@ const BillingManagement = () => {
                   readOnly
                   className="form-input readonly"
                 />
-                <Button 
+                <Button
                   onClick={() => handleRemoveBillItem(index)}
                   size="sm"
                   variant="danger"
@@ -737,9 +740,9 @@ const BillingManagement = () => {
               <input
                 type="number"
                 value={paymentData.amount}
-                onChange={(e) => setPaymentData(prev => ({ 
-                  ...prev, 
-                  amount: parseFloat(e.target.value) || 0 
+                onChange={(e) => setPaymentData(prev => ({
+                  ...prev,
+                  amount: parseFloat(e.target.value) || 0
                 }))}
                 className="form-input"
                 max={selectedBill.balance}
@@ -752,9 +755,9 @@ const BillingManagement = () => {
               <label>Payment Method</label>
               <select
                 value={paymentData.paymentMethod}
-                onChange={(e) => setPaymentData(prev => ({ 
-                  ...prev, 
-                  paymentMethod: e.target.value 
+                onChange={(e) => setPaymentData(prev => ({
+                  ...prev,
+                  paymentMethod: e.target.value
                 }))}
                 className="form-input"
               >
@@ -771,9 +774,9 @@ const BillingManagement = () => {
               <input
                 type="text"
                 value={paymentData.transactionId}
-                onChange={(e) => setPaymentData(prev => ({ 
-                  ...prev, 
-                  transactionId: e.target.value 
+                onChange={(e) => setPaymentData(prev => ({
+                  ...prev,
+                  transactionId: e.target.value
                 }))}
                 className="form-input"
                 placeholder="Enter transaction ID"
@@ -784,9 +787,9 @@ const BillingManagement = () => {
               <label>Notes</label>
               <textarea
                 value={paymentData.notes}
-                onChange={(e) => setPaymentData(prev => ({ 
-                  ...prev, 
-                  notes: e.target.value 
+                onChange={(e) => setPaymentData(prev => ({
+                  ...prev,
+                  notes: e.target.value
                 }))}
                 className="form-input"
                 rows="3"
@@ -798,8 +801,8 @@ const BillingManagement = () => {
               <Button variant="outline" onClick={() => setShowPaymentModal(false)}>
                 Cancel
               </Button>
-              <Button 
-                variant="primary" 
+              <Button
+                variant="primary"
                 onClick={handleProcessPayment}
                 disabled={paymentData.amount <= 0 || paymentData.amount > selectedBill.balance}
               >

@@ -20,14 +20,14 @@ interface ErrorBoundaryProps {
 
 /**
  * Enhanced Error Boundary Component
- * 
+ *
  * Features:
  * - Comprehensive error handling
  * - Error recovery mechanisms
  * - Custom fallback components
  * - Error reporting and logging
  * - Performance optimization
- * 
+ *
  * @param props - Error boundary configuration
  */
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -166,17 +166,17 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
                 <div className="error-details">
                   <h4>Error Message:</h4>
                   <pre>{error?.message}</pre>
-                  
+
                   <h4>Error Stack:</h4>
                   <pre>{error?.stack}</pre>
-                  
+
                   {errorInfo && (
                     <>
                       <h4>Component Stack:</h4>
                       <pre>{errorInfo.componentStack}</pre>
                     </>
                   )}
-                  
+
                   <h4>Error ID:</h4>
                   <code>{errorId}</code>
                 </div>
@@ -184,21 +184,21 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
             )}
 
             <div className="error-boundary-actions">
-              <button 
+              <button
                 onClick={this.handleRetry}
                 className="btn btn-primary"
               >
                 🔄 Try Again
               </button>
-              
-              <button 
+
+              <button
                 onClick={this.handleReport}
                 className="btn btn-secondary"
               >
                 📧 Report Issue
               </button>
-              
-              <button 
+
+              <button
                 onClick={() => window.location.reload()}
                 className="btn btn-outline"
               >

@@ -19,7 +19,7 @@ export function useApi<T>(
   const [loading, setLoading] = useState<LoadingState>('idle');
   const [error, setError] = useState<string | null>(null);
   const [lastFetched, setLastFetched] = useState<Date | null>(null);
-  
+
   const { immediate = true, cacheKey, cacheTime = 5 * 60 * 1000 } = options; // 5 minutes default
   const cacheRef = useRef<Map<string, { data: T; timestamp: number }>>(new Map());
 
@@ -32,7 +32,7 @@ export function useApi<T>(
       if (cacheKey && cacheRef.current.has(cacheKey)) {
         const cached = cacheRef.current.get(cacheKey)!;
         const now = Date.now();
-        
+
         if (now - cached.timestamp < cacheTime) {
           setData(cached.data);
           setLoading('success');
@@ -45,12 +45,12 @@ export function useApi<T>(
       }
 
       const response = await apiCall();
-      
+
       if (response.success) {
         setData(response.data);
         setLoading('success');
         setLastFetched(new Date());
-        
+
         // Cache the result if cacheKey is provided
         if (cacheKey) {
           cacheRef.current.set(cacheKey, {
@@ -178,7 +178,7 @@ export function useFormSubmission<T, R>(
       setSuccess(false);
 
       const response = await submitFn(data);
-      
+
       if (response.success) {
         setSuccess(true);
         options.onSuccess?.(response.data);
@@ -225,7 +225,7 @@ export function useAuth() {
       setError(null);
 
       const response = await apiClient.login(credentials);
-      
+
       if (response.success) {
         return response.data;
       } else {
@@ -283,10 +283,10 @@ export function useFileUpload() {
       }, 100);
 
       const result = await uploadFn(file);
-      
+
       clearInterval(progressInterval);
       setProgress(100);
-      
+
       return result;
     } catch (err: any) {
       const errorMessage = getUserFriendlyMessage(err);
@@ -317,7 +317,7 @@ export function useRealtimeData<T>(
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<number | null>(null);
 
   const fetchData = useCallback(async () => {
     try {
@@ -325,7 +325,7 @@ export function useRealtimeData<T>(
       setError(null);
 
       const response = await fetchFn();
-      
+
       if (response.success) {
         setData(response.data);
       } else {

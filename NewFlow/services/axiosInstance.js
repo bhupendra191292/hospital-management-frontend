@@ -9,14 +9,14 @@ const newFlowApi = axios.create({
 newFlowApi.interceptors.request.use((config) => {
   // Get NewFlow token from localStorage
   const newFlowToken = localStorage.getItem('newflow_token');
-  
+
   console.log('🔍 NewFlow API Request:', {
     url: config.url,
     method: config.method,
     hasToken: !!newFlowToken,
     tokenPreview: newFlowToken ? newFlowToken.substring(0, 20) + '...' : 'none'
   });
-  
+
   if (newFlowToken) {
     config.headers.Authorization = `Bearer ${newFlowToken}`;
   } else {
@@ -27,7 +27,7 @@ newFlowApi.interceptors.request.use((config) => {
       console.log('⚠️ Using main app token as fallback');
     }
   }
-  
+
   return config;
 });
 

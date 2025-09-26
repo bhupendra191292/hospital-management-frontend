@@ -95,29 +95,30 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
 
       switch (searchType) {
         case 'uhid':
-          results = mockPatients.filter(patient => 
+          results = mockPatients.filter(patient =>
             patient.uhid.toLowerCase().includes(searchQuery.toLowerCase())
           );
           break;
         case 'mobile':
-          results = mockPatients.filter(patient => 
+          results = mockPatients.filter(patient =>
             patient.mobile.includes(searchQuery)
           );
           break;
         case 'name':
-          results = mockPatients.filter(patient => 
+          results = mockPatients.filter(patient =>
             `${patient.firstName} ${patient.lastName}`.toLowerCase().includes(searchQuery.toLowerCase())
           );
           break;
-        case 'name_dob':
+        case 'name_dob': {
           const [name, dob] = searchQuery.split(',');
           if (name && dob) {
-            results = mockPatients.filter(patient => 
+            results = mockPatients.filter(patient =>
               `${patient.firstName} ${patient.lastName}`.toLowerCase().includes(name.trim().toLowerCase()) &&
               patient.dateOfBirth === dob.trim()
             );
           }
           break;
+        }
         default:
           results = [];
       }
@@ -142,7 +143,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
           setSearchCase('D');
         } else if (searchType === 'name' && results.length > 1) {
           // Check for potential duplicates (Case F)
-          const sameNameResults = results.filter(patient => 
+          const sameNameResults = results.filter(patient =>
             `${patient.firstName} ${patient.lastName}`.toLowerCase() === searchQuery.toLowerCase()
           );
           if (sameNameResults.length > 1) {
@@ -239,7 +240,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
           <h3>Case A: Exact Match Found</h3>
           <p>Perfect! We found exactly one patient matching your search criteria.</p>
         </div>
-        
+
         <div className="patient-card exact-match">
           <div className="patient-info">
             <h4>{patient.firstName} {patient.lastName}</h4>
@@ -253,8 +254,8 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
             </div>
           </div>
           <div className="patient-actions">
-            <button 
-              onClick={() => handlePatientSelect(patient)} 
+            <button
+              onClick={() => handlePatientSelect(patient)}
               className="btn-primary"
             >
               Select Patient & Book Appointment
@@ -274,7 +275,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
           <h3>Case B: Multiple Matches Found</h3>
           <p>Found {searchResults.length} patients with similar details. Please ask the patient for additional information to identify the correct record.</p>
         </div>
-        
+
         <div className="patients-list">
           {searchResults.map(patient => (
             <div key={patient.id} className="patient-item">
@@ -292,8 +293,8 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
                 </div>
               </div>
               <div className="patient-actions">
-                <button 
-                  onClick={() => handlePatientSelect(patient)} 
+                <button
+                  onClick={() => handlePatientSelect(patient)}
                   className="btn-primary"
                 >
                   Select This Patient
@@ -335,12 +336,12 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
           <h3>Case C: No Records Found</h3>
           <p>No patient records match your search criteria. This appears to be a new patient.</p>
         </div>
-        
+
         <div className="no-match-content">
           <div className="no-match-icon">👤</div>
           <h4>New Patient Registration Required</h4>
           <p>The patient needs to be registered in the system before booking an appointment.</p>
-          
+
           <div className="registration-options">
             <button onClick={handleNewPatient} className="btn-primary">
               Register New Patient
@@ -363,7 +364,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
           <h3>Case D: Name Only Provided</h3>
           <p>Patient only provided their name. Please try to get additional identifying information.</p>
         </div>
-        
+
         <div className="name-only-content">
           <div className="search-suggestions">
             <h4>🔍 Try searching with:</h4>
@@ -374,7 +375,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
               <li>Guardian/Spouse Name</li>
             </ul>
           </div>
-          
+
           <div className="partial-matches">
             <h4>Found {searchResults.length} patients with similar names:</h4>
             <div className="patients-list">
@@ -386,8 +387,8 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
                     <p><strong>Address:</strong> {patient.address}</p>
                   </div>
                   <div className="patient-actions">
-                    <button 
-                      onClick={() => handlePatientSelect(patient)} 
+                    <button
+                      onClick={() => handlePatientSelect(patient)}
                       className="btn-primary"
                     >
                       Select This Patient
@@ -397,7 +398,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
               ))}
             </div>
           </div>
-          
+
           <div className="footer-actions">
             <button onClick={handleNewPatient} className="btn-secondary">
               Register New Patient (Flag as Potential Duplicate)
@@ -420,7 +421,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
           <h3>Case E: Partial Information Only</h3>
           <p>Patient has limited information available. We can still create a record with partial data.</p>
         </div>
-        
+
         <div className="partial-info-content">
           <div className="info-warning">
             <h4>⚠️ Incomplete Information Detected</h4>
@@ -432,7 +433,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
               <li>Create record with partial info and update later</li>
             </ul>
           </div>
-          
+
           <div className="partial-actions">
             <button onClick={handleNewPatient} className="btn-primary">
               Register with Partial Information
@@ -455,13 +456,13 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
           <h3>Case F: Potential Duplicate Detected</h3>
           <p>Found existing records that might be the same person. Please verify before creating a new record.</p>
         </div>
-        
+
         <div className="duplicate-content">
           <div className="duplicate-warning">
             <h4>⚠️ Possible Duplicate Records Found</h4>
             <p>These patients have similar details and might be the same person:</p>
           </div>
-          
+
           <div className="duplicate-candidates">
             {duplicateCandidates.map(patient => (
               <div key={patient.id} className="patient-item duplicate">
@@ -475,8 +476,8 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
                   </div>
                 </div>
                 <div className="patient-actions">
-                  <button 
-                    onClick={() => handlePatientSelect(patient)} 
+                  <button
+                    onClick={() => handlePatientSelect(patient)}
                     className="btn-primary"
                   >
                     Use Existing Record
@@ -485,7 +486,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
               </div>
             ))}
           </div>
-          
+
           <div className="duplicate-actions">
             <button onClick={handleNewPatient} className="btn-warning">
               Create New Record (Flag as Duplicate)
@@ -508,13 +509,13 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
           <h3>Case G: Emergency Admission</h3>
           <p>Patient is unconscious or unable to provide information. Creating temporary record for emergency care.</p>
         </div>
-        
+
         <div className="emergency-content">
           <div className="emergency-warning">
             <h4>🚨 Emergency Situation</h4>
             <p>Patient cannot provide personal information. System will generate a temporary UHID for immediate care.</p>
           </div>
-          
+
           <div className="emergency-actions">
             <button onClick={handleEmergencyRegistration} className="btn-emergency">
               Create Emergency Record
@@ -523,7 +524,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
               Cancel Emergency Registration
             </button>
           </div>
-          
+
           <div className="emergency-info">
             <h4>📋 Emergency Registration Process:</h4>
             <ul>
@@ -544,7 +545,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
     const dateStr = today.toISOString().slice(2, 10).replace(/-/g, '');
     const randomNum = Math.floor(Math.random() * 9999).toString().padStart(4, '0');
     const tempUHID = `TEMP-${dateStr}-${randomNum}`;
-    
+
     const emergencyPatient = {
       id: Date.now(),
       uhid: tempUHID,
@@ -559,7 +560,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
       isEmergency: true,
       createdAt: new Date().toISOString()
     };
-    
+
     handlePatientSelect(emergencyPatient);
   };
 
@@ -574,25 +575,25 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
         <div className="search-type-selector">
           <label>Search By:</label>
           <div className="search-type-buttons">
-            <button 
+            <button
               className={searchType === 'uhid' ? 'active' : ''}
               onClick={() => setSearchType('uhid')}
             >
               UHID
             </button>
-            <button 
+            <button
               className={searchType === 'mobile' ? 'active' : ''}
               onClick={() => setSearchType('mobile')}
             >
               Mobile
             </button>
-            <button 
+            <button
               className={searchType === 'name' ? 'active' : ''}
               onClick={() => setSearchType('name')}
             >
               Name
             </button>
-            <button 
+            <button
               className={searchType === 'name_dob' ? 'active' : ''}
               onClick={() => setSearchType('name_dob')}
             >
@@ -610,8 +611,8 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
             placeholder={getSearchPlaceholder()}
             className="search-input"
           />
-          <button 
-            onClick={handleSearch} 
+          <button
+            onClick={handleSearch}
             disabled={isLoading}
             className="search-button"
           >

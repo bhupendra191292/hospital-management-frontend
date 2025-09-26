@@ -74,10 +74,10 @@ describe('NotificationBell', () => {
   describe('Rendering', () => {
     it('should render notification bell with correct unread count', () => {
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       expect(bell).toBeInTheDocument();
-      
+
       const badge = screen.getByText('1');
       expect(badge).toBeInTheDocument();
     });
@@ -87,16 +87,16 @@ describe('NotificationBell', () => {
         ...mockNotificationContext,
         unreadCount: 0
       };
-      
+
       vi.doMock('../contexts/NotificationContext', () => ({
         useNotification: () => mockContextWithNoUnread
       }));
 
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       expect(bell).toBeInTheDocument();
-      
+
       expect(screen.queryByText('0')).not.toBeInTheDocument();
     });
 
@@ -105,13 +105,13 @@ describe('NotificationBell', () => {
         ...mockNotificationContext,
         unreadCount: 150
       };
-      
+
       vi.doMock('../contexts/NotificationContext', () => ({
         useNotification: () => mockContextWithHighCount
       }));
 
       renderWithProvider(<NotificationBell />);
-      
+
       expect(screen.getByText('99+')).toBeInTheDocument();
     });
   });
@@ -119,10 +119,10 @@ describe('NotificationBell', () => {
   describe('Bell Click Interaction', () => {
     it('should open dropdown when bell is clicked', () => {
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       fireEvent.click(bell);
-      
+
       expect(screen.getByText('Notifications')).toBeInTheDocument();
       expect(screen.getByText('Mark all as read')).toBeInTheDocument();
       expect(screen.getByText('Clear all')).toBeInTheDocument();
@@ -130,13 +130,13 @@ describe('NotificationBell', () => {
 
     it('should close dropdown when bell is clicked again', () => {
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
-      
+
       // Open dropdown
       fireEvent.click(bell);
       expect(screen.getByText('Notifications')).toBeInTheDocument();
-      
+
       // Close dropdown
       fireEvent.click(bell);
       expect(screen.queryByText('Notifications')).not.toBeInTheDocument();
@@ -146,10 +146,10 @@ describe('NotificationBell', () => {
   describe('Notification List', () => {
     it('should display notifications in dropdown', () => {
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       fireEvent.click(bell);
-      
+
       expect(screen.getByText('Success Notification')).toBeInTheDocument();
       expect(screen.getByText('Operation completed successfully')).toBeInTheDocument();
       expect(screen.getByText('Error Notification')).toBeInTheDocument();
@@ -158,10 +158,10 @@ describe('NotificationBell', () => {
 
     it('should show unread indicator for unread notifications', () => {
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       fireEvent.click(bell);
-      
+
       // Check for unread indicator (blue dot)
       const unreadIndicators = screen.getAllByTestId('unread-indicator');
       expect(unreadIndicators).toHaveLength(1);
@@ -169,10 +169,10 @@ describe('NotificationBell', () => {
 
     it('should display notification metadata', () => {
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       fireEvent.click(bell);
-      
+
       expect(screen.getByText('Just now')).toBeInTheDocument();
       expect(screen.getByText('normal')).toBeInTheDocument();
       expect(screen.getByText('high')).toBeInTheDocument();
@@ -182,37 +182,37 @@ describe('NotificationBell', () => {
   describe('Notification Actions', () => {
     it('should call markAsRead when notification is clicked', () => {
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       fireEvent.click(bell);
-      
+
       const notification = screen.getByText('Success Notification');
       fireEvent.click(notification);
-      
+
       expect(mockNotificationContext.markAsRead).toHaveBeenCalledWith('1');
     });
 
     it('should call markAllAsRead when mark all button is clicked', () => {
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       fireEvent.click(bell);
-      
+
       const markAllButton = screen.getByText('Mark all as read');
       fireEvent.click(markAllButton);
-      
+
       expect(mockNotificationContext.markAllAsRead).toHaveBeenCalled();
     });
 
     it('should call clearAll when clear all button is clicked', () => {
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       fireEvent.click(bell);
-      
+
       const clearAllButton = screen.getByText('Clear all');
       fireEvent.click(clearAllButton);
-      
+
       expect(mockNotificationContext.clearAll).toHaveBeenCalled();
     });
   });
@@ -224,16 +224,16 @@ describe('NotificationBell', () => {
         notifications: [],
         unreadCount: 0
       };
-      
+
       vi.doMock('../contexts/NotificationContext', () => ({
         useNotification: () => mockContextWithNoNotifications
       }));
 
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       fireEvent.click(bell);
-      
+
       expect(screen.getByText('No notifications')).toBeInTheDocument();
     });
   });
@@ -246,15 +246,15 @@ describe('NotificationBell', () => {
           <div data-testid="outside">Outside element</div>
         </div>
       );
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       fireEvent.click(bell);
-      
+
       expect(screen.getByText('Notifications')).toBeInTheDocument();
-      
+
       const outsideElement = screen.getByTestId('outside');
       fireEvent.mouseDown(outsideElement);
-      
+
       await waitFor(() => {
         expect(screen.queryByText('Notifications')).not.toBeInTheDocument();
       });
@@ -264,7 +264,7 @@ describe('NotificationBell', () => {
   describe('Accessibility', () => {
     it('should have proper ARIA label', () => {
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       expect(bell).toHaveAttribute('aria-label', 'Notifications (1 unread)');
     });
@@ -274,13 +274,13 @@ describe('NotificationBell', () => {
         ...mockNotificationContext,
         unreadCount: 0
       };
-      
+
       vi.doMock('../contexts/NotificationContext', () => ({
         useNotification: () => mockContextWithNoUnread
       }));
 
       renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
       expect(bell).toHaveAttribute('aria-label', 'Notifications');
     });
@@ -289,15 +289,15 @@ describe('NotificationBell', () => {
   describe('Animation', () => {
     it('should add animating class when new notification arrives', () => {
       const { rerender } = renderWithProvider(<NotificationBell />);
-      
+
       const bell = screen.getByRole('button', { name: /notifications/i });
-      
+
       // Simulate new notification by changing unread count
       const mockContextWithNewNotification = {
         ...mockNotificationContext,
         unreadCount: 2
       };
-      
+
       jest.doMock('../contexts/NotificationContext', () => ({
         useNotification: () => mockContextWithNewNotification
       }));
@@ -307,7 +307,7 @@ describe('NotificationBell', () => {
           <NotificationBell />
         </NotificationProvider>
       );
-      
+
       // The animation class should be added temporarily
       expect(bell).toHaveClass('animating');
     });

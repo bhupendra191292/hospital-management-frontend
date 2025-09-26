@@ -3,14 +3,14 @@ import { Button, StatusBadge, Modal, ModalHeader } from './index';
 import AppointmentHistory from './AppointmentHistory';
 import './PatientDetailsModal.css';
 
-const PatientDetailsModal = ({ 
-  isOpen, 
-  onClose, 
-  patient, 
-  onEdit, 
+const PatientDetailsModal = ({
+  isOpen,
+  onClose,
+  patient,
+  onEdit,
   onBookAppointment,
   onViewRecords,
-  onSendMessage 
+  onSendMessage
 }) => {
   if (!patient) return null;
 
@@ -93,8 +93,8 @@ const PatientDetailsModal = ({
                 </div>
                 <div className="detail-item">
                   <label>Status</label>
-                  <StatusBadge 
-                    status={patient.status} 
+                  <StatusBadge
+                    status={patient.status}
                     variant={getStatusColor(patient.status)}
                     size="small"
                   />
@@ -117,29 +117,29 @@ const PatientDetailsModal = ({
             <div className="detail-section">
               <h3>⚡ Quick Actions</h3>
               <div className="action-buttons-grid">
-                <Button 
-                  variant="primary" 
+                <Button
+                  variant="primary"
                   size="medium"
                   onClick={() => onBookAppointment(patient)}
                 >
                   📅 Book Appointment
                 </Button>
-                <Button 
-                  variant="default" 
+                <Button
+                  variant="default"
                   size="medium"
                   onClick={() => onViewRecords(patient)}
                 >
                   📋 View Medical Records
                 </Button>
-                <Button 
-                  variant="default" 
+                <Button
+                  variant="default"
                   size="medium"
                   onClick={() => onSendMessage(patient)}
                 >
                   💬 Send Message
                 </Button>
-                <Button 
-                  variant="default" 
+                <Button
+                  variant="default"
                   size="medium"
                   onClick={() => onEdit(patient)}
                 >
@@ -150,8 +150,8 @@ const PatientDetailsModal = ({
 
             {/* Appointment History */}
             <div className="detail-section">
-              <AppointmentHistory 
-                patientId={patient._id} 
+              <AppointmentHistory
+                patientId={patient._id}
                 patientName={patient.name}
               />
             </div>

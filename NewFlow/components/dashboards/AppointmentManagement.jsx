@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRole } from '../../contexts/RoleContext';
-import { 
+import {
   getNewFlowVisits,
   updateNewFlowVisit,
   deleteNewFlowVisit,
@@ -9,11 +9,11 @@ import {
 } from '../../services/api';
 import { useErrorHandler } from '../../hooks/useErrorHandler';
 import { useDataProcessing, usePerformanceMonitor } from '../../hooks/usePerformance';
-import { 
-  Button, 
-  SearchInput, 
-  FilterDropdown, 
-  ConfirmationDialog, 
+import {
+  Button,
+  SearchInput,
+  FilterDropdown,
+  ConfirmationDialog,
   Pagination,
   StatusBadge,
   Modal,
@@ -26,29 +26,29 @@ import './AppointmentManagement.css';
 const AppointmentManagement = () => {
   // Performance monitoring
   const { renderCount } = usePerformanceMonitor('AppointmentManagement');
-  
+
   const { can } = useRole();
   const { errors, isLoading, setErrors, setIsLoading, handleApiError, clearAllErrors } = useErrorHandler();
-  
+
   // State management
   const [appointments, setAppointments] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   // Filters and search
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [doctorFilter, setDoctorFilter] = useState('');
   const [dateFilter, setDateFilter] = useState('');
   const [priorityFilter, setPriorityFilter] = useState('');
-  
+
   // Pagination and sorting
   const [currentPage, setCurrentPage] = useState(1);
   const [sortField, setSortField] = useState('appointmentDate');
   const [sortDirection, setSortDirection] = useState('desc');
   const [itemsPerPage] = useState(10);
-  
+
   // UI state
   const [selectedAppointments, setSelectedAppointments] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -156,8 +156,8 @@ const AppointmentManagement = () => {
   }, [sortField, sortDirection]);
 
   const handleSelectAppointment = useCallback((appointmentId) => {
-    setSelectedAppointments(prev => 
-      prev.includes(appointmentId) 
+    setSelectedAppointments(prev =>
+      prev.includes(appointmentId)
         ? prev.filter(id => id !== appointmentId)
         : [...prev, appointmentId]
     );
@@ -237,19 +237,19 @@ const AppointmentManagement = () => {
           await deleteNewFlowVisit(appointmentId);
         }
       }
-      
+
       setAppointments(prev => {
         if (action === 'delete') {
           return prev.filter(apt => !selectedAppointments.includes(apt._id));
         } else {
-          return prev.map(apt => 
-            selectedAppointments.includes(apt._id) 
+          return prev.map(apt =>
+            selectedAppointments.includes(apt._id)
               ? { ...apt, status: 'cancelled' }
               : apt
           );
         }
       });
-      
+
       setSelectedAppointments([]);
       setConfirmationDialog(null);
     } catch (error) {
@@ -259,7 +259,7 @@ const AppointmentManagement = () => {
 
   const handleAppointmentSaved = useCallback((savedAppointment) => {
     if (editingAppointment) {
-      setAppointments(prev => 
+      setAppointments(prev =>
         prev.map(apt => apt._id === editingAppointment._id ? savedAppointment : apt)
       );
     } else {
@@ -334,7 +334,7 @@ const AppointmentManagement = () => {
             onChange={handleSearch}
             className="search-input"
           />
-          
+
           <FilterDropdown
             label="Status"
             value={statusFilter}
@@ -349,7 +349,7 @@ const AppointmentManagement = () => {
               { value: 'no-show', label: 'No Show' }
             ]}
           />
-          
+
           <FilterDropdown
             label="Doctor"
             value={doctorFilter}
@@ -362,7 +362,7 @@ const AppointmentManagement = () => {
               }))
             ]}
           />
-          
+
           <FilterDropdown
             label="Priority"
             value={priorityFilter}
@@ -375,7 +375,7 @@ const AppointmentManagement = () => {
               { value: 'Low', label: 'Low' }
             ]}
           />
-          
+
           <input
             type="date"
             value={dateFilter}
@@ -471,14 +471,14 @@ const AppointmentManagement = () => {
                   <td>{formatTime(appointment.appointmentTime)}</td>
                   <td>{appointment.department}</td>
                   <td>
-                    <StatusBadge 
-                      status={appointment.priority} 
+                    <StatusBadge
+                      status={appointment.priority}
                       color={getPriorityColor(appointment.priority)}
                     />
                   </td>
                   <td>
-                    <StatusBadge 
-                      status={appointment.status} 
+                    <StatusBadge
+                      status={appointment.status}
                       color={getStatusColor(appointment.status)}
                     />
                   </td>

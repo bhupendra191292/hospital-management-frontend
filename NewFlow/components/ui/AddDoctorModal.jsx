@@ -127,7 +127,7 @@ const AddDoctorModal = ({ isOpen, onClose, onSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -145,7 +145,7 @@ const AddDoctorModal = ({ isOpen, onClose, onSuccess }) => {
       };
 
       const response = await createNewFlowDoctor(doctorData);
-      
+
       if (response.data.success) {
         onSuccess?.(response.data.data.doctor);
         handleClose();

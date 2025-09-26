@@ -124,7 +124,7 @@ describe('useApi Hook', () => {
       );
 
       const formData = { name: 'Test' };
-      
+
       try {
         await result.current.submit(formData);
       } catch (error) {
@@ -175,7 +175,7 @@ describe('useApi Hook', () => {
       const { result } = renderHook(() => useAuth());
 
       const credentials = { phone: '1234567890', password: 'wrong' };
-      
+
       try {
         await result.current.login(credentials);
       } catch (error) {
@@ -216,7 +216,7 @@ describe('useApi Hook', () => {
       const { result } = renderHook(() => useFileUpload());
 
       const file = new File(['test'], 'test.pdf', { type: 'application/pdf' });
-      
+
       try {
         await result.current.uploadFile(file, mockUploadFn);
       } catch (error) {
@@ -228,21 +228,21 @@ describe('useApi Hook', () => {
     });
 
     it('should track upload progress', async () => {
-      const mockUploadFn = vi.fn().mockImplementation(() => 
+      const mockUploadFn = vi.fn().mockImplementation(() =>
         new Promise(resolve => setTimeout(() => resolve({ success: true }), 100))
       );
       const { result } = renderHook(() => useFileUpload());
 
       const file = new File(['test'], 'test.pdf', { type: 'application/pdf' });
-      
+
       const uploadPromise = result.current.uploadFile(file, mockUploadFn);
-      
+
       // Check progress during upload
       expect(result.current.uploading).toBe(true);
       expect(result.current.progress).toBeGreaterThan(0);
-      
+
       await uploadPromise;
-      
+
       expect(result.current.progress).toBe(100);
     });
   });

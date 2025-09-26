@@ -96,7 +96,7 @@ export const isNumericOnly = (value: string): boolean => {
  * @returns Formatted phone number
  */
 export const formatPhoneNumber = (
-  phone: string, 
+  phone: string,
   strategy: string = 'US'
 ): string => {
   try {
@@ -115,7 +115,7 @@ export const formatPhoneNumber = (
  * @returns True if the phone number is valid
  */
 export const isValidPhoneNumber = (
-  phone: string, 
+  phone: string,
   strategy: string = 'US'
 ): boolean => {
   try {
@@ -180,7 +180,7 @@ export const getNumericPhone = (phone: string): string => {
  * @returns Object with validation result and processed phone number
  */
 export const processPhoneNumber = (
-  phone: string, 
+  phone: string,
   strategy: string = 'US'
 ): {
   isValid: boolean;
@@ -190,7 +190,7 @@ export const processPhoneNumber = (
   strategy: string;
 } => {
   const numericPhone = getNumericPhone(phone);
-  
+
   if (numericPhone.length === 0) {
     return {
       isValid: false,
@@ -230,16 +230,16 @@ export const processPhoneNumber = (
  * @returns Masked phone number
  */
 export const maskPhoneNumber = (
-  value: string, 
+  value: string,
   strategy: string = 'US'
 ): string => {
   const numeric = getNumericPhone(value);
   const phoneStrategy = PhoneValidatorFactory.getStrategy(strategy);
-  
+
   if (numeric.length <= 3) return numeric;
   if (numeric.length <= 6) return `${numeric.slice(0, 3)}-${numeric.slice(3)}`;
   if (numeric.length <= 10) return `${numeric.slice(0, 3)}-${numeric.slice(3, 6)}-${numeric.slice(6)}`;
-  
+
   return phoneStrategy.format(numeric);
 };
 

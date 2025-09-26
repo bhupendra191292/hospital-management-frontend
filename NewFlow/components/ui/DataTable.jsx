@@ -4,9 +4,9 @@ import StatusBadge from './StatusBadge';
 import Button from './Button';
 import './DataTable.css';
 
-const DataTable = ({ 
-  columns, 
-  data, 
+const DataTable = ({
+  columns,
+  data,
   onAction,
   className = '',
   gridColumns = null, // Allow custom grid columns
@@ -18,22 +18,22 @@ const DataTable = ({
 
   const renderCellContent = (column, row, rowIndex) => {
     const value = row[column.key];
-    
+
     switch (column.type) {
       case 'avatar':
         return (
-          <UserAvatar 
-            name={value.name || value} 
+          <UserAvatar
+            name={value.name || value}
             email={value.email}
             size="medium"
             showName={true}
             showEmail={true}
           />
         );
-      
+
       case 'status':
         return <StatusBadge status={value} />;
-      
+
       case 'actions':
         return (
           <div className="action-buttons">
@@ -49,21 +49,21 @@ const DataTable = ({
             ))}
           </div>
         );
-      
+
       case 'badge':
         return (
           <span className={`${column.badgeClass || 'badge'}`}>
             {value}
           </span>
         );
-      
+
       default:
         return value;
     }
   };
 
   return (
-    <div 
+    <div
       className={`newflow-data-table ${className}`}
       style={{ '--grid-columns': gridTemplateColumns }}
     >
@@ -74,7 +74,7 @@ const DataTable = ({
           </div>
         ))}
       </div>
-      
+
       {data.length === 0 ? (
         <div className="empty-state">
           <div className="empty-icon">📋</div>
@@ -83,8 +83,8 @@ const DataTable = ({
         </div>
       ) : (
         data.map((row, rowIndex) => (
-          <div 
-            key={row.id || rowIndex} 
+          <div
+            key={row.id || rowIndex}
             className={`table-row ${onRowClick ? 'clickable' : ''}`}
             onClick={() => onRowClick && onRowClick(row, rowIndex)}
           >

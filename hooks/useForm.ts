@@ -42,7 +42,7 @@ interface FormReturn {
   isSubmitting: boolean;
   handleChange: (field: string, value: any) => void;
   handleBlur: (field: string) => void;
-  handleSubmit: (e?: React.FormEvent) => Promise<void>;
+  handleSubmit: (e?: FormEvent) => Promise<void>;
   setFieldValue: (field: string, value: any) => void;
   setFieldError: (field: string, error: string) => void;
   resetForm: () => void;
@@ -52,14 +52,14 @@ interface FormReturn {
 
 /**
  * Enhanced Form Hook with Validation and State Management
- * 
+ *
  * Features:
  * - Comprehensive validation system
  * - Field-level and form-level validation
  * - Error handling and state management
  * - Performance optimization with useMemo and useCallback
  * - Type safety with TypeScript
- * 
+ *
  * @param options - Form configuration options
  * @returns Form state and handlers
  */
@@ -205,7 +205,7 @@ export const useForm = (options: FormOptions = {}): FormReturn => {
   // Validate entire form
   const validateForm = useCallback((): Record<string, string> => {
     const formErrors: Record<string, string> = {};
-    
+
     Object.keys(formState).forEach(field => {
       const error = validateField(field, formState[field].value);
       if (error) {
@@ -222,7 +222,7 @@ export const useForm = (options: FormOptions = {}): FormReturn => {
   }, [formState, validateField, updateFieldState]);
 
   // Handle form submission
-  const handleSubmit = useCallback(async (e?: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e?: FormEvent) => {
     if (e) {
       e.preventDefault();
     }

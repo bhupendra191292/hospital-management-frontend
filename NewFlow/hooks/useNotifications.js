@@ -1,8 +1,8 @@
 import { useEffect, useCallback, useRef } from 'react';
 import { useNotification } from '../contexts/NotificationContext';
-import { 
-  getNotifications, 
-  markNotificationAsRead, 
+import {
+  getNotifications,
+  markNotificationAsRead,
   markAllNotificationsAsRead,
   deleteNotification,
   clearAllNotifications,
@@ -35,7 +35,7 @@ export const useNotifications = () => {
   useEffect(() => {
     const initializeWebSocket = () => {
       const wsUrl = `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws/notifications`;
-      
+
       wsRef.current = new NotificationWebSocket(
         wsUrl,
         handleWebSocketMessage,
@@ -43,7 +43,7 @@ export const useNotifications = () => {
         handleWebSocketOpen,
         handleWebSocketClose
       );
-      
+
       wsRef.current.connect();
     };
 
@@ -111,7 +111,7 @@ export const useNotifications = () => {
           actions: notification.actions || [],
           data: notification.data || {}
         }));
-        
+
         bulkAddNotifications(clientNotifications);
       }
     } catch (error) {
@@ -264,7 +264,7 @@ export const useNotifications = () => {
     notifications,
     unreadCount,
     settings,
-    
+
     // Actions
     loadNotifications,
     markAsReadOnServer,
@@ -279,10 +279,10 @@ export const useNotifications = () => {
     requestNotificationPermission,
     isNotificationSupported,
     getNotificationStats,
-    
+
     // WebSocket
     isConnected: wsRef.current?.readyState === WebSocket.OPEN,
-    
+
     // Constants
     NOTIFICATION_TYPES,
     NOTIFICATION_PRIORITIES

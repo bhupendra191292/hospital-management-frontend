@@ -12,32 +12,32 @@ export const VALIDATION_RULES = {
     pattern: /^[a-zA-Z\s\u00C0-\u017F\u0100-\u017F\u0180-\u024F\u1E00-\u1EFF]+$/,
     message: 'Name must be 2-100 characters and contain only letters and spaces'
   },
-  
+
   PATIENT_EMAIL: {
     required: false,
     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     message: 'Please enter a valid email address'
   },
-  
+
   PATIENT_MOBILE: {
     required: true,
     pattern: /^[0-9]{10}$/,
     message: 'Mobile number must be exactly 10 digits'
   },
-  
+
   PATIENT_AGE: {
     required: true,
     min: 0,
     max: 150,
     message: 'Age must be between 0 and 150'
   },
-  
+
   PATIENT_GENDER: {
     required: true,
     enum: ['Male', 'Female', 'Other'],
     message: 'Please select a valid gender'
   },
-  
+
   // Doctor validation
   DOCTOR_NAME: {
     required: true,
@@ -46,32 +46,32 @@ export const VALIDATION_RULES = {
     pattern: /^[a-zA-Z\s.\u00C0-\u017F\u0100-\u017F\u0180-\u024F\u1E00-\u1EFF]+$/,
     message: 'Doctor name must be 2-100 characters and contain only letters, spaces, and periods'
   },
-  
+
   DOCTOR_PHONE: {
     required: true,
     pattern: /^[0-9]{10}$/,
     message: 'Phone number must be exactly 10 digits'
   },
-  
+
   DOCTOR_EMAIL: {
     required: false,
     pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     message: 'Please enter a valid email address'
   },
-  
+
   DOCTOR_EXPERIENCE: {
     required: true,
     min: 0,
     max: 50,
     message: 'Experience must be between 0 and 50 years'
   },
-  
+
   DOCTOR_CONSULTATION_FEE: {
     required: true,
     min: 0,
     message: 'Consultation fee must be a positive number'
   },
-  
+
   DOCTOR_SPECIALIZATION: {
     required: true,
     enum: [
@@ -83,38 +83,38 @@ export const VALIDATION_RULES = {
     ],
     message: 'Please select a valid specialization'
   },
-  
+
   DOCTOR_AVAILABLE_DAYS: {
     required: true,
     minLength: 1,
     enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     message: 'Please select at least one available day'
   },
-  
+
   // Visit/Appointment validation
   APPOINTMENT_DATE: {
     required: true,
     message: 'Please select an appointment date'
   },
-  
+
   APPOINTMENT_TIME: {
     required: true,
     message: 'Please select an appointment time'
   },
-  
+
   CHIEF_COMPLAINT: {
     required: false,
     minLength: 5,
     maxLength: 500,
     message: 'Chief complaint must be 5-500 characters'
   },
-  
+
   // General validation
   REQUIRED: {
     required: true,
     message: 'This field is required'
   },
-  
+
   PASSWORD: {
     required: true,
     minLength: 6,
@@ -127,29 +127,29 @@ export const VALIDATION_RULES = {
  */
 export const validateField = (value, rules) => {
   if (!rules) return null;
-  
+
   // Required check
   if (rules.required && (!value || (Array.isArray(value) ? value.length === 0 : value.toString().trim() === ''))) {
     return rules.message || 'This field is required';
   }
-  
+
   // Skip other validations if field is empty and not required
   if (!value || (Array.isArray(value) ? value.length === 0 : value.toString().trim() === '')) {
     return null;
   }
-  
+
   // Handle array validation
   if (Array.isArray(value)) {
     // Min length for arrays
     if (rules.minLength && value.length < rules.minLength) {
       return rules.message || `Please select at least ${rules.minLength} option(s)`;
     }
-    
+
     // Max length for arrays
     if (rules.maxLength && value.length > rules.maxLength) {
       return rules.message || `Please select at most ${rules.maxLength} option(s)`;
     }
-    
+
     // Enum check for arrays (validate each item)
     if (rules.enum) {
       for (const item of value) {
@@ -158,43 +158,43 @@ export const validateField = (value, rules) => {
         }
       }
     }
-    
+
     return null;
   }
-  
+
   // Handle string/number validation
   const stringValue = value.toString().trim();
-  
+
   // Min length check (for strings)
   if (rules.minLength && stringValue.length < rules.minLength) {
     return rules.message || `Minimum length is ${rules.minLength} characters`;
   }
-  
+
   // Max length check (for strings)
   if (rules.maxLength && stringValue.length > rules.maxLength) {
     return rules.message || `Maximum length is ${rules.maxLength} characters`;
   }
-  
+
   // Pattern check
   if (rules.pattern && !rules.pattern.test(stringValue)) {
     return rules.message || 'Invalid format';
   }
-  
+
   // Enum check (for single values)
   if (rules.enum && !rules.enum.includes(stringValue)) {
     return rules.message || `Must be one of: ${rules.enum.join(', ')}`;
   }
-  
+
   // Min value check (for numbers)
   if (rules.min !== undefined && parseFloat(value) < rules.min) {
     return rules.message || `Minimum value is ${rules.min}`;
   }
-  
+
   // Max value check (for numbers)
   if (rules.max !== undefined && parseFloat(value) > rules.max) {
     return rules.message || `Maximum value is ${rules.max}`;
   }
-  
+
   return null;
 };
 
@@ -203,16 +203,16 @@ export const validateField = (value, rules) => {
  */
 export const validateForm = (formData, validationSchema) => {
   const errors = {};
-  
+
   for (const [fieldName, rules] of Object.entries(validationSchema)) {
     const value = formData[fieldName];
     const error = validateField(value, rules);
-    
+
     if (error) {
       errors[fieldName] = error;
     }
   }
-  
+
   return {
     isValid: Object.keys(errors).length === 0,
     errors
@@ -283,11 +283,11 @@ export const sanitizeInput = (value) => {
  */
 export const sanitizeFormData = (formData) => {
   const sanitized = {};
-  
+
   for (const [key, value] of Object.entries(formData)) {
     sanitized[key] = sanitizeInput(value);
   }
-  
+
   return sanitized;
 };
 
@@ -297,7 +297,7 @@ export const sanitizeFormData = (formData) => {
 export const validateAndSanitize = (formData, validationSchema) => {
   const sanitizedData = sanitizeFormData(formData);
   const validation = validateForm(sanitizedData, validationSchema);
-  
+
   return {
     ...validation,
     data: sanitizedData

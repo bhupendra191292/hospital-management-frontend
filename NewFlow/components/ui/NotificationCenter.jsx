@@ -28,13 +28,13 @@ const NotificationCenter = ({ isOpen, onClose }) => {
 
   // Filter notifications
   const filteredNotifications = notifications.filter(notification => {
-    const matchesSearch = !searchTerm || 
+    const matchesSearch = !searchTerm ||
       notification.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       notification.message.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     const matchesType = !typeFilter || notification.type === typeFilter;
     const matchesPriority = !priorityFilter || notification.priority === priorityFilter;
-    const matchesStatus = !statusFilter || 
+    const matchesStatus = !statusFilter ||
       (statusFilter === 'read' && notification.read) ||
       (statusFilter === 'unread' && !notification.read);
 
@@ -123,11 +123,11 @@ const NotificationCenter = ({ isOpen, onClose }) => {
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} size="large">
-        <ModalHeader 
-          title={`🔔 Notifications ${unreadCount > 0 ? `(${unreadCount} unread)` : ''}`} 
-          onClose={onClose} 
+        <ModalHeader
+          title={`🔔 Notifications ${unreadCount > 0 ? `(${unreadCount} unread)` : ''}`}
+          onClose={onClose}
         />
-        
+
         <div className="notification-center">
           {/* Header Actions */}
           <div className="notification-header">
@@ -163,21 +163,21 @@ const NotificationCenter = ({ isOpen, onClose }) => {
               onChange={setSearchTerm}
               className="search-input"
             />
-            
+
             <FilterDropdown
               label="Type"
               value={typeFilter}
               onChange={setTypeFilter}
               options={getTypeOptions()}
             />
-            
+
             <FilterDropdown
               label="Priority"
               value={priorityFilter}
               onChange={setPriorityFilter}
               options={getPriorityOptions()}
             />
-            
+
             <FilterDropdown
               label="Status"
               value={statusFilter}

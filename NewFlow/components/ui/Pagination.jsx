@@ -1,13 +1,13 @@
 import React from 'react';
 import './Pagination.css';
 
-const Pagination = ({ 
-  currentPage, 
-  totalPages, 
-  onPageChange, 
-  totalItems, 
+const Pagination = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+  totalItems,
   itemsPerPage,
-  className = ""
+  className = ''
 }) => {
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
@@ -15,7 +15,7 @@ const Pagination = ({
   const getPageNumbers = () => {
     const pages = [];
     const maxVisiblePages = 5;
-    
+
     if (totalPages <= maxVisiblePages) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
@@ -43,7 +43,7 @@ const Pagination = ({
         pages.push(totalPages);
       }
     }
-    
+
     return pages;
   };
 
@@ -54,7 +54,7 @@ const Pagination = ({
       <div className="pagination-info">
         Showing {startItem} to {endItem} of {totalItems} items
       </div>
-      
+
       <div className="pagination-controls">
         <button
           className="pagination-button"
@@ -64,7 +64,7 @@ const Pagination = ({
         >
           ← Previous
         </button>
-        
+
         <div className="pagination-pages">
           {getPageNumbers().map((page, index) => (
             <button
@@ -78,7 +78,7 @@ const Pagination = ({
             </button>
           ))}
         </div>
-        
+
         <button
           className="pagination-button"
           onClick={() => onPageChange(currentPage + 1)}

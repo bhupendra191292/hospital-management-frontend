@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRole } from './contexts/RoleContext';
 import { newFlowLogin, newFlowForgotPassword } from './services/api';
@@ -43,7 +43,7 @@ const NewFlowLogin = () => {
 
     try {
       const response = await newFlowForgotPassword(forgotPasswordData.loginField, forgotPasswordData.tenantId);
-      
+
       if (response.data.success) {
         setForgotPasswordMessage(response.data.message);
       } else {
@@ -63,14 +63,14 @@ const NewFlowLogin = () => {
 
     try {
       const response = await newFlowLogin(formData.loginField, formData.password, formData.tenantId);
-      
+
       if (response.data.success) {
         localStorage.setItem('newflow_token', response.data.token);
         localStorage.setItem('newflow_user', JSON.stringify(response.data.user));
-        
+
         // Update RoleContext with the new user data
         login(response.data.user);
-        
+
         navigate('/dashboard');
       } else {
         setErrors({ submit: response.data.message || 'Login failed' });
@@ -133,8 +133,8 @@ const NewFlowLogin = () => {
 
           {errors.submit && <div className="error-message">{errors.submit}</div>}
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="newflow-btn"
             disabled={isLoading}
           >
@@ -143,7 +143,7 @@ const NewFlowLogin = () => {
         </form>
 
         <div className="forgot-password-section">
-          <button 
+          <button
             type="button"
             className="forgot-password-btn"
             onClick={() => setShowForgotPassword(true)}
@@ -163,11 +163,11 @@ const NewFlowLogin = () => {
           <div className="credential-item">
             <strong>Login Options:</strong> Email, Phone (10 digits), Doctor ID (DOC001), Patient Mobile
           </div>
-          
+
           <div className="role-options">
             <h5>Choose a Role to Test:</h5>
             <div className="role-buttons">
-              <button 
+              <button
                 type="button"
                 className="role-btn"
                 onClick={() => setFormData({
@@ -178,7 +178,7 @@ const NewFlowLogin = () => {
               >
                 👨‍💼 Admin
               </button>
-              <button 
+              <button
                 type="button"
                 className="role-btn"
                 onClick={() => setFormData({
@@ -189,7 +189,7 @@ const NewFlowLogin = () => {
               >
                 👨‍⚕️ Dr. Sarah Johnson (Cardiology)
               </button>
-              <button 
+              <button
                 type="button"
                 className="role-btn"
                 onClick={() => setFormData({
@@ -200,7 +200,7 @@ const NewFlowLogin = () => {
               >
                 👨‍⚕️ Dr. Michael Chen (Neurology)
               </button>
-              <button 
+              <button
                 type="button"
                 className="role-btn"
                 onClick={() => setFormData({
@@ -211,7 +211,7 @@ const NewFlowLogin = () => {
               >
                 👩‍⚕️ Dr. Lisa Wilson (Pediatrics)
               </button>
-              <button 
+              <button
                 type="button"
                 className="role-btn"
                 onClick={() => setFormData({
@@ -222,7 +222,7 @@ const NewFlowLogin = () => {
               >
                 👤 John Smith (Patient)
               </button>
-              <button 
+              <button
                 type="button"
                 className="role-btn"
                 onClick={() => setFormData({
@@ -233,7 +233,7 @@ const NewFlowLogin = () => {
               >
                 👤 Jane Doe (Patient)
               </button>
-              <button 
+              <button
                 type="button"
                 className="role-btn"
                 onClick={() => setFormData({
@@ -244,7 +244,7 @@ const NewFlowLogin = () => {
               >
                 🆔 Dr. Sarah Johnson (DOC001)
               </button>
-              <button 
+              <button
                 type="button"
                 className="role-btn super-admin"
                 onClick={() => setFormData({
@@ -262,7 +262,7 @@ const NewFlowLogin = () => {
         <div className="newflow-footer">
           <p>Need help? Contact your system administrator</p>
           <div className="footer-links">
-            <button 
+            <button
               type="button"
               className="footer-link"
               onClick={() => navigate('/doctor-register')}
@@ -280,17 +280,17 @@ const NewFlowLogin = () => {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <h3>🔐 Forgot Password</h3>
-              <button 
+              <button
                 className="modal-close"
                 onClick={() => setShowForgotPassword(false)}
               >
                 ×
               </button>
             </div>
-            
+
             <div className="modal-body">
               <p>Enter your email, phone number, or user ID to receive password reset instructions.</p>
-              
+
               <form onSubmit={handleForgotPassword}>
                 <div className="form-group">
                   <label htmlFor="forgot-tenantId">Tenant ID</label>
@@ -325,14 +325,14 @@ const NewFlowLogin = () => {
                 )}
 
                 <div className="modal-actions">
-                  <button 
+                  <button
                     type="button"
                     className="btn-secondary"
                     onClick={() => setShowForgotPassword(false)}
                   >
                     Cancel
                   </button>
-                  <button 
+                  <button
                     type="submit"
                     className="btn-primary"
                     disabled={forgotPasswordLoading}

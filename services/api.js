@@ -8,7 +8,7 @@ import newFlowApi from '../NewFlow/services/axiosInstance';
 export {
   // Authentication
   newFlowLogin as loginDoctor,
-  
+
   // Patients
   getNewFlowPatients as getPatients,
   getNewFlowPatientById as getPatientById,
@@ -17,7 +17,7 @@ export {
   deleteNewFlowPatient,
   checkNewFlowDuplicates as checkPatient,
   searchNewFlowPatients,
-  
+
   // Doctors
   getNewFlowDoctors as getDoctors,
   getAllNewFlowDoctors,
@@ -28,7 +28,7 @@ export {
   getPendingNewFlowDoctors,
   approveNewFlowDoctor as promoteDoctor,
   rejectNewFlowDoctor,
-  
+
   // Visits/Appointments
   getNewFlowVisits as getVisits,
   getNewFlowVisitById,
@@ -44,11 +44,11 @@ export {
   deleteNewFlowVisit as deleteAppointment,
   getNewFlowVisitsByPatient as getPatientAppointments,
   getNewFlowVisitStats as getTodayAppointments,
-  
+
   // Dashboard
   getNewFlowDashboardStats as getDashboardSummary,
   getNewFlowVisitStats as getTrends,
-  
+
   // Prescriptions
   getNewFlowPrescriptions,
   createNewFlowPrescription,
@@ -56,10 +56,10 @@ export {
   deleteNewFlowPrescription,
   getNewFlowPrescriptionsByPatient,
   getNewFlowPrescriptionsByDoctor,
-  
+
   // Health Check
   getNewFlowHealth,
-  
+
   // Auth helpers
   getNewFlowAuthToken,
   setNewFlowAuthToken,

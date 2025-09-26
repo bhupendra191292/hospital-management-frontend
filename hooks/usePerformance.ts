@@ -24,14 +24,14 @@ interface PerformanceState {
 
 /**
  * Enhanced Performance Monitoring Hook
- * 
+ *
  * Features:
  * - Real-time performance monitoring
  * - Custom metrics tracking
  * - Threshold-based alerts
  * - Performance optimization insights
  * - Memory usage tracking
- * 
+ *
  * @param config - Performance monitoring configuration
  * @returns Performance monitoring state and utilities
  */
@@ -50,21 +50,21 @@ export const usePerformance = (config: PerformanceConfig = {}) => {
   // Start performance monitoring
   const startMonitoring = useCallback(() => {
     if (!enabled) return;
-    
+
     isMonitoringRef.current = true;
     startTimeRef.current = performance.now();
-    
+
     console.log('🚀 Performance monitoring started');
   }, [enabled]);
 
   // Stop performance monitoring
   const stopMonitoring = useCallback(() => {
     if (!enabled) return;
-    
+
     isMonitoringRef.current = false;
     const endTime = performance.now();
     const duration = endTime - startTimeRef.current;
-    
+
     console.log(`⏱️ Performance monitoring stopped. Duration: ${duration.toFixed(2)}ms`);
   }, [enabled]);
 
@@ -97,18 +97,18 @@ export const usePerformance = (config: PerformanceConfig = {}) => {
     metadata?: Record<string, any>
   ): Promise<T> => {
     const startTime = performance.now();
-    
+
     try {
       const result = await fn();
       const endTime = performance.now();
       const duration = endTime - startTime;
-      
+
       addMetric(name, duration, 'ms', metadata);
       return result;
     } catch (error) {
       const endTime = performance.now();
       const duration = endTime - startTime;
-      
+
       addMetric(`${name}_error`, duration, 'ms', { ...metadata, error: error.message });
       throw error;
     }
@@ -223,7 +223,7 @@ export const usePerformance = (config: PerformanceConfig = {}) => {
     metrics: getMetrics(),
     isMonitoring: isMonitoringRef.current,
     averageMetrics,
-    
+
     // Actions
     startMonitoring,
     stopMonitoring,
@@ -244,8 +244,8 @@ export const performanceUtils = {
     wait: number,
     performanceHook?: ReturnType<typeof usePerformance>
   ): ((...args: Parameters<T>) => void) => {
-    let timeout: NodeJS.Timeout;
-    
+    let timeout: number;
+
     return (...args: Parameters<T>) => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
@@ -265,7 +265,7 @@ export const performanceUtils = {
     performanceHook?: ReturnType<typeof usePerformance>
   ): ((...args: Parameters<T>) => void) => {
     let inThrottle: boolean;
-    
+
     return (...args: Parameters<T>) => {
       if (!inThrottle) {
         if (performanceHook) {
@@ -285,14 +285,14 @@ export const performanceUtils = {
     keyGenerator?: (...args: Parameters<T>) => string
   ): T => {
     const cache = new Map<string, ReturnType<T>>();
-    
+
     return ((...args: Parameters<T>) => {
       const key = keyGenerator ? keyGenerator(...args) : JSON.stringify(args);
-      
+
       if (cache.has(key)) {
         return cache.get(key);
       }
-      
+
       const result = func(...args);
       cache.set(key, result);
       return result;

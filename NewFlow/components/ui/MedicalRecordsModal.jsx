@@ -3,10 +3,10 @@ import { Modal, ModalHeader, Button } from './index';
 import { getNewFlowPatientMedicalRecords } from '../../services/api';
 import './MedicalRecordsModal.css';
 
-const MedicalRecordsModal = ({ 
-  isOpen, 
-  onClose, 
-  patient 
+const MedicalRecordsModal = ({
+  isOpen,
+  onClose,
+  patient
 }) => {
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,9 +22,9 @@ const MedicalRecordsModal = ({
     try {
       setIsLoading(true);
       setError('');
-      
+
       const response = await getNewFlowPatientMedicalRecords(patient.id);
-      
+
       if (response.data.success) {
         setMedicalRecords(response.data.data.records);
       } else {
@@ -113,8 +113,8 @@ const MedicalRecordsModal = ({
               <div className="error-message">
                 <span className="error-icon">⚠️</span>
                 <p>{error}</p>
-                <Button 
-                  variant="primary" 
+                <Button
+                  variant="primary"
                   size="small"
                   onClick={loadMedicalRecords}
                 >
@@ -252,8 +252,8 @@ const MedicalRecordsModal = ({
 
         {/* Footer */}
         <div className="modal-footer">
-          <Button 
-            variant="secondary" 
+          <Button
+            variant="secondary"
             size="medium"
             onClick={onClose}
           >

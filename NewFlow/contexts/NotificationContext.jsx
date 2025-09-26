@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
+import { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
 
 // Notification types
 export const NOTIFICATION_TYPES = {
@@ -47,7 +47,7 @@ const NOTIFICATION_ACTIONS = {
 // Reducer
 const notificationReducer = (state, action) => {
   switch (action.type) {
-    case NOTIFICATION_ACTIONS.ADD_NOTIFICATION:
+    case NOTIFICATION_ACTIONS.ADD_NOTIFICATION: {
       const newNotification = {
         id: action.payload.id || Date.now().toString(),
         type: action.payload.type || NOTIFICATION_TYPES.INFO,
@@ -60,27 +60,29 @@ const notificationReducer = (state, action) => {
         actions: action.payload.actions || [],
         data: action.payload.data || {}
       };
-      
+
       return {
         ...state,
         notifications: [newNotification, ...state.notifications],
         unreadCount: state.unreadCount + 1
       };
+    }
 
-    case NOTIFICATION_ACTIONS.REMOVE_NOTIFICATION:
+    case NOTIFICATION_ACTIONS.REMOVE_NOTIFICATION: {
       const notificationToRemove = state.notifications.find(n => n.id === action.payload);
       return {
         ...state,
         notifications: state.notifications.filter(n => n.id !== action.payload),
-        unreadCount: notificationToRemove && !notificationToRemove.read 
-          ? state.unreadCount - 1 
+        unreadCount: notificationToRemove && !notificationToRemove.read
+          ? state.unreadCount - 1
           : state.unreadCount
       };
+    }
 
     case NOTIFICATION_ACTIONS.MARK_AS_READ:
       return {
         ...state,
-        notifications: state.notifications.map(n => 
+        notifications: state.notifications.map(n =>
           n.id === action.payload ? { ...n, read: true } : n
         ),
         unreadCount: Math.max(0, state.unreadCount - 1)
@@ -112,7 +114,7 @@ const notificationReducer = (state, action) => {
         isConnected: action.payload
       };
 
-    case NOTIFICATION_ACTIONS.BULK_ADD:
+    case NOTIFICATION_ACTIONS.BULK_ADD: {
       const newNotifications = action.payload.map(notification => ({
         id: notification.id || Date.now().toString() + Math.random(),
         type: notification.type || NOTIFICATION_TYPES.INFO,
@@ -125,12 +127,13 @@ const notificationReducer = (state, action) => {
         actions: notification.actions || [],
         data: notification.data || {}
       }));
-      
+
       return {
         ...state,
         notifications: [...newNotifications, ...state.notifications],
         unreadCount: state.unreadCount + newNotifications.length
       };
+    }
 
     default:
       return state;
@@ -360,7 +363,7 @@ export const NotificationProvider = ({ children }) => {
     unreadCount: state.unreadCount,
     isConnected: state.isConnected,
     settings: state.settings,
-    
+
     // Actions
     addNotification,
     removeNotification,
@@ -370,7 +373,7 @@ export const NotificationProvider = ({ children }) => {
     updateSettings,
     setConnectionStatus,
     bulkAddNotifications,
-    
+
     // Quick methods
     notifySuccess,
     notifyError,
@@ -379,12 +382,12 @@ export const NotificationProvider = ({ children }) => {
     notifyAppointment,
     notifyMedical,
     notifySystem,
-    
+
     // Getters
     getNotificationsByType,
     getUnreadNotifications,
     getNotificationsByPriority,
-    
+
     // Constants
     NOTIFICATION_TYPES,
     NOTIFICATION_PRIORITIES

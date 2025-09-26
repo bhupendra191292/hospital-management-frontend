@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { ROLES, PERMISSIONS, hasPermission, hasAnyPermission, hasAllPermissions, getRoleInfo } from '../constants/roles';
 
 const RoleContext = createContext();
@@ -31,7 +31,7 @@ export const RoleProvider = ({ children }) => {
         localStorage.removeItem('newflow_user');
       }
     }
-    
+
     // Add a small delay to show the loading state
     setTimeout(() => {
       setIsLoading(false);

@@ -82,11 +82,11 @@ const NotificationSettings = ({ isOpen, onClose }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="medium">
-      <ModalHeader 
-        title="🔔 Notification Settings" 
-        onClose={onClose} 
+      <ModalHeader
+        title="🔔 Notification Settings"
+        onClose={onClose}
       />
-      
+
       <div className="notification-settings">
         <div className="settings-sections">
           {/* Notification Preferences */}

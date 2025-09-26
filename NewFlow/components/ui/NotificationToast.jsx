@@ -106,7 +106,7 @@ const NotificationToast = () => {
             </button>
           </div>
           <div className="toast-progress">
-            <div 
+            <div
               className="toast-progress-bar"
               style={{
                 animation: `toastProgress ${toast.persistent ? '0s' : '5s'} linear forwards`

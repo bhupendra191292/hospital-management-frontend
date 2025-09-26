@@ -2,12 +2,12 @@ import React from 'react';
 import { Modal, ModalHeader, Button, StatusBadge } from './index';
 import './AppointmentDetailsModal.css';
 
-const AppointmentDetailsModal = ({ 
-  isOpen, 
-  onClose, 
-  appointment, 
-  onEdit, 
-  onDelete 
+const AppointmentDetailsModal = ({
+  isOpen,
+  onClose,
+  appointment,
+  onEdit,
+  onDelete
 }) => {
   if (!appointment) return null;
 
@@ -54,7 +54,7 @@ const AppointmentDetailsModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="large">
       <ModalHeader title="Appointment Details" onClose={onClose} />
-      
+
       <div className="appointment-details">
         <div className="details-header">
           <div className="appointment-id">
@@ -62,8 +62,8 @@ const AppointmentDetailsModal = ({
             <span className="value">{appointment._id}</span>
           </div>
           <div className="appointment-status">
-            <StatusBadge 
-              status={appointment.status} 
+            <StatusBadge
+              status={appointment.status}
               color={getStatusColor(appointment.status)}
             />
           </div>
@@ -132,8 +132,8 @@ const AppointmentDetailsModal = ({
             </div>
             <div className="detail-item">
               <span className="label">Priority:</span>
-              <StatusBadge 
-                status={appointment.priority} 
+              <StatusBadge
+                status={appointment.priority}
                 color={getPriorityColor(appointment.priority)}
               />
             </div>
@@ -152,7 +152,7 @@ const AppointmentDetailsModal = ({
             <div className="detail-item">
               <span className="label">Symptoms:</span>
               <span className="value">
-                {appointment.symptoms && appointment.symptoms.length > 0 
+                {appointment.symptoms && appointment.symptoms.length > 0
                   ? appointment.symptoms.join(', ')
                   : 'N/A'
                 }
@@ -199,7 +199,7 @@ const AppointmentDetailsModal = ({
             <div className="detail-item">
               <span className="label">Created At:</span>
               <span className="value">
-                {appointment.createdAt 
+                {appointment.createdAt
                   ? new Date(appointment.createdAt).toLocaleString('en-IN')
                   : 'N/A'
                 }
@@ -208,7 +208,7 @@ const AppointmentDetailsModal = ({
             <div className="detail-item">
               <span className="label">Updated At:</span>
               <span className="value">
-                {appointment.updatedAt 
+                {appointment.updatedAt
                   ? new Date(appointment.updatedAt).toLocaleString('en-IN')
                   : 'N/A'
                 }

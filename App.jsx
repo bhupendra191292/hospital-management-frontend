@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';

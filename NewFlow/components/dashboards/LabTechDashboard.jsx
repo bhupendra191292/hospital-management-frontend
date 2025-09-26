@@ -49,7 +49,7 @@ const LabTechDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   // Define navigation items for lab tech dashboard
   const navigationItems = [
     {
-      title: "Dashboard",
+      title: 'Dashboard',
       items: [
         { view: 'overview', icon: '📊', label: 'Overview' },
         { view: 'tests', icon: '🧪', label: 'Lab Tests' },

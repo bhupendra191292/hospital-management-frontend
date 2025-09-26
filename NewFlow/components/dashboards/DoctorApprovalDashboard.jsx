@@ -23,7 +23,7 @@ const DoctorApprovalDashboard = ({ onBack }) => {
       setIsLoading(true);
       setError(null);
       const response = await getPendingNewFlowDoctors();
-      
+
       if (response.data.success) {
         setPendingDoctors(response.data.data);
       } else {
@@ -41,7 +41,7 @@ const DoctorApprovalDashboard = ({ onBack }) => {
     try {
       setIsProcessing(true);
       const response = await approveNewFlowDoctor(doctorId);
-      
+
       if (response.data.success) {
         // Remove the approved doctor from pending list
         setPendingDoctors(prev => prev.filter(doctor => doctor._id !== doctorId));
@@ -66,7 +66,7 @@ const DoctorApprovalDashboard = ({ onBack }) => {
     try {
       setIsProcessing(true);
       const response = await rejectNewFlowDoctor(selectedDoctor._id, rejectReason);
-      
+
       if (response.data.success) {
         // Remove the rejected doctor from pending list
         setPendingDoctors(prev => prev.filter(doctor => doctor._id !== selectedDoctor._id));

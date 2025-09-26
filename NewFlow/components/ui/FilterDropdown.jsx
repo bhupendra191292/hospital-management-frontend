@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './FilterDropdown.css';
 
-const FilterDropdown = ({ 
-  options = [], 
-  value, 
-  onChange, 
-  placeholder = "Filter...", 
-  className = "",
-  disabled = false 
+const FilterDropdown = ({
+  options = [],
+  value,
+  onChange,
+  placeholder = 'Filter...',
+  className = '',
+  disabled = false
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -31,7 +31,7 @@ const FilterDropdown = ({
         </span>
         <span className="filter-arrow">▼</span>
       </button>
-      
+
       {isOpen && (
         <div className="filter-dropdown-menu">
           <button

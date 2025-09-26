@@ -1,20 +1,20 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
-import { 
-  Button, 
-  SearchInput, 
-  FilterDropdown, 
-  ConfirmationDialog, 
+import {
+  Button,
+  SearchInput,
+  FilterDropdown,
+  ConfirmationDialog,
   Pagination,
   StatusBadge,
   UserAvatar,
   DoctorCard,
   AddDoctorModal
 } from '../ui';
-import { 
-  getAllNewFlowDoctors, 
-  createNewFlowDoctor, 
-  updateNewFlowDoctor, 
-  deleteNewFlowDoctor 
+import {
+  getAllNewFlowDoctors,
+  createNewFlowDoctor,
+  updateNewFlowDoctor,
+  deleteNewFlowDoctor
 } from '../../services/api';
 import { useDataProcessing, usePerformanceMonitor } from '../../hooks/usePerformance';
 import './EnhancedDoctorManagement.css';
@@ -22,7 +22,7 @@ import './EnhancedDoctorManagement.css';
 const EnhancedDoctorManagement = ({ onBack }) => {
   // Performance monitoring
   const { renderCount } = usePerformanceMonitor('EnhancedDoctorManagement');
-  
+
   // State management
   const [searchTerm, setSearchTerm] = useState('');
   const [specializationFilter, setSpecializationFilter] = useState('');
@@ -180,8 +180,8 @@ const EnhancedDoctorManagement = ({ onBack }) => {
   }, [sortField, sortDirection]);
 
   const handleSelectDoctor = useCallback((doctorId) => {
-    setSelectedDoctors(prev => 
-      prev.includes(doctorId) 
+    setSelectedDoctors(prev =>
+      prev.includes(doctorId)
         ? prev.filter(id => id !== doctorId)
         : [...prev, doctorId]
     );
@@ -206,7 +206,7 @@ const EnhancedDoctorManagement = ({ onBack }) => {
   const handleDoctorAction = (doctorId, action) => {
     const doctor = doctors.find(d => d.id === doctorId);
     const doctorName = doctor?.name || 'Doctor';
-    
+
     setConfirmationDialog({
       isOpen: true,
       title: `Confirm ${action.charAt(0).toUpperCase() + action.slice(1)}`,
@@ -219,7 +219,7 @@ const EnhancedDoctorManagement = ({ onBack }) => {
 
   const handleBulkAction = (action) => {
     const doctorNames = selectedDoctors.map(id => doctors.find(d => d.id === id)?.name).join(', ');
-    
+
     setConfirmationDialog({
       isOpen: true,
       title: `Confirm Bulk ${action.charAt(0).toUpperCase() + action.slice(1)}`,
@@ -235,19 +235,19 @@ const EnhancedDoctorManagement = ({ onBack }) => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       if (action === 'delete') {
         setDoctors(prev => prev.filter(doctor => doctor.id !== doctorId));
       } else if (action === 'deactivate') {
-        setDoctors(prev => prev.map(doctor => 
+        setDoctors(prev => prev.map(doctor =>
           doctor.id === doctorId ? { ...doctor, status: 'inactive' } : doctor
         ));
       } else if (action === 'approve') {
-        setDoctors(prev => prev.map(doctor => 
+        setDoctors(prev => prev.map(doctor =>
           doctor.id === doctorId ? { ...doctor, status: 'active' } : doctor
         ));
       }
-      
+
       setSelectedDoctors(prev => prev.filter(id => id !== doctorId));
     } catch (error) {
       console.error('Error executing doctor action:', error);
@@ -262,19 +262,19 @@ const EnhancedDoctorManagement = ({ onBack }) => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       if (action === 'delete') {
         setDoctors(prev => prev.filter(doctor => !selectedDoctors.includes(doctor.id)));
       } else if (action === 'deactivate') {
-        setDoctors(prev => prev.map(doctor => 
+        setDoctors(prev => prev.map(doctor =>
           selectedDoctors.includes(doctor.id) ? { ...doctor, status: 'inactive' } : doctor
         ));
       } else if (action === 'approve') {
-        setDoctors(prev => prev.map(doctor => 
+        setDoctors(prev => prev.map(doctor =>
           selectedDoctors.includes(doctor.id) ? { ...doctor, status: 'active' } : doctor
         ));
       }
-      
+
       setSelectedDoctors([]);
     } catch (error) {
       console.error('Error executing bulk action:', error);
@@ -314,15 +314,15 @@ const EnhancedDoctorManagement = ({ onBack }) => {
           </div>
         </div>
         <div className="header-actions">
-          <Button 
-            variant={editMode ? 'primary' : 'default'} 
+          <Button
+            variant={editMode ? 'primary' : 'default'}
             size="medium"
             onClick={handleToggleEditMode}
           >
             {editMode ? '✅ Done Editing' : '✏️ Edit Mode'}
           </Button>
-          <Button 
-            variant="primary" 
+          <Button
+            variant="primary"
             size="medium"
             onClick={() => setShowAddDoctorModal(true)}
           >
@@ -358,14 +358,14 @@ const EnhancedDoctorManagement = ({ onBack }) => {
         </div>
         <div className="filters-right">
           <div className="view-toggle">
-            <Button 
+            <Button
               variant={viewMode === 'grid' ? 'primary' : 'default'}
               size="large"
               onClick={() => setViewMode('grid')}
             >
               ⊞
             </Button>
-            <Button 
+            <Button
               variant={viewMode === 'table' ? 'primary' : 'default'}
               size="large"
               onClick={() => setViewMode('table')}
@@ -386,22 +386,22 @@ const EnhancedDoctorManagement = ({ onBack }) => {
             <span>{selectedDoctors.length} doctor{selectedDoctors.length > 1 ? 's' : ''} selected</span>
           </div>
           <div className="bulk-buttons">
-            <Button 
-              variant="default" 
+            <Button
+              variant="default"
               size="small"
               onClick={() => handleBulkAction('approve')}
             >
               ✅ Approve Selected
             </Button>
-            <Button 
-              variant="default" 
+            <Button
+              variant="default"
               size="small"
               onClick={() => handleBulkAction('deactivate')}
             >
               ⏸️ Deactivate Selected
             </Button>
-            <Button 
-              variant="default" 
+            <Button
+              variant="default"
               size="small"
               onClick={() => handleBulkAction('delete')}
             >
@@ -477,38 +477,38 @@ const EnhancedDoctorManagement = ({ onBack }) => {
                   />
                 </div>
               )}
-              <div 
-                className="table-cell sortable" 
+              <div
+                className="table-cell sortable"
                 onClick={() => handleSort('name')}
               >
                 Doctor <SortIcon field="name" />
               </div>
-              <div 
-                className="table-cell sortable" 
+              <div
+                className="table-cell sortable"
                 onClick={() => handleSort('specialization')}
               >
                 Specialization <SortIcon field="specialization" />
               </div>
-              <div 
-                className="table-cell sortable" 
+              <div
+                className="table-cell sortable"
                 onClick={() => handleSort('experience')}
               >
                 Exp <SortIcon field="experience" />
               </div>
-              <div 
-                className="table-cell sortable" 
+              <div
+                className="table-cell sortable"
                 onClick={() => handleSort('patients')}
               >
                 Patients <SortIcon field="patients" />
               </div>
-              <div 
-                className="table-cell sortable" 
+              <div
+                className="table-cell sortable"
                 onClick={() => handleSort('rating')}
               >
                 Rating <SortIcon field="rating" />
               </div>
-              <div 
-                className="table-cell sortable" 
+              <div
+                className="table-cell sortable"
                 onClick={() => handleSort('status')}
               >
                 Status <SortIcon field="status" />
@@ -551,8 +551,8 @@ const EnhancedDoctorManagement = ({ onBack }) => {
                     </div>
                   </div>
                   <div className="table-cell">
-                    <StatusBadge 
-                      status={doctor.status} 
+                    <StatusBadge
+                      status={doctor.status}
                       variant={getStatusColor(doctor.status)}
                       size="small"
                     />
@@ -560,7 +560,7 @@ const EnhancedDoctorManagement = ({ onBack }) => {
                   <div className="table-cell">
                     <div className="action-buttons">
                       {doctor.status === 'pending' && (
-                        <Button 
+                        <Button
                           variant="default"
                           size="small"
                           onClick={() => handleDoctorAction(doctor.id, 'approve')}
@@ -568,14 +568,14 @@ const EnhancedDoctorManagement = ({ onBack }) => {
                           Approve
                         </Button>
                       )}
-                      <Button 
+                      <Button
                         variant="default"
                         size="small"
                         onClick={() => handleDoctorAction(doctor.id, 'view')}
                       >
                         View Profile
                       </Button>
-                      <Button 
+                      <Button
                         variant="default"
                         size="small"
                         onClick={() => handleDoctorAction(doctor.id, 'edit')}

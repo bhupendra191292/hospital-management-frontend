@@ -1,9 +1,9 @@
-import React from 'react';
+// import React from 'react'; // Not needed in modern React
 import './UserAvatar.css';
 
-const UserAvatar = ({ 
-  name, 
-  email, 
+const UserAvatar = ({
+  name,
+  email,
   size = 'medium',
   showName = true,
   showEmail = false,

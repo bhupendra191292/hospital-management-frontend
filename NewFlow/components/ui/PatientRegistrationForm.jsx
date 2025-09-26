@@ -8,9 +8,9 @@ import { useErrorHandler } from '../../hooks/useErrorHandler';
 import { usePatientValidation } from '../../hooks/useValidation';
 import './PatientRegistrationForm.css';
 
-const PatientRegistrationForm = ({ 
-  isOpen, 
-  onClose, 
+const PatientRegistrationForm = ({
+  isOpen,
+  onClose,
   onSave,
   existingPatient = null,
   existingPatients = [] // Array of existing patients for duplicate checking
@@ -69,26 +69,26 @@ const PatientRegistrationForm = ({
     const month = (today.getMonth() + 1).toString().padStart(2, '0');
     const day = today.getDate().toString().padStart(2, '0');
     const randomNum = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-    
+
     return `${hospitalCode}-${year}${month}${day}-${randomNum}`;
   };
 
   // Simplified duplicate detection
   const checkForDuplicates = (patientData) => {
     const duplicates = [];
-    
+
     // Skip duplicate checking if this is already a family member registration
     if (patientData.isFamilyMember && patientData.familyHeadName && patientData.familyHeadUHID) {
       return duplicates;
     }
-    
+
     // Check for exact name + mobile combination (most strict check)
-    const exactDuplicate = existingPatients.find(patient => 
-      !hasSameId(patient, existingPatient) && 
+    const exactDuplicate = existingPatients.find(patient =>
+      !hasSameId(patient, existingPatient) &&
       patient.name.toLowerCase() === patientData.name.toLowerCase() &&
       patient.mobile.replace(/\s/g, '') === patientData.mobile.replace(/\s/g, '')
     );
-    
+
     if (exactDuplicate) {
       duplicates.push({
         type: 'exact_duplicate',
@@ -103,12 +103,12 @@ const PatientRegistrationForm = ({
 
     // Check for email duplicates (only if email is provided)
     if (patientData.email.trim()) {
-      const emailDuplicate = existingPatients.find(patient => 
-        !hasSameId(patient, existingPatient) && 
-        patient.email && 
+      const emailDuplicate = existingPatients.find(patient =>
+        !hasSameId(patient, existingPatient) &&
+        patient.email &&
         patient.email.toLowerCase() === patientData.email.toLowerCase()
       );
-      
+
       if (emailDuplicate) {
         duplicates.push({
           type: 'email_duplicate',
@@ -122,12 +122,12 @@ const PatientRegistrationForm = ({
     }
 
     // Check for mobile duplicates (only if different name)
-    const mobileDuplicate = existingPatients.find(patient => 
-      !hasSameId(patient, existingPatient) && 
+    const mobileDuplicate = existingPatients.find(patient =>
+      !hasSameId(patient, existingPatient) &&
       patient.mobile.replace(/\s/g, '') === patientData.mobile.replace(/\s/g, '') &&
       patient.name.toLowerCase() !== patientData.name.toLowerCase()
     );
-    
+
     if (mobileDuplicate) {
       duplicates.push({
         type: 'mobile_duplicate',
@@ -160,10 +160,10 @@ const PatientRegistrationForm = ({
 
   const validateForm = () => {
     const validation = validateAndSetErrors(formData);
-    
+
     // Check for duplicates (only blocking duplicates, not informational ones)
     const duplicates = checkForDuplicates(formData);
-    const blockingDuplicates = duplicates.filter(duplicate => 
+    const blockingDuplicates = duplicates.filter(duplicate =>
       !duplicate.isInfoOnly && duplicate.isBlocking !== false
     );
     if (blockingDuplicates.length > 0) {
@@ -176,10 +176,10 @@ const PatientRegistrationForm = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Clear any existing errors first
     setErrors({});
-    
+
     // Only check for duplicates when creating a new patient, not when editing
     if (!existingPatient) {
       const duplicates = checkForDuplicates(formData);
@@ -208,7 +208,7 @@ const PatientRegistrationForm = ({
 
   const savePatientData = async () => {
     setIsLoading(true);
-    
+
     // Define patientData outside try block so it's accessible in catch
     const patientData = pendingPatientData || {
       ...formData,
@@ -222,7 +222,7 @@ const PatientRegistrationForm = ({
 
     try {
       let response;
-      
+
       if (existingPatient) {
         // Update existing patient using PUT API
         const patientId = getPatientId(existingPatient);
@@ -231,26 +231,26 @@ const PatientRegistrationForm = ({
         // Create new patient using POST API
         response = await createNewFlowPatient(patientData);
       }
-      
+
       if (response.data.success) {
         // Call the onSave callback with the patient data
         await onSave(response.data.data);
-        
+
         // Close the modal
         onClose();
-        
+
         // Reset form
         setFormData(getInitialFormData());
         setErrors({});
         setFamilyInfoAutoFilled(false);
-        
+
         // Show success message
         alert(existingPatient ? '✅ Patient updated successfully!' : '✅ Patient registered successfully!');
       } else {
         // Handle backend duplicate detection (success: false with duplicates)
         if (response.data.duplicates && response.data.duplicates.length > 0) {
           console.log('🔄 Backend detected duplicates:', response.data.duplicates);
-          
+
           // Transform backend duplicate format to frontend format
           const transformedDuplicates = response.data.duplicates.map(duplicate => ({
             type: 'exact_duplicate', // Backend returns generic "duplicate" type
@@ -267,7 +267,7 @@ const PatientRegistrationForm = ({
             canBeFamilyMember: true, // Always allow family member option
             isBlocking: true
           }));
-          
+
           setDuplicateWarning(transformedDuplicates);
           setPendingPatientData(patientData);
           setShowDuplicateModal(true);
@@ -275,10 +275,10 @@ const PatientRegistrationForm = ({
           setErrors({ submit: response.data.message || (existingPatient ? 'Failed to update patient' : 'Failed to create patient') });
         }
       }
-      
+
     } catch (error) {
       const errorResult = handleApiError(error, 'PatientRegistrationForm.savePatientData');
-      
+
       if (errorResult?.isDuplicate) {
         // Handle duplicate detection
         const duplicates = errorResult.data.duplicates || [];
@@ -336,15 +336,15 @@ const PatientRegistrationForm = ({
       email: prev.email,
       mobile: prev.mobile
     }));
-    
+
     // Set the auto-filled flag
     setFamilyInfoAutoFilled(true);
-    
+
     // Clear ALL duplicate detection state to prevent loop
     setShowDuplicateModal(false);
     setDuplicateWarning(null);
     setPendingPatientData(null);
-    
+
     // Clear any existing errors that might be related to duplicates
     setErrors(prev => {
       const newErrors = { ...prev };
@@ -354,7 +354,7 @@ const PatientRegistrationForm = ({
       delete newErrors.mobile;
       return newErrors;
     });
-    
+
     // Family member information has been auto-filled
   };
 
@@ -364,11 +364,11 @@ const PatientRegistrationForm = ({
       ...prev,
       relationshipToHead: relationship
     }));
-    
+
     // Close the family member modal and proceed with registration
     setShowFamilyMemberModal(false);
     setSuggestedFamilyHead(null);
-    
+
     // Proceed with saving the patient data
     savePatientData();
   };
@@ -442,8 +442,8 @@ const PatientRegistrationForm = ({
                     className={getFieldError('mobile') ? 'error' : ''}
                     placeholder="+91 98765 43210"
                     readOnly={!!existingPatient}
-                    style={existingPatient ? { 
-                      backgroundColor: '#f9fafb', 
+                    style={existingPatient ? {
+                      backgroundColor: '#f9fafb',
                       color: '#6b7280',
                       cursor: 'not-allowed'
                     } : {}}
@@ -607,7 +607,7 @@ const PatientRegistrationForm = ({
                           familyHeadUHID: e.target.checked ? prev.familyHeadUHID : '',
                           relationshipToHead: e.target.checked ? prev.relationshipToHead : ''
                         }));
-                        
+
                         // Clear auto-fill status if unchecking family member
                         if (!e.target.checked) {
                           setFamilyInfoAutoFilled(false);
@@ -746,24 +746,24 @@ const PatientRegistrationForm = ({
               <div className="family-member-note">
                 <span className="note-icon">ℹ️</span>
                 <span className="note-text">
-                  {existingPatient 
-                    ? "Mobile numbers cannot be changed for existing patients to maintain data integrity and prevent duplicate records."
-                    : "If this is a family member (child, spouse, etc.), the system will automatically suggest family registration when duplicate contact info is detected."
+                  {existingPatient
+                    ? 'Mobile numbers cannot be changed for existing patients to maintain data integrity and prevent duplicate records.'
+                    : 'If this is a family member (child, spouse, etc.), the system will automatically suggest family registration when duplicate contact info is detected.'
                   }
                 </span>
               </div>
             </div>
             <div className="form-actions-right">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="btn btn-default"
                 onClick={onClose}
                 disabled={isLoading}
               >
                 Cancel
               </button>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="btn btn-primary"
                 onClick={handleSubmit}
                 disabled={isLoading}

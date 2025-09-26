@@ -264,7 +264,7 @@ export class NotificationWebSocket {
   connect() {
     try {
       this.ws = new WebSocket(this.url);
-      
+
       this.ws.onopen = (event) => {
         console.log('Notification WebSocket connected');
         this.reconnectAttempts = 0;
@@ -300,7 +300,7 @@ export class NotificationWebSocket {
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
       this.reconnectAttempts++;
       console.log(`Attempting to reconnect... (${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
-      
+
       setTimeout(() => {
         this.connect();
       }, this.reconnectInterval * this.reconnectAttempts);

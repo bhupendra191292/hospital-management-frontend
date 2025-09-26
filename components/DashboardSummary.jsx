@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const DashboardSummary = ({ token }) => {
   const [summary, setSummary] = useState(null);
@@ -10,14 +10,14 @@ const DashboardSummary = ({ token }) => {
     const loadSummary = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("http://localhost:5001/api/dashboard/summary", {
+        const res = await axios.get('http://localhost:5001/api/dashboard/summary', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setSummary(res.data);
         setError(null);
       } catch (err) {
-        console.error("Dashboard summary error", err);
-        setError("Failed to load dashboard data");
+        console.error('Dashboard summary error', err);
+        setError('Failed to load dashboard data');
         // Set default values for demo
         setSummary({
           totalPatients: 0,
@@ -53,7 +53,7 @@ const DashboardSummary = ({ token }) => {
           <div style={{ fontSize: 'var(--font-size-2xl)', marginBottom: 'var(--spacing-4)' }}>⚠️</div>
           <h3>Unable to Load Dashboard</h3>
           <p className="text-muted">{error}</p>
-          <button 
+          <button
             className="btn btn-primary"
             onClick={() => window.location.reload()}
           >
@@ -66,40 +66,40 @@ const DashboardSummary = ({ token }) => {
 
   const stats = [
     {
-      title: "Total Patients",
+      title: 'Total Patients',
       value: summary?.totalPatients || 0,
-      icon: "👥",
-      color: "primary",
-      change: "+12%",
-      changeType: "positive",
-      description: "Registered patients"
+      icon: '👥',
+      color: 'primary',
+      change: '+12%',
+      changeType: 'positive',
+      description: 'Registered patients'
     },
     {
-      title: "Total Visits",
+      title: 'Total Visits',
       value: summary?.totalVisits || 0,
-      icon: "🏥",
-      color: "success",
-      change: "+8%",
-      changeType: "positive",
-      description: "All time visits"
+      icon: '🏥',
+      color: 'success',
+      change: '+8%',
+      changeType: 'positive',
+      description: 'All time visits'
     },
     {
       title: "Today's Visits",
       value: summary?.todayVisits || 0,
-      icon: "📅",
-      color: "warning",
-      change: "+3",
-      changeType: "positive",
-      description: "Visits today"
+      icon: '📅',
+      color: 'warning',
+      change: '+3',
+      changeType: 'positive',
+      description: 'Visits today'
     },
     {
-      title: "Pending Appointments",
+      title: 'Pending Appointments',
       value: summary?.pendingAppointments || 5,
-      icon: "⏰",
-      color: "error",
-      change: "-2",
-      changeType: "negative",
-      description: "Awaiting confirmation"
+      icon: '⏰',
+      color: 'error',
+      change: '-2',
+      changeType: 'negative',
+      description: 'Awaiting confirmation'
     }
   ];
 
@@ -124,8 +124,8 @@ const DashboardSummary = ({ token }) => {
                 {stat.icon}
               </div>
             </div>
-            <div style={{ 
-              fontSize: 'var(--font-size-sm)', 
+            <div style={{
+              fontSize: 'var(--font-size-sm)',
               color: 'var(--gray-500)',
               marginTop: 'var(--spacing-4)'
             }}>

@@ -3,8 +3,8 @@ import StatusBadge from './StatusBadge';
 import Button from './Button';
 import './DoctorCard.css';
 
-const DoctorCard = ({ 
-  doctor, 
+const DoctorCard = ({
+  doctor,
   onAction,
   showActions = true,
   className = ''
@@ -24,11 +24,11 @@ const DoctorCard = ({
           </div>
         </div>
       </div>
-      
+
       <div className="doctor-specialization-section">
         <span className="doctor-specialization">{doctor.specialization}</span>
       </div>
-      
+
       <div className="doctor-stats">
         <div className="stat">
           <span className="stat-value">{doctor.patients}</span>
@@ -38,11 +38,11 @@ const DoctorCard = ({
           <StatusBadge status={doctor.status} />
         </div>
       </div>
-      
+
       {showActions && (
         <div className="doctor-actions">
           {doctor.status === 'pending' && (
-            <Button 
+            <Button
               variant="default"
               size="small"
               onClick={() => handleAction('approve')}
@@ -50,14 +50,14 @@ const DoctorCard = ({
               Approve
             </Button>
           )}
-          <Button 
+          <Button
             variant="default"
             size="small"
             onClick={() => handleAction('view')}
           >
             View Profile
           </Button>
-          <Button 
+          <Button
             variant="default"
             size="small"
             onClick={() => handleAction('edit')}

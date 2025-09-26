@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spinner Test</title>
+    <style>
+        :root {
+            --primary-500: #3b82f6;
+            --gray-100: #f3f4f6;
+            --space-8: 2rem;
+            --space-12: 3rem;
+        }
+
+        body {
+            margin: 0;
+            padding: 2rem;
+            font-family: Arial, sans-serif;
+            background: #f8fafc;
+        }
+
+        .loading-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+            padding: var(--space-12);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            margin: var(--space-6);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--gray-100);
+        }
+
+        .loading-spinner {
+            text-align: center;
+            color: var(--gray-700);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-8);
+            padding: var(--space-12);
+        }
+
+        /* Clean single rotating ring spinner */
+        .loading-spinner .spinner {
+            width: 80px !important;
+            height: 80px !important;
+            border: 6px solid var(--gray-100) !important;
+            border-top: 6px solid var(--primary-500) !important;
+            border-radius: 50% !important;
+            animation: spin 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2) !important;
+            margin: 0 !important;
+            position: relative !important;
+            background: transparent !important;
+        }
+
+        /* Remove any potential inner elements and ensure clean spinner */
+        .loading-spinner .spinner::before,
+        .loading-spinner .spinner::after {
+            display: none !important;
+            content: none !important;
+        }
+
+        /* Ensure no pseudo-elements interfere */
+        .loading-spinner .spinner * {
+            display: none !important;
+        }
+
+        .loading-spinner h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        .loading-spinner p {
+            margin: 0;
+            font-size: 1.125rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <h3>Loading Dashboard</h3>
+            <p>Please wait while we fetch your data...</p>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -67,7 +67,7 @@ const NurseDashboard = ({ sidebarOpen, setSidebarOpen }) => {
   // Define navigation items for nurse dashboard
   const navigationItems = [
     {
-      title: "Dashboard",
+      title: 'Dashboard',
       items: [
         { view: 'overview', icon: '📊', label: 'Overview' },
         { view: 'tasks', icon: '📋', label: 'Tasks' },

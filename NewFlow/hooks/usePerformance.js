@@ -13,7 +13,7 @@ export const usePerformance = () => {
     const now = Date.now();
     const timeSinceLastRender = now - lastRenderTimeRef.current;
     lastRenderTimeRef.current = now;
-    
+
     if (import.meta.env.DEV) {
       console.log(`🔄 Component rendered ${renderCountRef.current} times. Time since last render: ${timeSinceLastRender}ms`);
     }
@@ -65,7 +65,7 @@ export const useThrottle = (callback, delay) => {
 export const useSearch = (items, searchTerm, searchFields) => {
   return useMemo(() => {
     if (!searchTerm || !items.length) return items;
-    
+
     const term = searchTerm.toLowerCase();
     return items.filter(item => {
       return searchFields.some(field => {
@@ -82,7 +82,7 @@ export const useSearch = (items, searchTerm, searchFields) => {
 export const useFilter = (items, filters) => {
   return useMemo(() => {
     if (!items.length) return items;
-    
+
     return items.filter(item => {
       return Object.entries(filters).every(([key, value]) => {
         if (!value) return true; // No filter applied
@@ -98,21 +98,21 @@ export const useFilter = (items, filters) => {
 export const useSort = (items, sortField, sortDirection) => {
   return useMemo(() => {
     if (!items.length || !sortField) return items;
-    
+
     return [...items].sort((a, b) => {
       let aValue = a[sortField];
       let bValue = b[sortField];
-      
+
       // Handle different data types
       if (typeof aValue === 'string') {
         aValue = aValue.toLowerCase();
         bValue = bValue.toLowerCase();
       }
-      
+
       if (typeof aValue === 'number') {
         return sortDirection === 'asc' ? aValue - bValue : bValue - aValue;
       }
-      
+
       if (aValue < bValue) {
         return sortDirection === 'asc' ? -1 : 1;
       }
@@ -133,7 +133,7 @@ export const usePagination = (items, currentPage, itemsPerPage) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const paginatedItems = items.slice(startIndex, endIndex);
-    
+
     return {
       items: paginatedItems,
       totalPages,
@@ -162,13 +162,13 @@ export const useDataProcessing = (items, options = {}) => {
 
   // Step 1: Search
   const searchedItems = useSearch(items, searchTerm, searchFields);
-  
+
   // Step 2: Filter
   const filteredItems = useFilter(searchedItems, filters);
-  
+
   // Step 3: Sort
   const sortedItems = useSort(filteredItems, sortField, sortDirection);
-  
+
   // Step 4: Paginate
   const pagination = usePagination(sortedItems, currentPage, itemsPerPage);
 
@@ -202,7 +202,7 @@ export const useOptimizedApiCall = (apiFunction, dependencies = []) => {
 
     try {
       const result = await apiFunction(...args);
-      
+
       if (!currentCall.cancelled) {
         setData(result);
         setError(null);
@@ -243,7 +243,7 @@ export const usePerformanceMonitor = (componentName) => {
     const timeSinceLastRender = now - lastRenderTimeRef.current;
     const totalTime = now - startTimeRef.current;
     lastRenderTimeRef.current = now;
-    
+
     if (import.meta.env.DEV) {
       console.log(`📊 ${componentName} Performance:`, {
         renderCount: renderCountRef.current,

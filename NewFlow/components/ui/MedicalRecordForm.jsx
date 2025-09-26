@@ -3,16 +3,16 @@ import { useErrorHandler } from '../../hooks/useErrorHandler';
 import { Modal, ModalHeader, Button } from './index';
 import './MedicalRecordForm.css';
 
-const MedicalRecordForm = ({ 
-  isOpen, 
-  onClose, 
-  onSuccess, 
+const MedicalRecordForm = ({
+  isOpen,
+  onClose,
+  onSuccess,
   existingRecord = null,
   patients = [],
   doctors = []
 }) => {
   const { errors, isLoading, setErrors, setIsLoading, handleApiError, clearAllErrors } = useErrorHandler();
-  
+
   const [formData, setFormData] = useState({
     patientId: '',
     doctorId: '',
@@ -135,7 +135,7 @@ const MedicalRecordForm = ({
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
+
     if (name.startsWith('vitalSigns.')) {
       const vitalSign = name.split('.')[1];
       setFormData(prev => ({
@@ -243,7 +243,7 @@ const MedicalRecordForm = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -263,7 +263,7 @@ const MedicalRecordForm = ({
 
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       onSuccess(recordData);
     } catch (error) {
       handleApiError(error, 'MedicalRecordForm.handleSubmit');
@@ -317,11 +317,11 @@ const MedicalRecordForm = ({
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose} size="large">
-      <ModalHeader 
-        title={existingRecord ? 'Edit Medical Record' : 'New Medical Record'} 
-        onClose={handleClose} 
+      <ModalHeader
+        title={existingRecord ? 'Edit Medical Record' : 'New Medical Record'}
+        onClose={handleClose}
       />
-      
+
       <div className="medical-record-form">
         <form onSubmit={handleSubmit}>
           <div className="form-sections">
@@ -635,7 +635,7 @@ const MedicalRecordForm = ({
                   Add Medication
                 </Button>
               </div>
-              
+
               <div className="prescription-list">
                 {formData.prescription.map((med, index) => (
                   <div key={index} className="prescription-item">
@@ -702,7 +702,7 @@ const MedicalRecordForm = ({
                   Add Result
                 </Button>
               </div>
-              
+
               <div className="lab-results-list">
                 {formData.labResults.map((result, index) => (
                   <div key={index} className="lab-result-item">

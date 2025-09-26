@@ -19,7 +19,7 @@ import './EnhancedPatientManagement.css';
 const EnhancedPatientManagement = () => {
   // Performance monitoring
   const { renderCount } = usePerformanceMonitor('EnhancedPatientManagement');
-  
+
   // State management
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('Active');
@@ -63,7 +63,7 @@ const EnhancedPatientManagement = () => {
       sortBy: sortField,
       sortOrder: sortDirection
     });
-    
+
     setIsLoading(true);
     try {
       const response = await getNewFlowPatients({
@@ -74,7 +74,7 @@ const EnhancedPatientManagement = () => {
         sortBy: sortField,
         sortOrder: sortDirection
       });
-      
+
       if (response.data.success) {
         setPatients(response.data.data.patients || []);
         setPagination(response.data.data.pagination || {
@@ -160,8 +160,8 @@ const EnhancedPatientManagement = () => {
   };
 
   const handleSelectPatient = (patientId) => {
-    setSelectedPatients(prev => 
-      prev.includes(patientId) 
+    setSelectedPatients(prev =>
+      prev.includes(patientId)
         ? prev.filter(id => id !== patientId)
         : [...prev, patientId]
     );
@@ -186,18 +186,18 @@ const EnhancedPatientManagement = () => {
   const handlePatientAction = (patientId, action) => {
     const patient = patients.find(p => (p._id || p.id) === patientId);
     const patientName = patient?.name || 'Patient';
-    
+
     if (action === 'view') {
       setSelectedPatient(patient);
       setShowPatientDetails(true);
       return;
     }
-    
+
     if (action === 'book-visit') {
       handleBookVisit(patient);
       return;
     }
-    
+
     setConfirmationDialog({
       isOpen: true,
       title: `Confirm ${action.charAt(0).toUpperCase() + action.slice(1)}`,
@@ -210,7 +210,7 @@ const EnhancedPatientManagement = () => {
 
   const handleBulkAction = (action) => {
     const patientNames = selectedPatients.map(id => patients.find(p => p.id === id)?.name).join(', ');
-    
+
     setConfirmationDialog({
       isOpen: true,
       title: `Confirm Bulk ${action.charAt(0).toUpperCase() + action.slice(1)}`,
@@ -226,19 +226,19 @@ const EnhancedPatientManagement = () => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       if (action === 'delete') {
         setPatients(prev => prev.filter(patient => patient.id !== patientId));
       } else if (action === 'deactivate') {
-        setPatients(prev => prev.map(patient => 
+        setPatients(prev => prev.map(patient =>
           patient.id === patientId ? { ...patient, status: 'Inactive' } : patient
         ));
       } else if (action === 'approve') {
-        setPatients(prev => prev.map(patient => 
+        setPatients(prev => prev.map(patient =>
           patient.id === patientId ? { ...patient, status: 'Active' } : patient
         ));
       }
-      
+
       setSelectedPatients(prev => prev.filter(id => id !== patientId));
     } catch (error) {
       console.error('Error executing patient action:', error);
@@ -253,19 +253,19 @@ const EnhancedPatientManagement = () => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       if (action === 'delete') {
         setPatients(prev => prev.filter(patient => !selectedPatients.includes(patient.id)));
       } else if (action === 'deactivate') {
-        setPatients(prev => prev.map(patient => 
+        setPatients(prev => prev.map(patient =>
           selectedPatients.includes(patient.id) ? { ...patient, status: 'Inactive' } : patient
         ));
       } else if (action === 'approve') {
-        setPatients(prev => prev.map(patient => 
+        setPatients(prev => prev.map(patient =>
           selectedPatients.includes(patient.id) ? { ...patient, status: 'Active' } : patient
         ));
       }
-      
+
       setSelectedPatients([]);
     } catch (error) {
       console.error('Error executing bulk action:', error);
@@ -316,10 +316,10 @@ const EnhancedPatientManagement = () => {
       // Refresh the patient list from the database
       // This ensures we have the latest data including any backend-generated fields
       await fetchPatients();
-      
+
       setEditingPatient(null);
       setShowRegistrationForm(false);
-      
+
       // Open patient details modal for the newly registered patient
       if (patientData && (patientData._id || patientData.id)) {
         setSelectedPatient(patientData);
@@ -357,15 +357,15 @@ const EnhancedPatientManagement = () => {
           </div>
         </div>
         <div className="header-actions">
-          <Button 
-            variant={editMode ? 'primary' : 'default'} 
+          <Button
+            variant={editMode ? 'primary' : 'default'}
             size="medium"
             onClick={handleToggleEditMode}
           >
             {editMode ? '✅ Done Editing' : '✏️ Edit Mode'}
           </Button>
-          <Button 
-            variant="default" 
+          <Button
+            variant="default"
             size="medium"
             onClick={handleAddNewPatient}
           >
@@ -407,22 +407,22 @@ const EnhancedPatientManagement = () => {
             <span>{selectedPatients.length} patient{selectedPatients.length > 1 ? 's' : ''} selected</span>
           </div>
           <div className="bulk-buttons">
-            <Button 
-              variant="default" 
+            <Button
+              variant="default"
               size="small"
               onClick={() => handleBulkAction('approve')}
             >
               ✅ Approve Selected
             </Button>
-            <Button 
-              variant="default" 
+            <Button
+              variant="default"
               size="small"
               onClick={() => handleBulkAction('deactivate')}
             >
               ⏸️ Deactivate Selected
             </Button>
-            <Button 
-              variant="default" 
+            <Button
+              variant="default"
               size="small"
               onClick={() => handleBulkAction('delete')}
             >
@@ -445,27 +445,27 @@ const EnhancedPatientManagement = () => {
                 />
               )}
             </div>
-            <div 
-              className="table-cell sortable" 
+            <div
+              className="table-cell sortable"
               onClick={() => handleSort('name')}
             >
               Patient <SortIcon field="name" />
             </div>
-            <div 
-              className="table-cell sortable" 
+            <div
+              className="table-cell sortable"
               onClick={() => handleSort('uhid')}
             >
               UHID <SortIcon field="uhid" />
             </div>
             <div className="table-cell">Contact</div>
-            <div 
-              className="table-cell sortable" 
+            <div
+              className="table-cell sortable"
               onClick={() => handleSort('registrationDate')}
             >
               Registered <SortIcon field="registrationDate" />
             </div>
-            <div 
-              className="table-cell sortable" 
+            <div
+              className="table-cell sortable"
               onClick={() => handleSort('status')}
             >
               Status <SortIcon field="status" />
@@ -477,14 +477,14 @@ const EnhancedPatientManagement = () => {
               <div className="empty-icon">🏥</div>
               <h3>{pagination.totalPatients === 0 ? 'No patients in database' : 'No patients found'}</h3>
               <p>
-                {pagination.totalPatients === 0 
+                {pagination.totalPatients === 0
                   ? 'Start by adding your first patient using the "Add New Patient" button above.'
                   : 'Try adjusting your search or filter criteria'
                 }
               </p>
               {pagination.totalPatients === 0 && (
-                <Button 
-                  variant="primary" 
+                <Button
+                  variant="primary"
                   size="medium"
                   onClick={handleAddNewPatient}
                   style={{ marginTop: '16px' }}
@@ -497,8 +497,8 @@ const EnhancedPatientManagement = () => {
             paginatedPatients.map(patient => {
               const patientId = getPatientId(patient);
               return (
-                <div 
-                  key={patientId} 
+                <div
+                  key={patientId}
                   className={`table-row ${!editMode ? 'clickable-row' : ''}`}
                   onClick={() => !editMode && handlePatientAction(patientId, 'view')}
                 >
@@ -553,29 +553,29 @@ const EnhancedPatientManagement = () => {
                         if (regDate) {
                           // If _id is a timestamp (like "1757187784282"), convert it
                           if (typeof regDate === 'string' && /^\d{13}$/.test(regDate)) {
-                            return new Date(parseInt(regDate)).toLocaleTimeString('en-IN', { 
-                              hour: '2-digit', 
-                              minute: '2-digit' 
+                            return new Date(parseInt(regDate)).toLocaleTimeString('en-IN', {
+                              hour: '2-digit',
+                              minute: '2-digit'
                             });
                           }
                           // If it's a date string or Date object
-                          return new Date(regDate).toLocaleTimeString('en-IN', { 
-                            hour: '2-digit', 
-                            minute: '2-digit' 
+                          return new Date(regDate).toLocaleTimeString('en-IN', {
+                            hour: '2-digit',
+                            minute: '2-digit'
                           });
                         }
                         // Fallback to current time
-                        return new Date().toLocaleTimeString('en-IN', { 
-                          hour: '2-digit', 
-                          minute: '2-digit' 
+                        return new Date().toLocaleTimeString('en-IN', {
+                          hour: '2-digit',
+                          minute: '2-digit'
                         });
                       })()}
                     </span>
                   </div>
                 </div>
                 <div className="table-cell">
-                  <StatusBadge 
-                    status={patient.status} 
+                  <StatusBadge
+                    status={patient.status}
                     variant={getStatusColor(patient.status)}
                     size="small"
                   />
