@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRole } from '../../contexts/RoleContext';
-import AdminDashboard from './AdminDashboard';
+import AdminDashboard from './AdminDashboardNew';
 import './Dashboard.css';
 
 const SuperAdminDashboard = ({ sidebarOpen, setSidebarOpen }) => {
