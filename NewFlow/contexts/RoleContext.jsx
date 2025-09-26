@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { ROLES, PERMISSIONS, hasPermission, hasAnyPermission, hasAllPermissions, getRoleInfo } from '../constants/roles';
 
 const RoleContext = createContext();
