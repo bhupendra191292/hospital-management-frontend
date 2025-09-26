@@ -22,6 +22,9 @@ const BillingManagement = () => {
   const [bills, setBills] = useState([]);
   const [patients, setPatients] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [visits, setVisits] = useState([]);
+  const [stats, setStats] = useState({});
+  const [error, setError] = useState(null);
 
   // Filters and search
   const [searchTerm, setSearchTerm] = useState('');

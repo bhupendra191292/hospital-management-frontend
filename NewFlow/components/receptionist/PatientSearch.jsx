@@ -109,7 +109,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
             `${patient.firstName} ${patient.lastName}`.toLowerCase().includes(searchQuery.toLowerCase())
           );
           break;
-        case 'name_dob':
+        case 'name_dob': {
           const [name, dob] = searchQuery.split(',');
           if (name && dob) {
             results = mockPatients.filter(patient =>
@@ -118,6 +118,7 @@ const PatientSearch = ({ onPatientSelected, onNewPatient }) => {
             );
           }
           break;
+        }
         default:
           results = [];
       }
