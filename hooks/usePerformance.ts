@@ -244,7 +244,7 @@ export const performanceUtils = {
     wait: number,
     performanceHook?: ReturnType<typeof usePerformance>
   ): ((...args: Parameters<T>) => void) => {
-    let timeout: NodeJS.Timeout;
+    let timeout: number;
 
     return (...args: Parameters<T>) => {
       clearTimeout(timeout);

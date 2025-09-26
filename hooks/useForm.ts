@@ -42,7 +42,7 @@ interface FormReturn {
   isSubmitting: boolean;
   handleChange: (field: string, value: any) => void;
   handleBlur: (field: string) => void;
-  handleSubmit: (e?: React.FormEvent) => Promise<void>;
+  handleSubmit: (e?: FormEvent) => Promise<void>;
   setFieldValue: (field: string, value: any) => void;
   setFieldError: (field: string, error: string) => void;
   resetForm: () => void;
@@ -222,7 +222,7 @@ export const useForm = (options: FormOptions = {}): FormReturn => {
   }, [formState, validateField, updateFieldState]);
 
   // Handle form submission
-  const handleSubmit = useCallback(async (e?: React.FormEvent) => {
+  const handleSubmit = useCallback(async (e?: FormEvent) => {
     if (e) {
       e.preventDefault();
     }
