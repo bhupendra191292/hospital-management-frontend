@@ -20,7 +20,7 @@ export default defineConfig({
       '/api': {
         target: process.env.NODE_ENV === 'production' 
           ? 'https://hospital-management-backend.vercel.app'
-          : 'http://localhost:5001',
+          : 'http://localhost:5002',
         changeOrigin: true,
         secure: false,
       }
